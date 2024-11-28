@@ -118,3 +118,68 @@ cmnt_print <- function(clean=TRUE){
   if(clean) rm("cmnt_nfo", envir = .amp.dm)
   return(ret)
 }
+#------------------------------------------ check_arg ------------------------------------------
+#' Function that checks arguments of parent function
+#'
+#' Function checks the values and type of arguments of a parent function 
+#'
+#' @param ... arguments from parent function to check
+#' @param data data frame needed for type 3
+#' @param type numeric with the type to check (see details)
+#' @details The function can perform various checks. Either the type of argument is returned (1)
+#'  wether the argument is NULL (2), what the value of the argument is as character string (3)
+#'  or if the arguments are available in the data (4)
+#' @keywords helper
+#' @return named character string with the result
+#' @author Richard Hooijmaijers
+#' @examples
+#' \dontrun{
+#'   test1 <- function(aa,bb)  check_arg(aa,bb,type = 1)
+#'   test1(aa="a",bb=b)
+#'   test2 <- function(cc = NULL)  check_arg(cc,type = 2)
+#'   test2()
+#'   test3 <- function(dd,data)  check_arg(dd,data=data,type = 4)
+#'   test3(dd="nam",data=data.frame(nam=1))
+#' }
+check_arg <- function(...,data,type=1){
+  passarg <- as.list(match.call())[-1] 
+  passarg <- passarg[!names(passarg)%in%c("data","type")]
+  passarg <- sapply(passarg,as.character)
+  
+  parargc  <- as.list(match.call(
+    def = sys.function(-1),
+    call = sys.call(-1)))[-1]
+  parargd  <- formals(sys.function(-1))
+  
+  parfun  <- lapply(parargc,function(x){
+    if(is.language(x)){
+      val  <- getParseData(parse(text=x))#;print(val)
+      val  <- gsub("\"","",val$text[val$token%in%c("STR_CONST","SYMBOL")])
+    }else{
+      val  <- as.character(x)
+    }
+    list(value=val,type=typeof(x), null=is.null(x))
+  })  
+  addarg  <- setdiff(names(parargd),names(parargc))
+  if(length(addarg)>0){
+    addarg  <- parargd[names(parargd)%in%addarg]
+    addarg  <- lapply(addarg,function(x) list(value=as.character(x),type=typeof(x), null=is.null(x)))  
+    parfun  <- c(parfun,addarg)
+  } 
+  
+  if(type==1){
+    # type 1: return type of variable
+    ret <- sapply(parfun[names(parfun)%in%passarg],"[[","type")  
+  }else if(type==2){
+    # type 2: return if null
+    ret <- sapply(parfun[names(parfun)%in%passarg],"[[","null")  
+  }else if(type==3){
+    # type 3: return value of argument
+    ret <- sapply(parfun[names(parfun)%in%passarg],function(x) if(length(x$value)==0) "" else x$value)
+  }else if(type==4){
+    # type 4: return if in data
+    ret <- sapply(parfun[names(parfun)%in%passarg],"[[","value")
+    ret <- setNames(ret%in%names(data),names(ret))
+  }
+  return(ret)
+}

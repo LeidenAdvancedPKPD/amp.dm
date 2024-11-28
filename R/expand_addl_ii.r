@@ -1,0 +1,40 @@
+#------------------------------------------ expand_addl_ii ------------------------------------------
+#' Expand rows in case ADDL and II variables are present
+#'
+#' This function expands ADDL and II records. This is done by placing each ADDL record
+#' on a separate line. This is convenient in case of individual dose calculations
+#'
+#' @param data data frame to perform the expantion on
+#' @param evid <[`data-masking`][rlang::args_data_masking]> identifies the event ID (EVID) within the data frame.
+#'  This is used to distinguish observations from dosing records, e.g. 0 for observations
+#' @param del_iiaddl logical identifying if the ADDL and II variables can be deleted from output
+#' @details The function expects that certain variables are present in the data (at least ID, TIME, ADDL and II)
+#' @keywords manipulation
+#' @export
+#' @return a data frame with expanded dose records
+#' @author Richard Hooijmaijers
+#' @examples
+#'
+#' dfrm <- data.frame(ID=c(1,1), TIME=c(0,12),II=c(12,0),ADDL=c(5,0),AMT=c(10,0),EVID=c(1,0))
+#' expand_addl_ii(dfrm,evid="EVID")
+expand_addl_ii <- function(data, evid=NULL, del_iiaddl=TRUE){
+
+  notdat   <- c("ID","TIME","ADDL","II")[!c("ID","TIME","ADDL","II")%in%names(data)]
+  if(length(notdat) > 0) cli::cli_abort("Required variable{?s} {.var {notdat}} not present in data")
+  nullevid <- is.null(rlang::eval_tidy(rlang::enquo(evid), data = data))
+  if(!nullevid){
+    chk    <- rlang::enquos(evid,.named = TRUE, .ignore_empty="all") |> sapply(rlang::as_name)
+    if(!chk%in%names(data)) cli::cli_abort("{.var {chk}} not present in data")
+    obs    <- dplyr::filter(data,{{evid}}==0)
+    data   <- dplyr::filter(data,{{evid}}!=0)
+  }
+  
+  data  <- data |> dplyr::mutate(ADDL = ifelse(is.na(ADDL), 0, ADDL))
+  cntr  <- unlist(lapply(data$ADDL+1,seq_len))
+  data  <- as.data.frame(lapply(data, rep, data$ADDL+1)) |>
+    dplyr::mutate(TIME = TIME+(II* (cntr -1)))
+  if(!nullevid && nrow(obs)!=0) data <- rbind(data, obs) 
+  if(del_iiaddl) data <- dplyr::select(data, -c(ADDL,II))
+  data <- dplyr::arrange(data, ID, TIME)
+  return(data)
+}

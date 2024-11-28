@@ -31,15 +31,23 @@
 #'             dose=!!as.name("dose"), tau=!!as.name("tau"))
 #' 
 create_addl <- function(data, datetime, id, dose, tau, evid=NULL){
-  chk      <- rlang::enquos(datetime,id,dose,tau,.named = TRUE, .ignore_empty="all") |> sapply(rlang::as_name)
-  if(length(chk)!=4) cli::cli_abort("Variables {.var datetime}, {.var id}, {.var dose} and {.var tau} are required")
-  notdat   <- chk[!chk%in%names(data)]
-  if(length(notdat) > 0) cli::cli_abort("Variable{?s} {.var {notdat}} not present in data")
-  nullevid <- is.null(rlang::eval_tidy(rlang::enquo(evid), data = data))
+  chk1     <- amp.dm:::check_arg(datetime, id, dose, tau, type = 3)
+  chk2     <- amp.dm:::check_arg(datetime, id, dose, tau, type = 1)
+  chk3     <- amp.dm:::check_arg(datetime, id, dose, tau, data=data, type = 4)
+  chk3     <- names(chk3[!chk3])
+  nullevid <- amp.dm:::check_arg(evid, type = 2)
+  #print(chk1)
+  if(length(chk1[nzchar(chk1)])!=4) cli::cli_abort("Variables {.var datetime}, {.var id}, {.var dose} and {.var tau} are required")
+  if(!all(chk2!="character"))       cli::cli_abort("Parameters should be provide as 'data masking' variables (see examples)")
+  if(length(chk3)>0)                cli::cli_abort("Variable{?s} set in {.var {chk3}} not present in data")
   
   if(!nullevid){
-    obs        <- dplyr::filter(data,{{evid}}==0)
-    data       <- dplyr::filter(data,{{evid}}!=0)
+    chk    <- rlang::as_name(rlang::enquo(evid))
+    if(!chk%in%names(data)) cli::cli_abort("{.var {chk}} not present in data")
+    #obs    <- dplyr::filter(data,.data[[evid]]==0)
+    #data   <- dplyr::filter(data,.data[[evid]]!=0)
+    obs    <- dplyr::filter(data,{{evid}}==0)
+    data   <- dplyr::filter(data,{{evid}}!=0)
   }
   data <- dplyr::group_by(data, {{id}},{{dose}}) |>
     dplyr::arrange({{id}},{{datetime}}) |>

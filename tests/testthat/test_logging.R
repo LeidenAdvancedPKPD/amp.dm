@@ -84,13 +84,39 @@ test_that("left_joinr function works as expected", {
   
   dfrm3 <- rbind(dfrm1,c(8,1,1.2345,3))
   dfrm4 <- rbind(dfrm2,c(8,26))
-  expect_message(left_joinr(dfrm3,dfrm4),"cartesian product")
+  expect_message(left_joinr(dfrm3,dfrm4,relationship="many-to-many"),"cartesian product")
   
   test3 <- suppressMessages(left_joinr(dfrm1,dfrm2,comment="merge dfrm1 with ages"))
   res <- get_log()
   expect_equal(nrow(res$joinr_nfo),2)
 })
 
-
+#-----------------------
+# Test check_arg function
+test_that("check_arg function works as expected", {
+  
+  # dfrm1 <- data.frame(ID=1:8,GENDER=rep(c(0,1),4),RESULT=rnorm(8),TRT=sample(1:3,8,TRUE))
+  # 
+  # func1 <- function(subj,sex,trt="TRT") check_arg(subj,sex,trt,type = 1)
+  # res1  <- func1(subj="ID",sex=SEX)
+  # expect_named(res1,c("subj","sex","trt"))
+  # expect_identical(unname(res1),c("character","symbol","character"))
+  # 
+  # func2 <- function(subj,sex) check_arg(subj,sex,type = 2)
+  # res2  <- func2(subj=NULL,sex=SEX)
+  # expect_identical(unname(res2),c(TRUE,FALSE))
+  # 
+  # func3 <- function(subj,sex,res) check_arg(subj,sex,res,type = 3)
+  # res3  <- func3(subj="ID",sex=GENDER,res=NULL)
+  # expect_identical(unname(res3),c("ID","GENDER",""))
+  # 
+  # func3b <- function(subj,sex) check_arg(subj,sex,type = 3)
+  # res3b  <- func3b(subj="ID",sex=!!as.name("SEX"))
+  # expect_identical(unname(res3b),c("ID","SEX"))
+  # 
+  # func4 <- function(subj,sex,res) check_arg(subj,sex,res,type = 4, data=dfrm1)
+  # res4  <- func4(subj="ID",sex=GENDER,res=NULL)
+  # expect_identical(unname(res4),c(TRUE,TRUE,FALSE))
+})
 
 
