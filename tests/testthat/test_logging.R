@@ -91,5 +91,12 @@ test_that("left_joinr function works as expected", {
   expect_equal(nrow(res$joinr_nfo),2)
 })
 
-
-
+#----------------------------
+# Test get_sript function
+# skip("get script does not work as expected when sourced")
+# test_that("get_sript gets the valid script name", {
+#   expect_equal(get_script(base=TRUE,noext=TRUE),"test_logging")
+#   expect_equal(get_script(base=TRUE,noext=FALSE),"test_logging.R")
+#   expect_equal(get_script(base=FALSE,noext=TRUE),paste0(getwd(),"/test_logging"))
+#   expect_equal(get_script(base=FALSE,noext=FALSE),paste0(getwd(),"/test_logging.R"))
+# })

@@ -18,6 +18,18 @@ test_that("attr_xls correctly takes attributes from excel file", {
 })
 
 #-----------------------
+# Test attr_extract function
+test_that("attr_extract correctly extracts attributes from data frame", {
+  attrl  <- attr_xls(system.file("example/Attr.Template.xlsx",package = "amp.dm"))
+  nm     <- read.csv(system.file("example/NM.theoph.V1.csv",package = "amp.dm"))
+  nmf    <- attr_add(nm, attrl, verbose = FALSE)
+  attrl2 <- attr_extract(nmf)
+  
+  expect_equal(attrl,attrl2)
+  expect_error(attr_extract(c("1"=1)),"Could not create")
+})
+
+#-----------------------
 # Test attr_add function
 test_that("attr_add correctly assigns attributes and does proper checking", {
   xmpl   <- system.file("example/Attr.Template.xlsx",package = "amp.dm")

@@ -51,18 +51,18 @@ attr_add <- function(data,attrl,attrib = c('label','format','remark'), verbose =
         attr(data[,i],"unit")  <- unt
       }  
       if('format'%in%attrib && !is.null(attrl[[i]]$format)){
-        charchk <- suppressWarnings(data[,i] |> as.numeric() |> is.na() |> all())
+        charchk <- suppressWarnings(data[,i, drop = TRUE] |> as.numeric() |> is.na() |> all())
         if(charchk){
           fmtchk <- attrl[[i]]$format |> names()
-          varchk <- data[,i] |> unique() |> stats::na.omit()
+          varchk <- data[,i, drop = TRUE] |> unique() |> stats::na.omit()
         }else{
           fmtchk <- attrl[[i]]$format |> names() |> as.numeric()  
-          varchk <- suppressWarnings(data[,i] |> unique() |> as.numeric() |> stats::na.omit())          
+          varchk <- suppressWarnings(data[,i, drop = TRUE] |> unique() |> as.numeric() |> stats::na.omit())          
         }
         if(length(setdiff(fmtchk, varchk)) > 0) misscats <- c(misscats,i)
         if(length(setdiff(varchk, fmtchk)) > 0) addcats  <- c(addcats,i) 
         attr(data[,i],"format")  <- attrl[[i]]$format
-      }  
+      } 
       if('remark'%in%attrib && !is.null(attrl[[i]]$remark)) attr(data[,i],"remark")  <- attrl[[i]]$remark
     }
   }   

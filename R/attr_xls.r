@@ -1,7 +1,7 @@
 #------------------------------------------ attr_xls ------------------------------------------
 #' Reads in attributes from an external excel file
 #'
-#' This function reads in attributes available in an excel file and creates a strcutured list 
+#' This function reads in attributes available in an excel file and creates a structured list 
 #'
 #' @param xls character with the name of the excel file containing the attributes
 #' @param sepfor character of length 1 indicating what the seperator for formats should be 

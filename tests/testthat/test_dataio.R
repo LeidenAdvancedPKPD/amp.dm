@@ -43,6 +43,76 @@ test_that("read_data correctly reads and logs data and can use a custom function
   expect_equal(read_nfo$comment[grep("sav",read_nfo$datain)],"custom read-in")
 })
 
+#----------------------------
+# Test make_readonly function
+test_that("make_readonly correctly sets reaonly attribute", {
+  tmpfn1 <- tempfile(fileext = ".txt")
+  tmpfn2 <- tempfile(fileext = ".txt")
+  fs::file_create(tmpfn1, mode = "777")
+  fs::file_create(tmpfn2, mode = "777")
+  fs::dir_create(paste0(tempdir(),"/newpath/"))
+  fs::file_create(paste0(tempdir(),"/newpath/",basename(tmpfn1)), mode = "777")
+  
+  make_readonly(tmpfn1)
+  expect_equal(substr(fs::file_info(tmpfn1)$permissions,1,3),"r--")
+  
+  make_readonly(tempdir())
+  expect_equal(substr(fs::file_info(tmpfn2)$permissions,1,3),"r--")
+  expect_equal(substr(fs::file_info(paste0(tempdir(),"/newpath/",basename(tmpfn1)))$permissions,1,3),"r--")
+  
+  expect_message(make_readonly("nonexistent_directory"),  "Issues in making files read-only")
+})
+
+#--------------------------
+# Test output_data function
+test_that("output_data correctly outputs data", {
+  nm   <- data.frame(ID=1,TIME=0:5,DV=c(NA,1.23456789,rnorm(4)),MDV=c(1,1,0,0,0,0),DAT=Sys.Date() + round(rnorm(6,sd=20),0),LONGVARIABLE=0)
+  tmpf <- tempfile()
+  
+  output_data(nm,csv=paste0(tmpf,".csv"))
+  nmr  <- utils::read.csv(paste0(tmpf,".csv"),stringsAsFactors = FALSE)
+
+  expect_equal(unique(nmr$DAT),".")
+  expect_equal(dim(nm),dim(nmr))
+  expect_equal(as.numeric(nmr$DV[2]),1.234568)
+
+  output_data(nm,csv=paste0(tmpf,".csv"),tonum=FALSE,firstesc="#")
+  nmrf <- readLines(paste0(tmpf,".csv"),n=1)
+  nmr  <- utils::read.csv(paste0(tmpf,".csv"),stringsAsFactors = FALSE)
+  expect_true(grepl("#ID,",nmrf))
+  expect_true(!any(is.na(nmr$DAT)))
+  
+  output_data(nm,csv=paste0(tmpf,".csv"),tonum=FALSE,readonly = TRUE)
+  output_data(nm,csv=paste0(tmpf,".csv"),tonum=TRUE,readonly = TRUE)
+  nmr  <- utils::read.csv(paste0(tmpf,".csv"),stringsAsFactors = FALSE)
+  expect_equal(unique(nmr$DAT),".")
+
+  nm2  <- nm[,1:5] # for xpt naming is taken from object name
+  output_data(x=nm2,xpt=paste0(tmpf,".xpt"),readonly=TRUE)
+  expect_true(basename(paste0(tmpf,".xpt"))%in%list.files(tempdir()))
+  
+  nm3 <- nm2
+  attr(nm3$TIME,"label") <- "Time (h)"
+  attr(nm3$MDV,"format") <- c("0"="non-missing", "1"="missing")
+  output_data(x=nm3,attr=paste0(tmpf,".rds"),readonly=TRUE)
+  attrl <- readRDS(paste0(tmpf,".rds"))
+  expect_equal(attrl$TIME$label,"Time (h)")
+  expect_equal(attrl$MDV$format,c("0"="non-missing", "1"="missing"))
+})
+
+#----------------------------
+# Test get_sript function
+# skip("difficult to test in testhat environment")
+# test_that("get_sript gets the valid script name", {
+#   expect_equal(get_script(base=TRUE,noext=TRUE),"test_dataio")
+#   expect_equal(get_script(base=TRUE,noext=FALSE),"test_dataio.R")
+#   expect_equal(get_script(base=FALSE,noext=TRUE),paste0(getwd(),"/test_dataio"))
+#   expect_equal(get_script(base=FALSE,noext=FALSE),paste0(getwd(),"/test_dataio.R"))
+# })
+
+
+
+
 #-------------------------------------
 # Test write_data function: DEPRECATED
 # test_that("write_data correctly exports a NONMEM dataset", {
