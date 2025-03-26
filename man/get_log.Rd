@@ -11,7 +11,7 @@ a named list of dataframes
 }
 \description{
 Returns one or more dataframes with log information
-related to function like \link{filterr}, \link{lef_joinr}, \link{cmnt}, \link{srce} and \link{read_data}
+related to function like \link{filterr}, \link{left_joinr}, \link{cmnt}, \link{srce} and \link{read_data}
 }
 \examples{
 \dontrun{

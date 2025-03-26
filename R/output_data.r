@@ -8,9 +8,7 @@
 #' @param csv character with the name of the csv file to generate
 #' @param xpt character with the name of the xpt file to generate
 #' @param attr character with the name of the rds file to generate
-#' @param dmfolder character with the filepath of the data management folder
-#' @param anfolder character with the filepath of the analysis folder
-#' @param attr_tmpl logical indicating if a template R script should be created for adding labels, remarks and formats
+#' @param verbose logical indicating if additional information should be written to the console
 #' @param maxdig numeric with the maximum number of decimals for numeric variables to be in output (see details)
 #' @param tonum logical indicating if all variables should be made numeric (standard for NONMEM input files)
 #' @param firstesc character with escape character for first variable, used to exclude row in NONMEM
@@ -31,9 +29,9 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #' \dontrun{
-#' data(Theoph)
-#' out_file <- tempfile(fileext = ".csv")
-#' output_data(Theoph, csv = out_file, tonum = FALSE)
+#'   data(Theoph)
+#'   out_file <- tempfile(fileext = ".csv")
+#'   output_data(Theoph, csv = out_file, tonum = FALSE)
 #' }
 output_data <- function(x, csv=NULL, xpt=NULL, attr=NULL, verbose=TRUE,
                         maxdig=6, tonum=TRUE, firstesc=NULL, readonly=FALSE, overwrite=TRUE, ...){

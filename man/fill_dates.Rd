@@ -29,8 +29,8 @@ can be used to merge with available date information and impute missing dates.
 
 dfrm <- data.frame(ID=1:2,first=as.Date(c("2016-10-01","2016-12-01"), "\%Y-\%m-\%d"),
                    last=as.Date(c("2016-10-03","2016-12-02"), "\%Y-\%m-\%d"))
-fill_dates(dfrm,"first","last")
-fill_dates(dfrm,"first","last",2,3)
+fill_dates(dfrm, first, last)
+fill_dates(dfrm, first, last, 2, 3)
 }
 \author{
 Richard Hooijmaijers

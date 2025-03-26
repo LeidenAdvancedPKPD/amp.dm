@@ -31,7 +31,7 @@ time_calc <- function(data,datetime,evid=NULL,addl=NULL,ii=NULL,amt=AMT,id=ID,di
   # Perform checks: Be aware the we need the following to account for allowed NULL and variables not present in data
   chk  <- rlang::enquos(datetime, amt, id, evid, addl, ii, .named = TRUE, .ignore_empty="all")  
   if(length(chk)<6) cli::cli_abort("Required variable datetime not provided")
-  chk  <- setNames(chk,c("datetime", "amt", "id", "evid", "addl", "ii"))
+  chk  <- stats::setNames(chk,c("datetime", "amt", "id", "evid", "addl", "ii"))
   chk2 <- sapply(chk,rlang::quo_get_expr) |> sapply(is.null)
   chk3 <- sapply(chk[!chk2],rlang::quo_get_expr) |> sapply(rlang::as_name)
   notdat   <- chk3[!chk3%in%names(data)]

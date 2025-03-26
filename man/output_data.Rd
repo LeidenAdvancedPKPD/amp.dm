@@ -2,14 +2,14 @@
 % Please edit documentation in R/output_data.r
 \name{output_data}
 \alias{output_data}
-\title{export R data frame for NONMEM modeling inputs}
+\title{export R data for NONMEM modeling}
 \usage{
 output_data(
   x,
   csv = NULL,
   xpt = NULL,
   attr = NULL,
-  verbose = FALSE,
+  verbose = TRUE,
   maxdig = 6,
   tonum = TRUE,
   firstesc = NULL,
@@ -27,6 +27,8 @@ output_data(
 
 \item{attr}{character with the name of the rds file to generate}
 
+\item{verbose}{logical indicating if additional information should be written to the console}
+
 \item{maxdig}{numeric with the maximum number of decimals for numeric variables to be in output (see details)}
 
 \item{tonum}{logical indicating if all variables should be made numeric (standard for NONMEM input files)}
@@ -38,18 +40,12 @@ output_data(
 \item{overwrite}{logical indicating if (all) output should be overwritten or not}
 
 \item{...}{Arguments passed to \code{\link{write.csv}}}
-
-\item{dmfolder}{character with the filepath of the data management folder}
-
-\item{anfolder}{character with the filepath of the analysis folder}
-
-\item{attr_tmpl}{logical indicating if a template R script should be created for adding labels, remarks and formats}
 }
 \value{
 a data frame is written to disk
 }
 \description{
-This function exports data frames specific for NONMEM modeling analyses including
+This function exports data for NONMEM modeling analyses including
 options that are frequently necessary to adapt.
 }
 \details{
@@ -63,9 +59,9 @@ of the dataset inside the xpt file (e.g. \code{output_data(dfrm,xpt='dataset.xpt
 }
 \examples{
 \dontrun{
-data(Theoph)
-out_file <- tempfile(fileext = ".csv")
-output_data(Theoph, csv = out_file, tonum = FALSE)
+  data(Theoph)
+  out_file <- tempfile(fileext = ".csv")
+  output_data(Theoph, csv = out_file, tonum = FALSE)
 }
 }
 \seealso{

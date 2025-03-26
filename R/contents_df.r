@@ -6,8 +6,9 @@
 #'
 #' @param dfv a character vector with data frame(s) in global environment for which the overview should be created
 #' @param subject character string that identifies the subject variable within the data frame
-#' @param align alignment of the table passed to [general_tbl] 
 #' @param ret a character vector to define what kind of output should be returned (either "dfrm", "tbl", "file")
+#' @param capt character with the caption of the table (not used in case data frame is returned)
+#' @param align alignment of the table passed to [general_tbl] (not used in case data frame is returned)
 #' @param ... additional arguments passed to [general_tbl] 
 #' @details This function can be used to create a table with the most important information of a data
 #'   frame for documentation. The function will list the the number of records, subjects and variables
@@ -15,15 +16,14 @@
 #'   similar data frames or an overview of all data frames within a working environmnent
 #' @keywords documentation
 #' @export
-#' @return function creates a PDF file
+#' @return a data frame, code for table or nothing in case a PDF file is created
 #' @author Richard Hooijmaijers
 #' @examples
 #'
 #' data("Theoph")
 #' Theoph2 <-  subset(Theoph,Subject==1)
 #' contents_df(c('Theoph','Theoph2'),subject='Subject',ret='df')
-contents_df <- function(dfv,subject=NULL,align="lllp{8cm}",ret="tbl",...){
-  #dfl <- mget(dfv,envir=parent.env(environment()))
+contents_df <- function(dfv, subject=NULL, ret="tbl", capt="Information multiple data frames", align="lllp{8cm}",...){
   dfl <- try(mget(dfv,envir=.GlobalEnv), silent=TRUE)
   if(inherits(dfl,'try-error')) cli::cli_abort("Not all data frames could be found")
 
@@ -33,14 +33,7 @@ contents_df <- function(dfv,subject=NULL,align="lllp{8cm}",ret="tbl",...){
     return(ret)    
   })})
   out <- data.frame(dataset=names(out),do.call(rbind,out) )
-  # out <- try({lapply(dfv,function(x){
-  #   stats <- get(x, envir = .GlobalEnv)
-  #   ret   <- data.frame(dataset = x, records = nrow(stats), variables = paste0(names(stats),collapse=", "))
-  #   if(!is.null(subject)) ret$subjects <- nrow(stats[!duplicated(stats[,subject]),])
-  #   return(ret)    
-  # })})
-  #out <- do.call(rbind,out)
   out <- if(!is.null(subject)) out[,c("dataset","records","subjects","variables")] else out[,c("dataset","records","variables")]
 
-  general_tbl(out, capt="Information multiple data frames", align=align, ret=ret,...)
+  general_tbl(out, ret=ret, capt=capt, align=align, ...)
 }

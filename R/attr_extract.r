@@ -26,7 +26,7 @@ attr_extract <- function(dfrm){
   }), silent = TRUE)
 
   if(inherits(attrl,"try-error")) cli::cli_abort("Could not create attribute list")
-  attrl <- setNames(attrl,names(dfrm))
+  attrl <- stats::setNames(attrl,names(dfrm))
    
   return(attrl)
 }

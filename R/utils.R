@@ -4,7 +4,7 @@
 #' Retrieve log objects
 #'
 #' Returns one or more dataframes with log information
-#' related to function like [filterr], [lef_joinr], [cmnt], [srce] and [read_data] 
+#' related to function like [filterr], [left_joinr], [cmnt], [srce] and [read_data] 
 #'
 #' @keywords documentation
 #' @return a named list of dataframes
@@ -19,7 +19,7 @@
 get_log <- function() {
   onam <- ls(envir = .amp.dm)
   ret  <- lapply(onam,function(x) get(x, envir = .amp.dm))
-  return(setNames(ret,onam))
+  return(stats::setNames(ret,onam))
 }
 
 #------------------------------------------ cmnt ------------------------------------------

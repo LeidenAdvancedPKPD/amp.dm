@@ -29,12 +29,12 @@ expand_addl_ii <- function(data, evid=NULL, del_iiaddl=TRUE){
     data   <- dplyr::filter(data,{{evid}}!=0)
   }
   
-  data  <- data |> dplyr::mutate(ADDL = ifelse(is.na(ADDL), 0, ADDL))
+  data  <- data |> dplyr::mutate(ADDL = ifelse(is.na(.data$ADDL), 0, .data$ADDL))
   cntr  <- unlist(lapply(data$ADDL+1,seq_len))
   data  <- as.data.frame(lapply(data, rep, data$ADDL+1)) |>
-    dplyr::mutate(TIME = TIME+(II* (cntr -1)))
+    dplyr::mutate(TIME = .data$TIME+(.data$II* (cntr -1)))
   if(!nullevid && nrow(obs)!=0) data <- rbind(data, obs) 
-  if(del_iiaddl) data <- dplyr::select(data, -c(ADDL,II))
-  data <- dplyr::arrange(data, ID, TIME)
+  if(del_iiaddl) data <- dplyr::select(data, -c(.data$ADDL,.data$II))
+  data <- dplyr::arrange(data, .data$ID, .data$TIME)
   return(data)
 }

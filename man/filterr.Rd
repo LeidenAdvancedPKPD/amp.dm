@@ -30,11 +30,13 @@ Every time the function is used it creates a records in in a log file which can 
 
 # For full trace-ability of source data, no pipes or 
 # base R pipes are preferred 
-dat1 <- filterr(Theoph,Subject==1)
-dat2 <- Theoph |> filterr(Subject==2)
-dat3 <- Theoph \%>\% filterr(Subject==3)
-# Show what is being logged
-get_log()$filterr_nfo
+\dontrun{
+  dat1 <- filterr(Theoph,Subject==1)
+  dat2 <- Theoph |> filterr(Subject==2)
+  dat3 <- Theoph \%>\% filterr(Subject==3)
+  # Show what is being logged
+  get_log()$filterr_nfo
+}
 }
 \seealso{
 \link[dplyr:filter]{dplyr::filter}

@@ -17,7 +17,7 @@ attr_xls(xls, sepfor = "\\n", nosort = FALSE)
 named list with the attributes
 }
 \description{
-This function reads in attributes available in an excel file and creates a strcutured list
+This function reads in attributes available in an excel file and creates a structured list
 }
 \examples{
 \dontrun{

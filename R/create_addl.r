@@ -48,20 +48,20 @@ create_addl <- function(data, datetime, id, dose, tau, evid=NULL){
   data <- dplyr::group_by(data, {{id}},{{dose}}) |>
     dplyr::arrange({{id}},{{datetime}}) |>
     dplyr::mutate(lagdt  = dplyr::lag({{datetime}}),
-                  tdiff  = round(difftime({{datetime}}, lagdt, units = "h"), 4),
-                  addlk  = (tdiff - {{tau}})==0,
-                  addlk  = ifelse(is.na(addlk), FALSE, addlk)) |>
+                  tdiff  = round(difftime({{datetime}}, .data$lagdt, units = "h"), 4),
+                  addlk  = (.data$tdiff - {{tau}})==0,
+                  addlk  = ifelse(is.na(.data$addlk), FALSE, .data$addlk)) |>
     dplyr::arrange(dplyr::desc({{datetime}})) |>
     dplyr::mutate(ADDL   = 0,
-                  CS     = cumsum(c(FALSE, utils::head(addlk, -1))),
-                  RETN   = ifelse(!addlk, CS, NA),
-                  RETN   = c(0, utils::head(RETN, -1)),
-                  RETN   = vctrs::vec_fill_missing(RETN),
-                  RETN   = ifelse(is.na(RETN),0,RETN),
-                  ADDL   = CS - RETN) |> dplyr::ungroup()
+                  CS     = cumsum(c(FALSE, utils::head(.data$addlk, -1))),
+                  RETN   = ifelse(!.data$addlk, .data$CS, NA),
+                  RETN   = c(0, utils::head(.data$RETN, -1)),
+                  RETN   = vctrs::vec_fill_missing(.data$RETN),
+                  RETN   = ifelse(is.na(.data$RETN),0,.data$RETN),
+                  ADDL   = .data$CS - .data$RETN) |> dplyr::ungroup()
   #return(data)
   if(!nullevid && nrow(obs)!=0) data <- dplyr::bind_rows(data,cbind(obs,addlk=FALSE))
   data <- data |> dplyr::arrange({{id}}, {{datetime}}) |>
-    dplyr::filter(!addlk) |> dplyr::select(-c(lagdt, tdiff, addlk, CS, RETN))
+    dplyr::filter(!.data$addlk) |> dplyr::select(-c(.data$lagdt, .data$tdiff, .data$addlk, .data$CS, .data$RETN))
   return(data)
 }

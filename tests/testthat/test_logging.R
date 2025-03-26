@@ -100,3 +100,41 @@ test_that("left_joinr function works as expected", {
 #   expect_equal(get_script(base=FALSE,noext=TRUE),paste0(getwd(),"/test_logging"))
 #   expect_equal(get_script(base=FALSE,noext=FALSE),paste0(getwd(),"/test_logging.R"))
 # })
+
+#--------------------------------
+# Test log_df function
+test_that("log_df correctly creates output of logged information", {
+  
+  dat1 <- filterr(Theoph,Subject==1)
+  dat2 <- Theoph |> filterr(Subject==2,comment = "keep id 2")
+
+  sasdat  <- system.file("examples", "iris.sas7bdat", package = "haven")
+  sasin   <- read_data(sasdat, verbose = FALSE)
+  
+  dfrm1 <- data.frame(ID=1:8,GENDER=rep(c(0,1),4),RESULT=rnorm(8),TRT=sample(1:3,8,TRUE))
+  dfrm2 <- data.frame(ID=8:2,AGE=18:24)
+  dfrm3 <- suppressMessages(left_joinr(dfrm1,dfrm2,comment="merge dfrm1 with ages"))
+  
+  res1 <- log_df(get_log(), "filterr_nfo")
+  expect_equal(unique(res1$datainrows),nrow(Theoph))
+  expect_equal(unique(res1$dataoutrows[2]),nrow(Theoph[Theoph$Subject==2,]))
+  expect_equal(unique(res1$reason[2]),"keep id 2")
+  
+  res2 <- log_df(get_log(), "joinr_nfo")
+  expect_equal(res2,get_log()$joinr_nfo)
+  
+  res3 <- log_df(get_log(), "read_nfo")
+  expect_equal(res3,get_log()$read_nfo)
+  
+  res4 <- capture.output(log_df(get_log(), "filterr_nfo", ret="tbl", align = "llllll"))
+  expect_true(any(grepl("llllll",res4)))
+  res5 <- capture.output(log_df(get_log(), "read_nfo", ret="tbl"))
+  expect_true(any(grepl("path\\{",res5)))
+  expect_true(any(grepl("Data in",res5)))
+  res6 <- log_df(get_log(), "filterr_nfo", coding=FALSE)
+  expect_equal(ncol(res6),5)
+  res7 <- capture.output(log_df(get_log(), "filterr_nfo", capt="test output",ret="tbl"))
+  expect_true(any(grepl("test output",res7)))
+  res8 <- log_df(get_log(), "dummy")
+  expect_null(res8)
+})

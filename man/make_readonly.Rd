@@ -4,12 +4,10 @@
 \alias{make_readonly}
 \title{Sets the read-only attribute for all files available within a folder}
 \usage{
-make_readonly(x, recursive = TRUE)
+make_readonly(x)
 }
 \arguments{
 \item{x}{character of length 1 with the path that contains files or character vector with filenames to be set to read-only}
-
-\item{recursive}{logical indicating if the function should recurse into all subfolders to set read-only attributes}
 }
 \value{
 nothing is returned, only system commands are issued
@@ -21,6 +19,7 @@ This function will change the file attributes so only read access is set
 This function will attempt to set a read-only attributes on files. This is either done through system commands
 such as \code{attrib} for windows and \code{chmod} for linux (444). With the latter take into account possible issues
 with (sudo) rights on files.
+In case x is a directory, the function will set readonly attribute for all files in the folder (and recurse into all subfolders!).
 }
 \examples{
 \dontrun{make_readonly("tesfolder")}

@@ -19,8 +19,8 @@
 #'
 #' dfrm <- data.frame(ID=1:2,first=as.Date(c("2016-10-01","2016-12-01"), "%Y-%m-%d"),
 #'                    last=as.Date(c("2016-10-03","2016-12-02"), "%Y-%m-%d"))
-#' fill_dates(dfrm,"first","last")
-#' fill_dates(dfrm,"first","last",2,3)
+#' fill_dates(dfrm, first, last)
+#' fill_dates(dfrm, first, last, 2, 3)
 fill_dates <- function(data, start, end, tau=1, repdat=1){
 
   chk      <- rlang::enquos(start,end,.named = TRUE, .ignore_empty="all") |> sapply(rlang::as_name)

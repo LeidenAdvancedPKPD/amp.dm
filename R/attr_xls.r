@@ -42,7 +42,7 @@ attr_xls <- function(xls,sepfor="\n",nosort=FALSE){
   }), silent = TRUE)
 
   if(inherits(attrl,"try-error")) cli::cli_abort("Could not create attribute list")
-  attrl <- setNames(attrl,attrf$variable)
+  attrl <- stats::setNames(attrl,attrf$variable)
    
   return(attrl)
 }

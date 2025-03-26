@@ -4,12 +4,11 @@
 #' This function creates the define.pdf file necessary for esubmission.
 #'
 #' @param attr list with datasets attributes
+#' @param ret a character vector to define what kind of output should be returned (either "dfrm", "tbl", "file")
+#' @param capt character with the caption of the table 
 #' @param align alignment of the table passed to [general_tbl] 
 #' @param outnm character with the name of the tex file to generate and compile (e.g. define.tex)
 #' @param orientation character the page orientation in case a file is to be returned (can be either 'portrait' or 'landscape')
-#' @param ret a character vector to define what kind of output should be returned (either "dfrm", "tbl", "file")
-#' @param capt character with the caption of the table 
-#' @param tmpl character with the template file to use (only applicable in case "file" is set under ret)
 #' @param ... additional arguments passed to [general_tbl] 
 #'
 #' @export
@@ -18,9 +17,9 @@
 #' @examples
 #'
 #' \dontrun{definePDF(attrl,outnm='define.tex')}
-define_tbl <- function(attr=NULL, align="lllp{10cm}", outnm=NULL, orientation="portrait", ret="dfrm", capt="Dataset define form",
-                       tmpl = system.file("simple.tex",package = "R3port"),...){
-
+define_tbl <- function(attr=NULL, ret="dfrm", capt="Dataset define form", align="lllp{10cm}", outnm=NULL, 
+                       orientation="portrait",...){
+ 
   if(is.null(attr) || !is.list(attr)) cli::cli_abort("Make sure attr is provided and is a list with attributes")
 
   todf <- lapply(attr,function(x){
@@ -43,5 +42,6 @@ define_tbl <- function(attr=NULL, align="lllp{10cm}", outnm=NULL, orientation="p
   }
   
   # Output either as data frame, pdf (latex) or latex code to implement in quarto
-  general_tbl(definedf,capt=capt,align=align,ret=ret,outnm=outnm, orientation=orientation, porder=FALSE, hyper=FALSE, convchar=FALSE, tmp=tmpl,...)
+  general_tbl(definedf, ret=ret, capt=capt, align=align, outnm=outnm, 
+              orientation=orientation, porder=FALSE, hyper=FALSE, convchar=FALSE, ...)
 }
