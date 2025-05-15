@@ -8,9 +8,10 @@ define_tbl(
   attr = NULL,
   ret = "dfrm",
   capt = "Dataset define form",
-  align = "lllp{10cm}",
+  align = "lp{3cm}lp{8cm}",
   outnm = NULL,
   orientation = "portrait",
+  size = "\\\\footnotesize",
   ...
 )
 }
@@ -26,6 +27,8 @@ define_tbl(
 \item{outnm}{character with the name of the tex file to generate and compile (e.g. define.tex)}
 
 \item{orientation}{character the page orientation in case a file is to be returned (can be either 'portrait' or 'landscape')}
+
+\item{size}{character with font size as for the table \link{general_tbl}}
 
 \item{...}{additional arguments passed to \link{general_tbl}}
 }

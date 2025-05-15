@@ -9,9 +9,9 @@ fill_dates(data, start, end, tau = 1, repdat = 1)
 \arguments{
 \item{data}{data frame for which the dates should be filled down}
 
-\item{start}{<\code{\link[rlang:args_data_masking]{data-masking}}> that includes the start date (as date format)}
+\item{start}{character identifying the start date (as date format) within the data frame}
 
-\item{end}{<\code{\link[rlang:args_data_masking]{data-masking}}> that includes the end date (as date format)}
+\item{end}{character identifying the end date (as date format) within the data frame}
 
 \item{tau}{integer with the tau in days (e.g. 2 for dosing every other day)}
 
@@ -29,8 +29,8 @@ can be used to merge with available date information and impute missing dates.
 
 dfrm <- data.frame(ID=1:2,first=as.Date(c("2016-10-01","2016-12-01"), "\%Y-\%m-\%d"),
                    last=as.Date(c("2016-10-03","2016-12-02"), "\%Y-\%m-\%d"))
-fill_dates(dfrm, first, last)
-fill_dates(dfrm, first, last, 2, 3)
+fill_dates(dfrm, "first", "last")
+fill_dates(dfrm, "first", "last", 2, 3)
 }
 \author{
 Richard Hooijmaijers

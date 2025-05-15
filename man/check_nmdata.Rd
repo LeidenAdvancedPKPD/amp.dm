@@ -4,7 +4,15 @@
 \alias{check_nmdata}
 \title{Checks nonmem dataset for common errors/mistakes}
 \usage{
-check_nmdata(x, type = 1, ret = "tbl", capt = NULL, align = NULL, ...)
+check_nmdata(
+  x,
+  type = 1,
+  ret = "tbl",
+  capt = NULL,
+  align = NULL,
+  size = "\\\\footnotesize",
+  ...
+)
 }
 \arguments{
 \item{x}{either a path to a CSV file or a data frame  with the NONMEM data that should be checked}
@@ -17,6 +25,8 @@ and 2 for checks that trigger further investigation}
 \item{capt}{character with the caption of the table (not used in case data frame is returned)}
 
 \item{align}{alignment of the table passed to \link{general_tbl} (not used in case data frame is returned)}
+
+\item{size}{character with font size as for the table \link{general_tbl}}
 
 \item{...}{additional arguments passed to \link{general_tbl}}
 }

@@ -10,6 +10,7 @@
 #' @param ret a character vector to define what kind of output should be returned (either "dfrm", "tbl", "file")
 #' @param capt character with the caption of the table (not used in case data frame is returned)
 #' @param align alignment of the table passed to [general_tbl] (not used in case data frame is returned)
+#' @param size character with font size as for the table [general_tbl] 
 #' @param ... additional arguments passed to [general_tbl]
 #'
 #' @keywords manip
@@ -22,7 +23,7 @@
 #'   check_nmdata("nonmemData.csv")
 #'   check_nmdata(dataframe)
 #' }
-check_nmdata <- function(x, type=1, ret="tbl", capt=NULL, align=NULL, ...){
+check_nmdata <- function(x, type=1, ret="tbl", capt=NULL, align=NULL, size="\\footnotesize", ...){
   if(!is.data.frame(x)){
     chk1   <- try(suppressWarnings(utils::read.csv(x,stringsAsFactors = FALSE, na.strings = c("NA","."))), silent=TRUE)
   }else{
@@ -80,5 +81,5 @@ check_nmdata <- function(x, type=1, ret="tbl", capt=NULL, align=NULL, ...){
   }
   if(type==1) cpt <- "Result of essential data checks" else cpt <- "Result of non essential data checks"
   if(!is.null(capt)) cpt <- capt
-  general_tbl(outchk, capt=cpt, align=align, ret=ret,...)
+  general_tbl(outchk, capt=cpt, align=align, ret=ret, size=size, ...)
 }

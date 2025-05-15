@@ -2,7 +2,7 @@
 #' Add attributes from a list to a dataframe
 #'
 #' This function adds data attributes available in a list to a data frame. Additional checks
-#' are done to verify if the attributes are in a vliad format and useable
+#' are done to verify if the attributes are in a valid and use-able format   
 #'
 #' @param data the data frame for which the attributes should be set
 #' @param attrl named list with the attributes for the dataset (see details)
@@ -24,7 +24,7 @@
 #' tmp <- subset(esoph,,-agegp)
 #' str(tmp)
 attr_add <- function(data,attrl,attrib = c('label','format','remark'), verbose = TRUE){
-
+  data <- as.data.frame(data) # we need data to be a data.frame and not a tibble
   # perform initial check
   diff1 <- setdiff(names(attrl),names(data))
   diff2 <- setdiff(names(data),names(attrl))

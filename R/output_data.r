@@ -37,6 +37,7 @@ output_data <- function(x, csv=NULL, xpt=NULL, attr=NULL, verbose=TRUE,
                         maxdig=6, tonum=TRUE, firstesc=NULL, readonly=FALSE, overwrite=TRUE, ...){
 
   if(!overwrite) {cli::cli_alert_info("Be aware that when {.str overwrite} is set to FALSE nothing is written");return(invisible())}
+  namx <- deparse(substitute(x))
   
   # Set scipen to high value to overcome that values are "rounded" when converting to character
   oset <- as.numeric(unlist(options("scipen")))
@@ -56,7 +57,7 @@ output_data <- function(x, csv=NULL, xpt=NULL, attr=NULL, verbose=TRUE,
       cli::cli_text(cli::col_green("# Attributes can be added/adapted afterwards, for example"))
       cli::cli_text("rdsl <- readRDS('{normalizePath(attr,winslash = '/')}')")
       cli::cli_text("rdsl$CWRES <- list(label='Conditional weighted residuals',format=NULL,remark=NULL)")
-      cli::cli_text("saveRDS(rdsl, file='{normalizePath(attr,winslash = '/')}')")
+      cli::cli_text("saveRDS(rdsl, file='{normalizePath(attr,winslash = '/')}')\n")
     }
   }
 
@@ -108,13 +109,13 @@ output_data <- function(x, csv=NULL, xpt=NULL, attr=NULL, verbose=TRUE,
   # write xpt
   if(!is.null(xpt) && overwrite){
     if(verbose){
-      chk1 <- ifelse(nchar(xpt)<=32,"\u2714","\u2718")
-      chk2 <- ifelse(nchar(deparse(substitute(x)))<=8,"\u2714","\u2718")
+      chk1 <- ifelse(nchar(basename(xpt))<=32,"\u2714","\u2718")
+      chk2 <- ifelse(nchar(namx)<=8,"\u2714","\u2718")
       chk3 <- ifelse(max(nchar(names(x)))<=8,"\u2714","\u2718")
       chk4 <- ifelse(!grepl("[[:upper:]]", xpt),"\u2714","\u2718")
       chk5 <- ifelse(!grepl("\\.", tools::file_path_sans_ext(xpt)),"\u2714","\u2718")
-      chk6 <- ifelse(!grepl("\\.", deparse(substitute(x))),"\u2714","\u2718")
-      cli::cli_text("An xpt file will be generated with filename {.file {xpt}} The dataset inside the xpt is named {.strong {(deparse(substitute(x)))}}")
+      chk6 <- ifelse(!grepl("\\.", namx),"\u2714","\u2718")
+      cli::cli_text("An xpt file will be generated with filename {.file {xpt}} The dataset inside the xpt is named {.strong {namx}}")
       cli::cli_text("The dataset name is automatically generated based on the dataset name provided to the function.\f")
       cli::cli_text("The following checks were done (please review carefully):")
       cli::cli_ul()
@@ -125,7 +126,7 @@ output_data <- function(x, csv=NULL, xpt=NULL, attr=NULL, verbose=TRUE,
       cli::cli_li("No dots available in xpt file name {chk5}")
       cli::cli_li("No dots available in dataset within the xpt file name {chk6}")
     }
-    trx <- try(haven::write_xpt(x,xpt,version=5,name=deparse(substitute(x))))
+    trx <- try(haven::write_xpt(x,xpt,version=5,name=namx))
     if(inherits(trx,"try-error")) cli::cli_alert_danger("Could not write to XPT file, please check if path exists and file is not read-only")
   }
 }

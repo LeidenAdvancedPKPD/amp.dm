@@ -10,6 +10,7 @@
 #' @param ret a character vector to define what kind of output should be returned (either "dfrm", "tbl", "file")
 #' @param capt character with the caption of the table (not used in case data frame is returned)
 #' @param align alignment of the table passed to [general_tbl] (not used in case data frame is returned)
+#' @param size character with font size as for the table [general_tbl] 
 #' @param ... additional arguments passed to [general_tbl]
 #' @details This function generates information for function that logs information. It attempts to find a good alignment
 #'  and caption, mainly for outputting to a table. It is possible to set your own captions and alignment, take into
@@ -26,7 +27,7 @@
 #'   dat3 <- Theoph %>% filterr(Subject==3)
 #'   log_df(get_log(), "filterr_nfo")
 #' }
-log_df <- function(log, type , coding=TRUE, ret="dfrm", capt=NULL, align=NULL, ...){
+log_df <- function(log, type , coding=FALSE, ret="dfrm", capt=NULL, align=NULL, size="\\footnotesize", ...){
   
   # return nothing when type is not present, this way we can include the function even if there is no output
   out <- log[[type]]
@@ -48,7 +49,7 @@ log_df <- function(log, type , coding=TRUE, ret="dfrm", capt=NULL, align=NULL, .
   }else{
     if(type=="read_nfo")    algn  <- "p{7cm}p{1.5cm}p{1.5cm}p{4.5cm}" 
     if(type=="filterr_nfo") algn  <- paste0("p{2cm}",addal[1],"p{1.5cm}p{1.5cm}p{1.5cm}",addal[2])
-    if(type=="joinr_nfo")   algn  <- "p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{5.5cm}" 
+    if(type=="joinr_nfo")   algn  <- "p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{5cm}" 
   } 
   if(!is.null(capt)){
     cpt <- capt
@@ -63,8 +64,8 @@ log_df <- function(log, type , coding=TRUE, ret="dfrm", capt=NULL, align=NULL, .
     out  <- dplyr::rename(out,dplyr::all_of(lbl))
   }
   if(type=="read_nfo" & ret=="tbl"){
-   general_tbl(out, capt=cpt, ret=ret, align=algn, sanitize.text.function = identity,...)
+   general_tbl(out, capt=cpt, ret=ret, align=algn, sanitize.text.function = identity, size=size, ...)
   }else{
-   general_tbl(out, capt=cpt, ret=ret, align=algn, convchar = FALSE, ...)
+   general_tbl(out, capt=cpt, ret=ret, align=algn, convchar = FALSE, size=size, ...)
   } 
 }

@@ -4,18 +4,18 @@
 \alias{impute_dose}
 \title{Imputes dose records using ADDL and II by looking forward and backwards}
 \usage{
-impute_dose(data, id, datetime, amt = AMT, ii = II, thr = 50, back = TRUE)
+impute_dose(data, id, datetime, amt = "AMT", ii = "II", thr = 50, back = TRUE)
 }
 \arguments{
 \item{data}{data frame to perform the calculations on}
 
-\item{id}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the id variable within the data frame}
+\item{id}{character identifying the id variable within the data frame}
 
-\item{datetime}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the date/time variable (POSIXct) within the data frame}
+\item{datetime}{character identifying the date/time variable (POSIXct) within the data frame}
 
-\item{amt}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the AMT (amount) variable within the data frame}
+\item{amt}{character identifying the AMT (amount) variable within the data frame}
 
-\item{ii}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the II (Interdose Interval)  variable within the data frame}
+\item{ii}{character identifying the II (Interdose Interval)  variable within the data frame}
 
 \item{thr}{numeric indicating the threshold percentage for imputation (see details)}
 
@@ -38,7 +38,7 @@ difference from the previous dose based on the II value. In case this the expect
 
 dfrm <- data.frame(id=c(1,1), dt=c(Sys.time(),Sys.time()+ 864120),
                    II=c(24,24),AMT=c(10,10))
-impute_dose(dfrm,id,dt)
+impute_dose(dfrm,"id","dt")
 }
 \author{
 Richard Hooijmaijers

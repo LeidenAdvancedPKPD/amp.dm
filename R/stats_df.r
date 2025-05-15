@@ -9,6 +9,7 @@
 #' @param ret a character vector to define what kind of output should be returned (either "dfrm", "tbl", "file")
 #' @param capt character with the caption of the table (not used in case data frame is returned)
 #' @param align alignment of the table passed to [general_tbl] (not used in case data frame is returned)
+#' @param size character with font size as for the table [general_tbl] 
 #' @param ... additional arguments passed to [general_tbl]
 #' @details This function can be used to create a table with basic statistics of a data
 #'   frame. The function will list the min, max, number of NA/missing values, number of unique categories and
@@ -24,7 +25,7 @@
 #'
 #' stats_df(Theoph)
 stats_df <- function(data, missingval=-999, ret="tbl", capt="Statistics data frame", 
-                     align="p{2cm}p{1.5cm}p{1.5cm}p{4.6cm}p{1.8cm}p{1.8cm}p{0.8cm}p{1.5cm}", ...){
+                     align="p{2cm}p{1cm}p{1cm}p{4cm}p{1.7cm}p{1.7cm}p{0.8cm}p{1.3cm}", size="\\footnotesize", ...){
 
   printnum <- function(x){
     if(x==0) return("0")
@@ -55,5 +56,5 @@ stats_df <- function(data, missingval=-999, ret="tbl", capt="Statistics data fra
   })
   out <- cbind(Variable=names(out),do.call(rbind,out))
 
-  general_tbl(out, capt=capt, align=align, ret=ret, ...)
+  general_tbl(out, capt=capt, align=align, ret=ret,size=size, ...)
 }

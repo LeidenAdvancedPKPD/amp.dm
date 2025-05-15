@@ -5,12 +5,12 @@
 #' a data frame.
 #'
 #' @param data data frame to perform the calculations on
-#' @param datetime <[`data-masking`][rlang::args_data_masking]> identifies the date/time variable (POSIXct) within the data frame
-#' @param evid <[`data-masking`][rlang::args_data_masking]> identifies the event ID (EVID) within the data frame
-#' @param addl <[`data-masking`][rlang::args_data_masking]> identifies the additional dose levels (ADDL) within the data frame
-#' @param ii <[`data-masking`][rlang::args_data_masking]> identifies the interdose interval (II) within the data frame
-#' @param amt <[`data-masking`][rlang::args_data_masking]> identifies the amount variable (only needed if `evid` is not provided)
-#' @param id <[`data-masking`][rlang::args_data_masking]> identifies the ID or subject variable
+#' @param datetime character identifying the date/time variable (POSIXct) within the data frame
+#' @param evid character identifying the event ID (EVID) within the data frame
+#' @param addl character identifying the additional dose levels (ADDL) within the data frame
+#' @param ii character identifying the interdose interval (II) within the data frame
+#' @param amt character identifying the amount variable (only needed if `evid` is not provided)
+#' @param id character identifying the ID or subject variable
 #' @param dig numeric indicating with how many digits the resulting times should be available
 #' @details The function calculates the TIME, TALD (time after last dose) and TAFD (time after first dose).
 #'   The different time variables are calculated in hours, where a POSIXct for the datetime variable is expected.
@@ -26,56 +26,52 @@
 #'
 #' dfrm <- data.frame(ID=rep(1,5), dt=Sys.time() + c(0,8e+5,1e+6,2e+6,3e+6),
 #'                    AMT=c(NA,10,NA,0,NA), II=rep(24,5),EVID=c(0,1,0,1,0))
-#' time_calc(dfrm,dt,EVID)
-time_calc <- function(data,datetime,evid=NULL,addl=NULL,ii=NULL,amt=AMT,id=ID,dig=2){
-  # Perform checks: Be aware the we need the following to account for allowed NULL and variables not present in data
-  chk  <- rlang::enquos(datetime, amt, id, evid, addl, ii, .named = TRUE, .ignore_empty="all")  
-  if(length(chk)<6) cli::cli_abort("Required variable datetime not provided")
-  chk  <- stats::setNames(chk,c("datetime", "amt", "id", "evid", "addl", "ii"))
-  chk2 <- sapply(chk,rlang::quo_get_expr) |> sapply(is.null)
-  chk3 <- sapply(chk[!chk2],rlang::quo_get_expr) |> sapply(rlang::as_name)
-  notdat   <- chk3[!chk3%in%names(data)]
+#' time_calc(dfrm,"dt","EVID")
+time_calc <- function(data,datetime,evid=NULL,addl=NULL,ii=NULL,amt="AMT",id="ID",dig=2){
+  
+  if(missing(datetime)) cli::cli_abort("Variable {.var datetime} is required")
+  if(is.null(evid) && (is.null(amt) || !amt%in%names(data))) cli::cli_abort('If evid is not provided make sure amt variable is present in data')
+  mc     <- as.list(match.call())
+  mcc    <- unlist(mc[names(mc)%in%c("datetime","evid","addl","ii","amt","id")])
+  notdat <- mcc[!mcc%in%names(data)]
   if(length(notdat) > 0) cli::cli_abort("Variable{?s} {.var {notdat}} not present in data")
-  if(!"evid"%in%names(chk3) && !"amt"%in%names(chk3)) cli::cli_abort('If evid is not provided make sure amt variable is present in data')
-  
-  if(!"evid"%in%names(chk3)){
-    out <- dplyr::mutate(data, EVIDtmp = ifelse(is.na({{amt}}) | AMT==0, 0, 1))
+    
+  if(is.null(evid)){
+    out <- dplyr::mutate(data, EVIDtmp = ifelse(is.na(.data[[amt]]) | .data[[amt]]==0, 0, 1))
   }else{
-    out <- dplyr::mutate(data, EVIDtmp = {{evid}})
+    out <- dplyr::mutate(data, EVIDtmp = .data[[evid]])
   }
-  if(!"addl"%in%names(chk3)) out$ADDLtmp <- 0 else out$ADDLtmp <- out[,chk3[names(chk3)=="addl"]]
-  if(!"ii"%in%names(chk3))   out$IItmp   <- 0 else out$IItmp   <- out[,chk3[names(chk3)=="ii"]]
+  if(is.null(addl)) out$ADDLtmp <- 0 else out$ADDLtmp <- out[,addl]
+  if(is.null(ii))   out$IItmp   <- 0 else out$IItmp   <- out[,ii]
   
-  out <- out |> dplyr::arrange({{id}},{{datetime}},EVIDtmp)
-  fdl <- dplyr::filter(out, EVIDtmp%in%c(1,4)) |> dplyr::distinct({{id}}, .keep_all = TRUE) |> 
-    dplyr::select({{id}},{{datetime}}) |> dplyr::rename("firstDS"=unname(chk3[names(chk3)=="datetime"]))
-  frc <- out |> dplyr::distinct({{id}}, .keep_all = TRUE) |> 
-    dplyr::select({{id}},{{datetime}}) |> dplyr::rename("firstRC"=unname(chk3[names(chk3)=="datetime"]))
+  out <- out |>  dplyr::arrange(dplyr::across(dplyr::all_of(c(id,datetime,"EVIDtmp")))) 
+  fdl <- dplyr::filter(out, .data$EVIDtmp%in%c(1,4)) |> dplyr::distinct(dplyr::across(dplyr::all_of(id)), .keep_all = TRUE) |> 
+    dplyr::select(.data[[id]],.data[[datetime]]) |> dplyr::rename("firstDS"=datetime)
+  frc <- out |> dplyr::distinct(dplyr::across(dplyr::all_of(id)), .keep_all = TRUE) |> 
+    dplyr::select(.data[[id]],.data[[datetime]]) |> dplyr::rename("firstRC"=datetime)
   
-  idv <- unname(chk3[names(chk3)=="id"])
-  out <- out |> dplyr::left_join(fdl, by = idv) |> dplyr::left_join(frc, by = idv) |> dplyr::group_by({{id}}) |>
-    dplyr::mutate(
-      TIME    = round(as.numeric(difftime({{datetime}}, firstRC, units = "hours")) , dig),
-      TAFD    = round(as.numeric(difftime({{datetime}}, firstDS, units ="hours")) , dig),
-      TIMEND  = dplyr::case_when(!EVIDtmp %in% c(1, 4) ~ NA, .default = {{datetime}}),
-      ADDLtmp = ifelse(is.na(ADDLtmp) & EVIDtmp != 0, 0, ADDLtmp),
-      ADDLtmp = ifelse(EVIDtmp == 0, NA, ADDLtmp),
-      IItmp   = ifelse(is.na(IItmp) & EVIDtmp != 0, 0, IItmp),
-      IItmp   = ifelse(EVIDtmp == 0, NA, IItmp),
-      lastDS  = vctrs::vec_fill_missing(TIMEND),
-      ADDLF   = vctrs::vec_fill_missing(ADDLtmp),
-      IIF     = vctrs::vec_fill_missing(IItmp),
-      TALD    = round(as.numeric(difftime({{datetime}}, lastDS + (ADDLF * IIF * 3600), units = "hours")), dig),
+  
+  out <- out |> dplyr::left_join(fdl, by = id) |> dplyr::left_join(frc, by = id) |> 
+    dplyr::group_by(dplyr::across(dplyr::all_of(id))) |> dplyr::mutate(
+      TIME    = round(as.numeric(difftime(.data[[datetime]], .data$firstRC, units = "hours")) , dig),
+      TAFD    = round(as.numeric(difftime(.data[[datetime]], .data$firstDS, units ="hours")) , dig),
+      TIMEND  = dplyr::case_when(!.data$EVIDtmp %in% c(1, 4) ~ NA, .default = .data[[datetime]]),
+      ADDLtmp = ifelse(is.na(.data$ADDLtmp) & .data$EVIDtmp != 0, 0, .data$ADDLtmp),
+      ADDLtmp = ifelse(.data$EVIDtmp == 0, NA, .data$ADDLtmp),
+      IItmp   = ifelse(is.na(.data$IItmp) & .data$EVIDtmp != 0, 0, .data$IItmp),
+      IItmp   = ifelse(.data$EVIDtmp == 0, NA, .data$IItmp),
+      lastDS  = vctrs::vec_fill_missing(.data$TIMEND),
+      ADDLF   = vctrs::vec_fill_missing(.data$ADDLtmp),
+      IIF     = vctrs::vec_fill_missing(.data$IItmp),
+      TALD    = round(as.numeric(difftime(.data[[datetime]], .data$lastDS + (.data$ADDLF * .data$IIF * 3600), units = "hours")), dig),
       # Set TALD to NA for non-obs records
-      TALD    = ifelse(EVIDtmp %in% c(1, 4), NA, TALD),
+      TALD    = ifelse(.data$EVIDtmp %in% c(1, 4), NA, .data$TALD),
       # Correct for negative times due to TALD records
-      TALD    = ifelse(TALD < 0, round(TALD %% IIF , dig), TALD),
+      TALD    = ifelse(.data$TALD < 0, round(.data$TALD %% .data$IIF , dig), .data$TALD),
       # Correct for negative times due to TALD records
-      TALD    = ifelse(is.na(TIMEND) & !EVIDtmp %in% c(1, 4) & is.na(TALD),
-                       round(as.numeric(difftime({{datetime}}, firstDS, units = "hours")), dig),TALD)
-      # TALD    = ifelse(is.na(TIMEND) & EVIDtmp %in% c(1, 4),
-      #                  round(as.numeric(difftime({{datetime}}, firstDS, units = "hours")), dig),TALD)
-    ) |> dplyr::select(-c(EVIDtmp, ADDLtmp, IItmp, TIMEND, firstDS, firstRC, lastDS, ADDLF, IIF)) |> 
+      TALD    = ifelse(is.na(.data$TIMEND) & !.data$EVIDtmp %in% c(1, 4) & is.na(.data$TALD),
+                       round(as.numeric(difftime(.data[[datetime]], .data$firstDS, units = "hours")), dig), .data$TALD)
+    ) |> dplyr::select(-c(.data$EVIDtmp, .data$ADDLtmp, .data$IItmp, .data$TIMEND, .data$firstDS, .data$firstRC, .data$lastDS, .data$ADDLF, .data$IIF)) |> 
     dplyr::ungroup()
   
   return(out)

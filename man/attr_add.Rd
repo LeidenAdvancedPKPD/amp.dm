@@ -20,7 +20,7 @@ dataframe with the attributes added
 }
 \description{
 This function adds data attributes available in a list to a data frame. Additional checks
-are done to verify if the attributes are in a vliad format and useable
+are done to verify if the attributes are in a valid and use-able format
 }
 \details{
 This function adds attributes available in a list to a data frame. The structure of this list should be available

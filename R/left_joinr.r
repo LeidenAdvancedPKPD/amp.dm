@@ -52,7 +52,7 @@ left_joinr <- function(x,y,by=NULL,...,comment="", keepids=FALSE){
                     datainrowsr  = nrow(y),
                     dataoutrowsl = nrow(ret[which(ret$mergeidl==1 & is.na(ret$mergeidr)),]),
                     dataoutrows  = nrow(ret),
-                    reason       = comment,
+                    comment      = comment,
                     stringsAsFactors = FALSE)
   
   # Combine with available information, only if information is not duplicate
@@ -67,7 +67,7 @@ left_joinr <- function(x,y,by=NULL,...,comment="", keepids=FALSE){
   
   # Apply attributes to information to save and present information
   lbl <- c(datainl = "Data in L", datainr = "Data in R",  datainrowsl = "Num rows Data in L", datainrowsr  = "Num rows Data in R",
-           dataoutrowsl = "Rows only in L", dataoutrows = "Rows Data out", reason = "Reason for join")
+           dataoutrowsl = "Rows only in L", dataoutrows = "Rows Data out", comment = "Reason for join")
   
   for(i in seq_along(lbl)) attr(nfo[,names(lbl)[i]],'label') <- lbl[i]
   attr(nfo,'type')  <- "joinr_nfo"

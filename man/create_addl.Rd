@@ -9,15 +9,15 @@ create_addl(data, datetime, id, dose, tau, evid = NULL)
 \arguments{
 \item{data}{data frame to perform the action on}
 
-\item{datetime}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the date/time variable (POSIXct) within the data frame}
+\item{datetime}{character identifying the date/time variable (POSIXct) within the data frame}
 
-\item{id}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the subject ID within the data frame}
+\item{id}{character identifying the subject ID within the data frame}
 
-\item{dose}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the dose within the data frame (ADDL can only be set for equal doses)}
+\item{dose}{character identifying the dose within the data frame (ADDL can only be set for equal doses)}
 
-\item{tau}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the tau (or II) within the data frame}
+\item{tau}{character identifying the tau (or II) within the data frame}
 
-\item{evid}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the event ID (EVID) within the data frame.
+\item{evid}{character identifying the event ID (EVID) within the data frame.
 This is used to distinguish observations from dosing records, e.g. 0 for observations}
 }
 \value{
@@ -32,14 +32,10 @@ of additional dose levels and removes unnecessary rows
 
 dts  <- c(Sys.time(),Sys.time() + (24*60*60),Sys.time() + (48*60*60),Sys.time() + (96*60*60))
 data <- data.frame(id=1,dt=dts,dose=10,tau=24)
-create_addl(data=data, datetime=dt, id=id, dose=dose, tau=tau)
+create_addl(data=data, datetime="dt", id="id", dose="dose", tau="tau")
 
 data2 <- rbind(cbind(data,evid=1),data.frame(id=1,dt=dts[4]+60,dose=10,tau=24,evid=0))
-create_addl(data=data2, datetime=dt, id=id, dose=dose, tau=tau, evid=evid)
-
-# tidyeval is used but we can use characters, e.g.
-create_addl(data=data, datetime=!!as.name("dt"), id=!!as.name("id"), 
-            dose=!!as.name("dose"), tau=!!as.name("tau"))
+create_addl(data=data2, datetime="dt", id="id", dose="dose", tau="tau", evid="evid")
 
 }
 \author{

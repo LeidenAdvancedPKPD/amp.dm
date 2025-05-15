@@ -28,8 +28,8 @@ general_tbl <- function(data, ret="tbl", capt="General table", align=NULL, outnm
     # Notice that we need to paste "l" with align (by default it assumes row names are include and is used for alignment)
     algn <- if(is.null(align)) NULL else paste0("l",align)
     xtable::print.xtable(xtable::xtable(data, caption=capt, align=algn), caption.placement="top", comment=FALSE,
-                       tabular.environment = "longtable", floating=FALSE, include.rownames=FALSE, hline.after=NULL,
-                       add.to.row = list(pos=list(-1,0),command=c("\\toprule ","\\midrule\\endhead ")),...)
+                         tabular.environment = "longtable", floating=FALSE, include.rownames=FALSE, hline.after=NULL,
+                         add.to.row = list(pos=list(-1,0),command=c("\\toprule ","\\midrule\\endhead ")),...)
   }else if(ret=="file"){
     # Notice here we escape latex characters and set convchar to FALSE
     data[]  <- apply(data,2,function(x) gsub('([#$%&_\\^\\\\{}])', '\\\\\\1', as.character(x), perl = TRUE))

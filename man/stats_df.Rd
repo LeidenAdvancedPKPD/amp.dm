@@ -9,7 +9,8 @@ stats_df(
   missingval = -999,
   ret = "tbl",
   capt = "Statistics data frame",
-  align = "p{2cm}p{1.5cm}p{1.5cm}p{4.6cm}p{1.8cm}p{1.8cm}p{0.8cm}p{1.5cm}",
+  align = "p{2cm}p{1cm}p{1cm}p{4cm}p{1.7cm}p{1.7cm}p{0.8cm}p{1.3cm}",
+  size = "\\\\footnotesize",
   ...
 )
 }
@@ -23,6 +24,8 @@ stats_df(
 \item{capt}{character with the caption of the table (not used in case data frame is returned)}
 
 \item{align}{alignment of the table passed to \link{general_tbl} (not used in case data frame is returned)}
+
+\item{size}{character with font size as for the table \link{general_tbl}}
 
 \item{...}{additional arguments passed to \link{general_tbl}}
 }

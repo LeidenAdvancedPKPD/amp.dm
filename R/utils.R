@@ -118,3 +118,28 @@ cmnt_print <- function(clean=TRUE){
   if(clean) rm("cmnt_nfo", envir = .amp.dm)
   return(ret)
 }
+
+#------------------------------------------ typearg ------------------------------------------
+#' Function that takes the formals of a function and return the type
+#'
+#' function get the [typeof] of a function arguments but also reports na, missing, null and empty
+#'
+#' @param frml a list typically obtained by the [formals] function
+#' @keywords documentation
+#' @return named vector with the type of values for the function arguments
+#' @author Richard Hooijmaijers
+#' @export
+#' @examples
+#'   typearg(formals(lm))
+typearg <- function(frml){
+  sapply(frml, function(x){
+    if(typeof(x)=="symbol"){
+      chk <- try(get(x),silent = TRUE)
+      if(inherits(chk,"try-error")) ret <- "missing" else ret <- typeof(chk)
+    }else{
+      ret <- typeof(x)
+      if(is.null(x)) ret <- "null" else if(is.na(x)) ret <- "na" else if(x=="") ret <- "empty"
+    }
+    ret
+  })
+}

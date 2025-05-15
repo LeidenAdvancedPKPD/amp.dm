@@ -6,8 +6,8 @@
 #' can be used to merge with available date information and impute missing dates.
 #'
 #' @param data data frame for which the dates should be filled down
-#' @param start <[`data-masking`][rlang::args_data_masking]> that includes the start date (as date format)
-#' @param end <[`data-masking`][rlang::args_data_masking]> that includes the end date (as date format)
+#' @param start character identifying the start date (as date format) within the data frame
+#' @param end character identifying the end date (as date format) within the data frame
 #' @param tau integer with the tau in days (e.g. 2 for dosing every other day)
 #' @param repdat integer with repeats per day (e.g. 2 in case of twice daily dosing)
 #'
@@ -19,20 +19,19 @@
 #'
 #' dfrm <- data.frame(ID=1:2,first=as.Date(c("2016-10-01","2016-12-01"), "%Y-%m-%d"),
 #'                    last=as.Date(c("2016-10-03","2016-12-02"), "%Y-%m-%d"))
-#' fill_dates(dfrm, first, last)
-#' fill_dates(dfrm, first, last, 2, 3)
+#' fill_dates(dfrm, "first", "last")
+#' fill_dates(dfrm, "first", "last", 2, 3)
 fill_dates <- function(data, start, end, tau=1, repdat=1){
 
-  chk      <- rlang::enquos(start,end,.named = TRUE, .ignore_empty="all") |> sapply(rlang::as_name)
-  notdat   <- chk[!chk%in%names(data)]
+  notdat    <- c(start,end)[!c(start,end)%in%names(data)]
   if(length(notdat) > 0) cli::cli_abort("Variable{?s} {.var {notdat}} not present in data")
-  if(!inherits(data[,chk[1]], "Date") | !inherits(data[,chk[2]], "Date")) cli::cli_abort("Make sure {.var start} and {.var end} are in Date format")
-  if(any(is.na(data[,chk[1]])) | any(is.na(data[,chk[2]])))               cli::cli_abort("Missing data found for {.var start} or {.var end} which is not permitted")
+  if(!inherits(data[,start], "Date") | !inherits(data[,end], "Date")) cli::cli_abort("Make sure {.var start} and {.var end} are in Date format")
+  if(any(is.na(data[,start])) | any(is.na(data[,end])))               cli::cli_abort("Missing data found for {.var start} or {.var end} which is not permitted")
     
-  nums   <- data |> dplyr::mutate(nums = as.numeric(difftime({{end}},{{start}}), units="days")+1) |> dplyr::pull()
+  nums   <- data |> dplyr::mutate(nums = as.numeric(difftime(.data[[end]],.data[[start]]), units="days")+1) |> dplyr::pull()
   cntr   <- unlist(lapply(nums,seq_len)) - 1
   fldose <- as.data.frame(lapply(data, rep, nums)) |>
-    dplyr::mutate(dat = as.Date({{start}}+cntr))
+    dplyr::mutate(dat = as.Date(.data[[start]] + cntr))
   
   del    <- cntr%%tau
   fldose <- fldose[del==0,]

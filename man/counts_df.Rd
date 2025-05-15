@@ -12,15 +12,16 @@ counts_df(
   ret = "tbl",
   capt = "Information multiple data frames",
   align = NULL,
+  size = "\\\\footnotesize",
   ...
 )
 }
 \arguments{
 \item{data}{data frame for which the table should be created}
 
-\item{by}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies by variables within the data frame for stratification}
+\item{by}{character identifying by variables within the data frame for stratification}
 
-\item{id}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the ID variable within the data frame (see details)}
+\item{id}{character identifying the ID variable within the data frame (see details)}
 
 \item{style}{numeric with the type of output to return  (see details)}
 
@@ -29,6 +30,8 @@ counts_df(
 \item{capt}{character with the caption of the table (not used in case data frame is returned)}
 
 \item{align}{alignment of the table passed to \link{general_tbl} (not used in case data frame is returned)}
+
+\item{size}{character with font size as for the table \link{general_tbl}}
 
 \item{...}{additional arguments passed to \link{general_tbl}}
 }
@@ -50,9 +53,9 @@ observations and percentages in a formatted ways (convenient for tabulating)
 data("Theoph")
 Theoph$trt <- ifelse(as.numeric(Theoph$Subject)<6,1,2)
 Theoph$sex <- ifelse(as.numeric(Theoph$Subject)<4,1,0)
-counts_df(data=Theoph, by=c(trt,sex),id=Subject)
-counts_df(data=Theoph, by=sex,id=Subject)
-counts_df(data=Theoph, by=c(trt,sex),id=Subject, style=2)
+counts_df(data=Theoph, by=c("trt","sex"),id="Subject", ret="dfrm")
+counts_df(data=Theoph, by="sex",id="Subject", ret="dfrm")
+counts_df(data=Theoph, by=c("trt","sex"),id="Subject", style=2, ret="dfrm")
 
 }
 \author{

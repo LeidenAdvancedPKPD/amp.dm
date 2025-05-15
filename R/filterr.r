@@ -37,7 +37,7 @@ filterr <- function(.data, ..., comment=""){
                     datainrows = nrow(.data),
                     dataoutrows = nrow(ret),
                     rowsdropped = nrow(.data) - nrow(ret),
-                    reason = comment,
+                    comment = comment,
                     stringsAsFactors = FALSE)
   
   # Combine with available information, only if information is not duplicate
@@ -53,7 +53,7 @@ filterr <- function(.data, ..., comment=""){
   # Apply attributes to information to save and present information
   lbl <- c(datain="Data in",coding = "Coding", datainrows = "Num rows Data in",
            dataoutrows = "Num rows Data out", rowsdropped = "Num rows dropped",
-           reason = "Reason for filter")
+           comment = "Reason for filter")
   for(i in seq_along(lbl)) attr(nfo[,names(lbl)[i]],'label') <- lbl[i]
   attr(nfo,'type')  <- "filterr_nfo"
   cli::cli_alert_info("Filter applied with {.val {nrow(.data) - nrow(ret)}} record(s) deleted")

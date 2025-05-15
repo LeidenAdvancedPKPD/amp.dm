@@ -1,0 +1,146 @@
+---
+title: "Getting started with the amp.dm package"
+format: 
+  html: 
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Getting started}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| echo: false
+#| output: false
+library(dplyr)
+library(amp.dm)
+```
+
+## Introduction
+
+This document is intended to get you started with using the `amp.dm` package. 
+This package is developed to ease the process of creating NONMEM datasets, but can in principle be used for any other dataset within
+the field of pharmacometrics.
+
+Constructing an analysis data set is highly data driven and the strategy depends in great extend on the design of a study. 
+However, certain steps are necessary in almost all cases. This package contains functions to help with these steps.
+An important part when coding in the pharmaceutical industry, is logging and documenting. The `amp.dm` package include various functions to help in this process.
+
+##  Documentation and logging
+
+An important part of pharmacometric analyses is the documentation and logging of the various steps that have been performed. This is important when communicating between data management and modelers, as well for submission purposes.
+Primary information regarding the meaning of variables, units of measurements or (de)coding of categories is key in understanding the data. Furthermore, information regarding records that have been dropped/added is essential. Other information like statistics or system information provide a complete overview of the data management process.
+
+In the base of this, is construction of data sets using `rmarkdown`. This workflow enable to easily add comments regarding the data management process. Also providing various types of tables, with important information is easily done here. On top of this, `amp.dm` has various functions that log information or present it within a `rmarkdown` document. 
+
+### functions logging results
+
+The package has a few functions that log results, which can be used to add in the documentation at a later stage. 
+These functions are mainly wrappers around existing functions but have additional options for logging.
+See below for the 3 main functions that are available
+
+```{r}
+#| echo: true
+#| output: true
+library(dplyr)
+library(amp.dm)
+
+xmpl <- system.file("examples/DM/NM.theoph.V1.csv",package="DMTools")
+
+# The read data function can read most common formats, for less common formats
+# a manual function can passed to enable documenting the process
+dat  <- read_data(xmpl, comment="Read example data")
+
+# We can filter data with logging
+dat2 <- filterr(dat,STIME<2, comment = "remove time-points") %>%
+  select(ID,STIME) %>% mutate(FLAG=1)
+
+# We can also join with logging 
+dat3 <- left_joinr(dat2, dat, comment = "example join")
+
+```
+
+The functions above will provide some additional information in the console. On top of this, all relevant information is saved in the package environment and can be shown using the `get_log` function:
+
+```{r}
+#| echo: true
+#| output: true
+get_log()
+```
+
+Besides the functions above there are two other functions that can be used for logging and documentation:
+1. The `cmnt` function can be used to provide a comment regarding a piece of code within a large code block.
+   This can then be presented after a code chunk (using `cmnt_print`). This is mainly useful to list
+   items that need special attention 
+2. The `srce` function can be used to identify where certain variables derive from. This information can be used
+   later on in the documentation, which is particularly useful for registration purposes
+   
+```{r}
+#| echo: true
+#| output: false
+
+cmnt("**Be aware** that *ID 1* is removed using `subset`")
+dat4 <- subset(dat,ID!=1, select=-BMI)
+
+srce(BMI,c(dat4.WEIGHT,dat4.HEIGHT),'d')
+dat4$BMI <- dat4$WEIGHT/(dat4$HEIGHT)^2 
+```
+
+```{r}
+#| echo: true
+#| output: asis
+# Note it is easier to directly use inline code, e.g.: `r cmnt_print()` 
+cat(cmnt_print())
+```
+
+```{r}
+#| echo: true
+#| output: true
+# This is also available in tabulation functions e.g. define_tbl
+get_log()$srce_nfo
+```
+
+
+### Handling of attributes
+
+Data attributes hold vital information regarding the meta data of a constructed data set. Mainly an explanation on variables, units and the way they were constructed are key. Additionally, mainly for NONMEM analysis, it is important to provide an explanation for categorical variables. NONMEM can only handle numeric values, these means that categorical data like gender and country should be re-coded as a numeric. The meaning of these categories are important to understand the content of the data.
+
+Data attributes can be created in an excel file. In such a file all the variables of a data set are listed with the corresponding meta information. When a data set is constructed the meta data can be obtained (using the `attr_xls` function) and used in various ways which is explained further on. A template of such an excel file is available in the package (see `system.file("example/Attr.Template.xlsx", package="amp.dm")`).
+
+The other functions available to work with attributes in the package are:
+
+1. The `attr_add` function; this can be used to add attributes to a data set 
+2. The `attr_extract` function; this can be used to extract attributes from a data set. 
+3. The `attr_factor` function; this can be used to create factors for numerical/categorical variables within a data set. 
+
+### Tabulation and checking
+
+When a data set is constructed using the functions in the previous section, results can be tabulated using various functions. The `define_tbl` function can be used to present a table of the attributes of a data set. It typically presents the table directly usable for a 'define.pdf' file.
+Another important table for reviewing the data can be generated using the `stats_df` function. This function will show some simple statistics including ranges, missing data and number of categories of a data set.
+The `counts_df` can be used to show number of records or unique subjects, stratified over one or multiple variables.
+Finally information from the functions that log results (e.g. reading, filtering  or joining data) can be tabulated using the `log_df` function. 
+A more specific function to mention is the check function intended for NONMEM data implemented in `check_nmdata`. This function will check if a data set follows the minimum requirements to be used in a NONMEM model. You can also check for non essential requirements to could trigger for further investigations.
+
+All of these function will created a LateX table using the `general_tbl` function. This ensures that results are presented nicely and uniform when placed in a `rmarkdown` or `quarto` chunk (using the "asis" option), e.g.
+
+```{r}
+general_tbl(data.frame(result="this is a test"))
+```
+
+
+## Analysis functions
+
+There are a multiple functions implemented in the package that are quite specific for NONMEM analysis. This mainly include the following:
+
+- `time_calc`;  Create time variables for usage in NONMEM analyses 
+- `expand_addl_ii`; Expand rows in case NONMEM ADDL and II variables are present
+- `fill_dates`; Fills down dates within a data frame that include a start and end date. Although not strictly for NONMEM dataset, it is often used there to fill out dose records
+- `impute_dose`; Imputes dose records using ADDL and II by looking forward and backwards
+- `create_addl` and `expand_addl_ii`; Work with dose levels to reduce the size of the data by creating ADDL and II records, or expand
+   dose records by looking at ADDL/II data 
+
+There are other functions that are not directly restricted for NONMEM usage but are often used to create common variables. For example, the `egfr` function to calculate the estimated glomerular filtration rate using different formulas or `weight_height` to calculate various metrics like BMI, LBM and FFM. 
+
+## Conclusion
+
+Although there are other functions available in the package. This vignette should provide a solid starting point to be able to use the package. Additionally, the example study vignette will provide a practical example on how functions can be used and how the final documentation of such a dataset will look like.

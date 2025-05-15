@@ -76,7 +76,7 @@ test_that("counts_df correctly tabulates counts and frequencies",{
   Theoph$trt <- ifelse(as.numeric(Theoph$Subject)<6,1,2)
   Theoph$sex <- ifelse(as.numeric(Theoph$Subject)<4,1,0)
   
-  res   <- counts_df(data=Theoph, by=c(trt,sex),id=Subject, ret="dfrm")
+  res   <- counts_df(data=Theoph, by=c("trt","sex"),id="Subject", ret="dfrm")
   resm1 <- table(Theoph$trt,Theoph$sex)
   resm2 <- prop.table(resm1)
   expect_equal(dim(res),c(4,6))
@@ -84,10 +84,10 @@ test_that("counts_df correctly tabulates counts and frequencies",{
   expect_equal(res$Nobs[res$trt=="1" & res$sex=="0"],resm1[1,1])
   expect_equal(res$PERCobs[res$trt=="1" & res$sex=="0"],resm2[1,1]*100)
   
-  res <- counts_df(data=Theoph, by=c(trt,sex),id=Subject, style=2, ret="dfrm")
+  res <- counts_df(data=Theoph, by=c("trt","sex"),id="Subject", style=2, ret="dfrm")
   expect_equal(dim(res),c(4,4))
   
-  res <- capture.output(counts_df(data=Theoph, by=c(trt,sex),id=Subject, style=2, ret="tbl"))
+  res <- capture.output(counts_df(data=Theoph, by=c("trt","sex"),id="Subject", style=2, ret="tbl"))
   expect_true(any(grepl("begin\\{longtable\\}",res)))
 })
 

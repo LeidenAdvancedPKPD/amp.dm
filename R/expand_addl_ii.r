@@ -5,7 +5,7 @@
 #' on a separate line. This is convenient in case of individual dose calculations
 #'
 #' @param data data frame to perform the expantion on
-#' @param evid <[`data-masking`][rlang::args_data_masking]> identifies the event ID (EVID) within the data frame.
+#' @param evid character identifying the event ID (EVID) within the data frame
 #'  This is used to distinguish observations from dosing records, e.g. 0 for observations
 #' @param del_iiaddl logical identifying if the ADDL and II variables can be deleted from output
 #' @details The function expects that certain variables are present in the data (at least ID, TIME, ADDL and II)
@@ -21,19 +21,17 @@ expand_addl_ii <- function(data, evid=NULL, del_iiaddl=TRUE){
 
   notdat   <- c("ID","TIME","ADDL","II")[!c("ID","TIME","ADDL","II")%in%names(data)]
   if(length(notdat) > 0) cli::cli_abort("Required variable{?s} {.var {notdat}} not present in data")
-  nullevid <- is.null(rlang::eval_tidy(rlang::enquo(evid), data = data))
-  if(!nullevid){
-    chk    <- rlang::enquos(evid,.named = TRUE, .ignore_empty="all") |> sapply(rlang::as_name)
-    if(!chk%in%names(data)) cli::cli_abort("{.var {chk}} not present in data")
-    obs    <- dplyr::filter(data,{{evid}}==0)
-    data   <- dplyr::filter(data,{{evid}}!=0)
+  if(!is.null(evid)){
+    if(!evid%in%names(data)) cli::cli_abort("{.var {evid}} not present in data")
+    obs    <- dplyr::filter(data,.data[[evid]]==0)
+    data   <- dplyr::filter(data,.data[[evid]]!=0)
   }
   
   data  <- data |> dplyr::mutate(ADDL = ifelse(is.na(.data$ADDL), 0, .data$ADDL))
   cntr  <- unlist(lapply(data$ADDL+1,seq_len))
   data  <- as.data.frame(lapply(data, rep, data$ADDL+1)) |>
     dplyr::mutate(TIME = .data$TIME+(.data$II* (cntr -1)))
-  if(!nullevid && nrow(obs)!=0) data <- rbind(data, obs) 
+  if(!is.null(evid) && nrow(obs)!=0) data <- rbind(data, obs) 
   if(del_iiaddl) data <- dplyr::select(data, -c(.data$ADDL,.data$II))
   data <- dplyr::arrange(data, .data$ID, .data$TIME)
   return(data)

@@ -4,7 +4,16 @@
 \alias{log_df}
 \title{Create information for all functions that log actions}
 \usage{
-log_df(log, type, coding = TRUE, ret = "dfrm", capt = NULL, align = NULL, ...)
+log_df(
+  log,
+  type,
+  coding = FALSE,
+  ret = "dfrm",
+  capt = NULL,
+  align = NULL,
+  size = "\\\\footnotesize",
+  ...
+)
 }
 \arguments{
 \item{log}{list with logged information typically obtained with \link{get_log}}
@@ -18,6 +27,8 @@ log_df(log, type, coding = TRUE, ret = "dfrm", capt = NULL, align = NULL, ...)
 \item{capt}{character with the caption of the table (not used in case data frame is returned)}
 
 \item{align}{alignment of the table passed to \link{general_tbl} (not used in case data frame is returned)}
+
+\item{size}{character with font size as for the table \link{general_tbl}}
 
 \item{...}{additional arguments passed to \link{general_tbl}}
 }

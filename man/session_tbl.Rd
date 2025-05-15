@@ -4,7 +4,13 @@
 \alias{session_tbl}
 \title{Create information for R session}
 \usage{
-session_tbl(ret = "tbl", capt = "Session info", align = "lp{8cm}", ...)
+session_tbl(
+  ret = "tbl",
+  capt = "Session info",
+  align = "lp{8cm}",
+  size = "\\\\footnotesize",
+  ...
+)
 }
 \arguments{
 \item{ret}{a character vector to define what kind of output should be returned (either "dfrm", "tbl", "file")}
@@ -12,6 +18,8 @@ session_tbl(ret = "tbl", capt = "Session info", align = "lp{8cm}", ...)
 \item{capt}{character with the caption of the table (not used in case data frame is returned)}
 
 \item{align}{alignment of the table passed to \link{general_tbl} (not used in case data frame is returned)}
+
+\item{size}{character with font size as for the table \link{general_tbl}}
 
 \item{...}{additional arguments passed to \link{general_tbl}}
 }

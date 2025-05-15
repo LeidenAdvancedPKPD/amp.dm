@@ -22,7 +22,7 @@ plot_vars <- function(dfrm, vars=names(dfrm), ppp=16,...){
       subt  <- paste0("Mean: ", formatC(mean(dfrm[,var],na.rm=TRUE),digits=3,format="g"),
                       ", SD: ", formatC(stats::sd(dfrm[,var],na.rm=TRUE),digits=3,format="g"),
                       ", NA: ", length(dfrm[,var]) - length(stats::na.omit(as.numeric(dfrm[,var]))),"%")
-      pl <- ggplot2::ggplot(pldat, ggplot2::aes(x=plvar)) + 
+      pl <- ggplot2::ggplot(pldat, ggplot2::aes(x=.data$plvar)) + 
         ggplot2::geom_histogram(color="black",fill="grey") +
         ggplot2::labs(title=paste(var,"(Num)"), subtitle=subt, x="") + ggplot2::theme_bw() 
     }else{
@@ -32,13 +32,13 @@ plot_vars <- function(dfrm, vars=names(dfrm), ppp=16,...){
       if(nrow(tb)>=10){
         tb$Var1 <- as.character(tb$Var1)
         tb$Var1[10:nrow(tb)] <-"oth."
-        tb <- dplyr::summarise(tb,count=sum(Freq),.by = Var1)
+        tb <- dplyr::summarise(tb,count=sum(.data$Freq),.by = .data$Var1)
         tb$Var1 <- factor(tb$Var1, levels=tb$Var1)
       }else{
         tb$Var1  <- factor(tb$Var1, levels=tb$Var1)
         tb$count <- tb$Freq
       }
-      pl <- ggplot2::ggplot(tb, ggplot2::aes(x=Var1,y=count)) + 
+      pl <- ggplot2::ggplot(tb, ggplot2::aes(x=.data$Var1,y=.data$count)) + 
         ggplot2::geom_bar(stat="identity",color="black",fill="grey") +
         ggplot2::labs(title=paste(var,ifelse(is.factor(dfrm[,var]),"(Fact)","(Char)")),subtitle=subt,x="") + ggplot2::theme_bw() 
     }

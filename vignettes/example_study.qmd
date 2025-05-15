@@ -1,0 +1,226 @@
+---
+title: "Example study"
+pdf-engine: lualatex
+format: 
+  pdf: 
+    toc: false
+monofont: 'Source Code Pro'
+monofontoptions: 
+  - Scale=0.75    
+vignette: >
+  %\VignetteIndexEntry{Example study}
+  %\VignetteEngine{quarto::pdf}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| echo: false
+#| output: false
+library(dplyr)
+library(amp.dm)
+```
+
+```{r setup}
+#| echo: false
+#| output: false
+library(amp.dm)
+library(dplyr)
+```
+
+## Introduction
+
+This is an example of how datasets can be created using the `amp.dm` package. It mainly shows how quarto (or rmarkdown) can be used to directly create documentation. Also it demonstrate how meta data is handled and used in the documentation and how the analysis functions can help in the creation of a (NONMEM) dataset. To fully follow the workflow, the code blocks are shown. These will typically be hidden for the final documentation. For more information also check the underlying quarto file of this vignette.
+
+## Version history
+
+-   v1: First version
+
+## Study Description
+
+This is an adaptation of the original Theophylline dataset where additional subjects, dose arms and covariates are added. With this data, source data is created that can be used to demonstrate how the pacakge works.
+
+## Dataset instructions
+
+This section would normally contain important information about requirements for the NONMEM dataset, such as necessary NONMEM parameters for compartments and dose records. 
+
+## Other
+
+Arbitrary sections can be added here to provide additional information. For instance items like assumptions, special attention and data excluded (although this can be added through `cmnt` function as well; see below for examples)
+
+\clearpage 
+
+
+
+# Data management
+
+## Import source data
+
+For this example all source data is created and saved as SAS export files. Note the `read_data` function and how it logs information (see tables at the end).
+
+```{r readdata}
+#| output: false
+dm <- read_data(system.file("example/SOURCE/DM.xpt",package="amp.dm"), 
+                comment = "demographic data")
+ex <- read_data(system.file("example/SOURCE/EX.xpt",package="amp.dm"), 
+                comment = "dosing data")
+pc <- read_data(system.file("example/SOURCE/PC.xpt",package="amp.dm"), 
+                comment = "pk data")
+vs <- read_data(system.file("example/SOURCE/VS.xpt",package="amp.dm"), 
+                comment = "vital signs data")
+```
+
+## Demographic data
+
+The demographics age, sex and race are available in the DM domain. Information regarding height, weight and BMI was available in the VS domain. Note functions `filterr`, `left_joinr` and `srce` and how information is logged (see tables at the end)
+
+```{r demog}
+#| output: false
+cmnt("There are duplicate subjects, these are excluded in DM domain")
+dm1 <- filterr(dm, !duplicated(USUBJID), comment="Dropped duplicate subjects") |>
+  mutate(SEX   = ifelse(SEX=='M', 0, 1),
+         TRT   = as.numeric(as.factor(ARM)),
+         CNTRY = as.numeric(as.factor(COUNTRY)))
+
+vs1  <- tidyr::pivot_wider(vs,names_from = VSTESTCD, values_from = VSSTRESN) |>
+  select(-STUDYID)
+subj <- left_joinr(dm1,vs1,by='USUBJID',comment = "Combine covariates")
+subj <- select(subj, STUDYID, USUBJID, TRT, CNTRY, SEX, AGE, WEIGHT, HEIGHT, BMI)
+
+srce(CNTRY,dm.COUNTRY)
+srce(BMI,c(vs.WEIGHT,vs.HEIGHT),'d')
+```
+`r cmnt_print()` 
+
+
+## PK observation data
+
+PK observations were taken from the PC domain and adapted for the NONMEM analysis
+
+```{r pkobs}
+#| output: false
+pk <- pc |> 
+  mutate(variable = "PKSample",
+         STIME    = PCTPTNUM,
+         dattim   = as.POSIXct(PCDTC, format="%Y-%m-%dT%H:%M:%S"),
+         FLAGPK   = case_when(is.na(PCSTRESN) ~ 1, PCSTRESN==0 ~ 2, .default = 3)) |>
+  rename(Stime = PCTPTNUM, DV = PCSTRESN) %>% select(-c(PCTESTCD, STUDYID, PCDTC))
+```
+
+
+## Dosing data
+
+The dose data were provided in the EX domain.
+
+```{r pkdose}
+#| output: false
+dose <- ex|>
+  mutate(variable = "Dose",
+         STIME    = 0,
+         dattim   = as.POSIXct(EXSTDTC, format = "%Y-%m-%dT%H:%M:%S")) %>%
+  rename(AMT = EXDOSE) %>% select(-c(EXSTDTC, STUDYID))
+```
+
+
+
+## Combine data
+
+In this part of the dataset the pk and dose records were combined, and the subject covariates included, to create a final NONMEM data set.
+Note the `time_calc` function here that directly calculates TIME, TAFD and TALD based on date/time.
+
+```{r combine}
+#| output: false
+cmnt(paste("For combining PK/observations with demographics,",
+           "records in **first** are used (`all.x=TRUE`)"))
+
+nm <- bind_rows(dose,pk) |> left_join(subj, by="USUBJID") |>
+  rename(ID=USUBJID) |>
+  time_calc(datetime = "dattim") |>
+  mutate(STUDYID = as.numeric(as.factor(STUDYID)),
+         CMT     = ifelse(variable=="Dose", 1, 2),
+         EVID    = ifelse(CMT==1, 1, 0),
+         MDV     = ifelse(CMT==2 & FLAGPK==3, 0, 1)) %>% 
+  select(STUDYID, ID, TRT, CMT, AMT, STIME, TIME, TAFD, TALD, DV, EVID, MDV, 
+         CNTRY, SEX, AGE, WEIGHT, HEIGHT, BMI, FLAGPK)
+
+
+```
+`r cmnt_print()`
+
+Note the `attr_xls` function that obtains meta data from an excel file, this is then added to the data using`attr_add`. The `output_data` function can create csv and xpt file output and performs various checks on the data.
+
+```{r write_data}
+#| output: false
+
+attr <- attr_xls(system.file("example/Attr.Template.xlsx",package = "amp.dm"))
+nmf  <- attr_add(nm, attr)
+
+# Write csv and/or xpt file (notice file is named same as script)
+output_data(nmf, csv = paste0(tempdir(),"/",get_script(), ".csv"), 
+            xpt = paste0(tempdir(),"/",get_script(), ".xpt"),   
+            attr = paste0(tempdir(),"/",get_script(), ".rds"),   
+            readonly = TRUE)
+ 
+# Save all data frames in environment as Rdata object
+# savelist  <- unlist(lapply(ls(), function(x) if(is.data.frame(get(x))) return(x)))
+# save(list=savelist,file=paste0(get_script(),".RData"))
+```
+
+\clearpage
+
+# Dataset overview
+
+The tables in this section are useful for revieing and documenting the data management process. The following functions are used:
+
+- `define_tbl`; Uses the meta data or attributes to create a define table that can also be used for eSubmission
+- `stats_df`; Provide simple statistics of available data to spot for instnace outliers and missing data 
+- `counts_df`; Provide counts for number of samples and subjects, stratified by variable(s)
+- `log_df`; Provide results from functions that log information such as `read_data`, `filterr` or `left_joinr`
+- `check_nmdata`; Provide checks for NONMEM data either essential or triggering futher investigation
+- `session_tbl`; Provide information on the session that was used to run the code
+
+
+## Dataset define
+
+```{r dataset_define}
+#| results: asis
+define_tbl(attr, ret="tbl")
+
+# We could directly output a define.pdf
+# define_tbl(attr, outnm= paste0("define.",get_script(), ".tex"),
+#            show=FALSE, title="Data define overview")
+```
+
+## Dataset statistics
+
+```{r data_stats, results="asis", warning=FALSE, message=FALSE}
+stats_df(nmf,size="\\footnotesize")
+
+# Example for a counts table
+nmf2 <- attr_factor(nmf)
+counts_df(nmf2, by=c("STUDYID","TRT"), id="ID", capt="Number of records by study")
+```
+
+
+## Overview of data read in, excluded or merged
+
+
+```{r  log_overview, results="asis", warning=FALSE, message=FALSE}
+all_log   <- get_log()
+
+log_df(get_log(), "read_nfo", ret="tbl", capt="Overview of data read-in")
+log_df(get_log(), "filterr_nfo", ret="tbl", capt="Overview of data excluded")
+log_df(get_log(), "joinr_nfo", ret="tbl", capt="Overview of joined data")
+```
+
+## Check for common errors/mistakes
+
+```{r check_nmdata, results="asis", warning=FALSE, message=FALSE}
+check_nmdata(paste0(tempdir(),"/",get_script(), ".csv"), ret="tbl",type=1)
+check_nmdata(paste0(tempdir(),"/",get_script(), ".csv"), ret="tbl",type=2)
+```
+
+## Session table
+
+```{r session_table, results="asis", warning=FALSE, message=FALSE}
+session_tbl()
+```

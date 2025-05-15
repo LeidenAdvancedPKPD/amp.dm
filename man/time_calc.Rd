@@ -10,25 +10,25 @@ time_calc(
   evid = NULL,
   addl = NULL,
   ii = NULL,
-  amt = AMT,
-  id = ID,
+  amt = "AMT",
+  id = "ID",
   dig = 2
 )
 }
 \arguments{
 \item{data}{data frame to perform the calculations on}
 
-\item{datetime}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the date/time variable (POSIXct) within the data frame}
+\item{datetime}{character identifying the date/time variable (POSIXct) within the data frame}
 
-\item{evid}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the event ID (EVID) within the data frame}
+\item{evid}{character identifying the event ID (EVID) within the data frame}
 
-\item{addl}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the additional dose levels (ADDL) within the data frame}
+\item{addl}{character identifying the additional dose levels (ADDL) within the data frame}
 
-\item{ii}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the interdose interval (II) within the data frame}
+\item{ii}{character identifying the interdose interval (II) within the data frame}
 
-\item{amt}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the amount variable (only needed if \code{evid} is not provided)}
+\item{amt}{character identifying the amount variable (only needed if \code{evid} is not provided)}
 
-\item{id}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the ID or subject variable}
+\item{id}{character identifying the ID or subject variable}
 
 \item{dig}{numeric indicating with how many digits the resulting times should be available}
 }
@@ -51,7 +51,7 @@ output for multiple subjects in case of complex designs including ADDL/II.
 
 dfrm <- data.frame(ID=rep(1,5), dt=Sys.time() + c(0,8e+5,1e+6,2e+6,3e+6),
                    AMT=c(NA,10,NA,0,NA), II=rep(24,5),EVID=c(0,1,0,1,0))
-time_calc(dfrm,dt,EVID)
+time_calc(dfrm,"dt","EVID")
 }
 \author{
 Richard Hooijmaijers

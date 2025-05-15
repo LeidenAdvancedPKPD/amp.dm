@@ -9,7 +9,7 @@ expand_addl_ii(data, evid = NULL, del_iiaddl = TRUE)
 \arguments{
 \item{data}{data frame to perform the expantion on}
 
-\item{evid}{<\code{\link[rlang:args_data_masking]{data-masking}}> identifies the event ID (EVID) within the data frame.
+\item{evid}{character identifying the event ID (EVID) within the data frame
 This is used to distinguish observations from dosing records, e.g. 0 for observations}
 
 \item{del_iiaddl}{logical identifying if the ADDL and II variables can be deleted from output}
