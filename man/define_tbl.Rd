@@ -12,6 +12,7 @@ define_tbl(
   outnm = NULL,
   orientation = "portrait",
   size = "\\\\footnotesize",
+  src = NULL,
   ...
 )
 }
@@ -29,6 +30,8 @@ define_tbl(
 \item{orientation}{character the page orientation in case a file is to be returned (can be either 'portrait' or 'landscape')}
 
 \item{size}{character with font size as for the table \link{general_tbl}}
+
+\item{src}{object that holds information regarding the source (e.g. \code{get_log()$srce_nfo} ), if NULL an attempt is made to get it from the environment}
 
 \item{...}{additional arguments passed to \link{general_tbl}}
 }

@@ -16,7 +16,7 @@ related to function like \link{filterr}, \link{left_joinr}, \link{cmnt}, \link{s
 \examples{
 \dontrun{
   xldat <- readxl::readxl_example("datasets.xlsx")
-  xlin  <- read_data(xldat, saveit = FALSE)
+  xlin  <- read_data(xldat, comment="read test")
   get_log()
 }
 }

@@ -19,10 +19,12 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' data(esoph)
-#' attr(esoph$ncontrols,'label')   <- 'number of controls'
-#' tmp <- subset(esoph,,-agegp)
-#' str(tmp)
+#' \dontrun{
+#'  xmpl   <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+#'  attrl  <- attr_xls(xmpl)
+#'  data   <- read.csv(system.file("example/NM.theoph.V1.csv",package = "amp.dm"), na.strings = ".")
+#'  attr_add(data2,attrl)
+#' }
 attr_add <- function(data,attrl,attrib = c('label','format','remark'), verbose = TRUE){
   data <- as.data.frame(data) # we need data to be a data.frame and not a tibble
   # perform initial check

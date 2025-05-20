@@ -53,7 +53,7 @@ test_that("filterr function works as expected", {
   expect_equal(nrow(subset(dfrm,GENDER==0)),as.numeric(res$filterr_nfo$dataoutrows))
   expect_equal(nrow(dfrm), as.numeric(res$filterr_nfo$datainrows))
   expect_equal(nrow(dfrm) - nrow(subset(dfrm,GENDER==0)), as.numeric(res$filterr_nfo$rowsdropped))
-  expect_equal(as.character(res$filterr_nfo$reason),"deleted gender 0")
+  expect_equal(as.character(res$filterr_nfo$comment),"deleted gender 0")
   
   dfrm2 <- suppressMessages(filterr(dfrm, GENDER==0,comment="deleted gender 0"))
   res   <- get_log()
@@ -80,7 +80,7 @@ test_that("left_joinr function works as expected", {
   expect_s3_class(res$joinr_nfo, "data.frame")
   expect_equal(nrow(dfrm1),as.numeric(res$joinr_nfo$datainrowsl))
   expect_equal(nrow(dfrm2),as.numeric(res$joinr_nfo$datainrowsr))
-  expect_equal(as.character(res$joinr_nfo$reason),"merge dfrm1 with ages")
+  expect_equal(as.character(res$joinr_nfo$comment),"merge dfrm1 with ages")
   
   dfrm3 <- rbind(dfrm1,c(8,1,1.2345,3))
   dfrm4 <- rbind(dfrm2,c(8,26))
@@ -118,16 +118,16 @@ test_that("log_df correctly creates output of logged information", {
   res1 <- log_df(get_log(), "filterr_nfo")
   expect_equal(unique(res1$datainrows),nrow(Theoph))
   expect_equal(unique(res1$dataoutrows[2]),nrow(Theoph[Theoph$Subject==2,]))
-  expect_equal(unique(res1$reason[2]),"keep id 2")
+  expect_equal(unique(res1$comment[2]),"keep id 2")
   
   res2 <- log_df(get_log(), "joinr_nfo")
-  expect_equal(res2,get_log()$joinr_nfo)
+  expect_equivalent(res2,get_log()$joinr_nfo)
   
   res3 <- log_df(get_log(), "read_nfo")
-  expect_equal(res3,get_log()$read_nfo)
+  expect_equivalent(res3,get_log()$read_nfo)
   
-  res4 <- capture.output(log_df(get_log(), "filterr_nfo", ret="tbl", align = "llllll"))
-  expect_true(any(grepl("llllll",res4)))
+  res4 <- capture.output(log_df(get_log(), "filterr_nfo", ret="tbl", align = "lllll"))
+  expect_true(any(grepl("lllll",res4)))
   res5 <- capture.output(log_df(get_log(), "read_nfo", ret="tbl"))
   expect_true(any(grepl("path\\{",res5)))
   expect_true(any(grepl("Data in",res5)))

@@ -45,8 +45,10 @@ test_that("define_tbl correctly tabulates attributes",{
   
   
   srce(BMI,c(wt.WEIGHT,ht.HEIGHT),'d')
-  ret <- define_tbl(attrl)
+  ret  <- define_tbl(attrl)
   expect_match(ret$Remark[ret$Data.Item=="BMI"],"source.*wt.WEIGHT.*ht.HEIGHT.*derived")
+  ret2 <- define_tbl(attrl, src=get_log()$srce_nfo)
+  expect_equal(ret,ret2)
 })
 
 

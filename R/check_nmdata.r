@@ -62,10 +62,10 @@ check_nmdata <- function(x, type=1, ret="tbl", capt=NULL, align=NULL, size="\\fo
       outchk$result[2] <- ifelse(any(apply(chk1[names(chk1)!="DV",,drop=FALSE],2,anyNA)),"No","Yes")
       if(all(c("MDV","DV")%in%names(chk1))){
         outchk$result[3] <- ifelse(sum(chk1$MDV[!is.na(chk1$DV)],na.rm = TRUE)==0,"Yes","No")
-        if(evidch) outchk$result[4] <- ifelse(sum(chk1$MDV[chk1$EVID==0 & chk1$DV==0],na.rm = TRUE)==0,"Yes","No") else outchk$result[4] <- "could not check (no EVID)"
+        if(evidch) outchk$result[4] <- ifelse(sum(chk1$MDV[chk1$EVID==0 & chk1$DV==0],na.rm = TRUE)==0,"Yes","No") else outchk$result[4] <- "Could not check (no EVID)"
       }
       if(all(c("TIME","DV")%in%names(chk1)))  outchk$result[5] <- ifelse(any(!is.na(chk1$DV) & chk1$TIME==0 & chk1$DV>0),"No","Yes")
-      if(evidch && amtch) outchk$result[6] <- ifelse(0%in%chk1$AMT[chk1$EVID==1],"No","Yes") else outchk$result[6] <- "could not check (no EVID and/or AMT)"
+      if(evidch && amtch) outchk$result[6] <- ifelse(0%in%chk1$AMT[chk1$EVID==1],"No","Yes") else outchk$result[6] <- "Could not check (no EVID and/or AMT)"
       nmvars            <- c("RECN","MDV","CMT","EVID","AMT","DOSE","RATE")
       outchk$result[7]  <- paste(nmvars[nmvars%in%names(chk1)],collapse=", ")
       outchk$result[8]  <- paste(nmvars[!nmvars%in%names(chk1)],collapse=", ")
@@ -74,7 +74,7 @@ check_nmdata <- function(x, type=1, ret="tbl", capt=NULL, align=NULL, size="\\fo
       outchk$result[9]  <- ifelse(chklen==TRUE,paste0("no (",paste(names(chk1)[nchar(names(chk1))>8],collapse=", "),")"),"yes")
       chkchar           <- apply(chk1,2,function(x) max(nchar(as.character(x),keepNA = TRUE),na.rm = TRUE))
       outchk$result[10] <- ifelse(any(chkchar>14),paste0("no (",paste(names(which(chkchar>14)),collapse=", "),")"),"yes")
-      outchk$result[11] <- ifelse("ID"%in%names(chk1) && max(nchar(as.character(chk1$ID)),na.rm = TRUE)<5,"yes","no")
+      outchk$result[11] <- ifelse("ID"%in%names(chk1) && max(nchar(as.character(chk1$ID)),na.rm = TRUE)<5,"yes","No")
       # The check if csv is readable can be left out here
       outchk <- outchk[outchk$Check!="CSV is readable",]
     }

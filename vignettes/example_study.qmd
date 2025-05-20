@@ -160,9 +160,9 @@ output_data(nmf, csv = paste0(tempdir(),"/",get_script(), ".csv"),
             attr = paste0(tempdir(),"/",get_script(), ".rds"),   
             readonly = TRUE)
  
-# Save all data frames in environment as Rdata object
-# savelist  <- unlist(lapply(ls(), function(x) if(is.data.frame(get(x))) return(x)))
-# save(list=savelist,file=paste0(get_script(),".RData"))
+# Save current workspace
+# lognfo <- get_log()
+# save.image(paste0(get_script(),".RData"))
 ```
 
 \clearpage
@@ -192,7 +192,10 @@ define_tbl(attr, ret="tbl")
 
 ## Dataset statistics
 
-```{r data_stats, results="asis", warning=FALSE, message=FALSE}
+```{r data_stats}
+#| results: asis
+#| warning: false
+#| message: false
 stats_df(nmf,size="\\footnotesize")
 
 # Example for a counts table
@@ -204,7 +207,11 @@ counts_df(nmf2, by=c("STUDYID","TRT"), id="ID", capt="Number of records by study
 ## Overview of data read in, excluded or merged
 
 
-```{r  log_overview, results="asis", warning=FALSE, message=FALSE}
+```{r  log_overview}
+#| results: asis
+#| warning: false
+#| message: false
+
 all_log   <- get_log()
 
 log_df(get_log(), "read_nfo", ret="tbl", capt="Overview of data read-in")
@@ -214,13 +221,32 @@ log_df(get_log(), "joinr_nfo", ret="tbl", capt="Overview of joined data")
 
 ## Check for common errors/mistakes
 
-```{r check_nmdata, results="asis", warning=FALSE, message=FALSE}
+```{r check_nmdata}
+#| results: asis
+#| warning: false
+#| message: false
+
 check_nmdata(paste0(tempdir(),"/",get_script(), ".csv"), ret="tbl",type=1)
 check_nmdata(paste0(tempdir(),"/",get_script(), ".csv"), ret="tbl",type=2)
 ```
 
+## graphical representation
+
+```{r plot_nmdata}
+#| fig-height: 12
+#| fig-width: 8
+#| warning: false
+#| message: false
+
+plot_vars(nm,ppp=20)
+```
+
 ## Session table
 
-```{r session_table, results="asis", warning=FALSE, message=FALSE}
+```{r session_table}
+#| results: asis
+#| warning: false
+#| message: false
+
 session_tbl()
 ```

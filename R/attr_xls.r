@@ -17,9 +17,16 @@
 #' }
 attr_xls <- function(xls,sepfor="\n",nosort=FALSE){
 
-  # Read attributes 
+  # Read attributes and perform checks
   attrf <- try(readxl::read_excel(xls), silent=TRUE)
   if(inherits(attrf,"try-error")) cli::cli_abort("Could not read excel file")
+  spc <- stats::setNames(attrf,tolower(names(attrf)))
+  for(i in c("label", "format", "remark")){
+    spcc <- gsub("\n|\r|\t","",spc[,i,drop=TRUE])
+    spcc <- spcc[grepl("[^ -~]", spcc)]
+    if(length(spcc)>0) cli::cli_alert_danger("The following non-ascii characters in {.val {i}} should be fixed: {spcc}")
+  }
+
   names(attrf) <- tolower(names(attrf))
   if(!all(c("no.", "variable", "label", "format", "remark")%in%names(attrf))) cli::cli_abort("Not all essential variables present")
   attrf        <- attrf[!is.na(attrf$variable),]

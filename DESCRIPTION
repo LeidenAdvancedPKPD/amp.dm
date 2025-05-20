@@ -1,6 +1,6 @@
 Package: amp.dm
 Title: data management tools for pharmacometrics
-Version: 0.0.1.9000
+Version: 0.1.0
 Authors@R: c(person("Richard", "Hooijmaijers", email = "richardhooijmaijers@gmail.com", role = c("aut", "cre","cph")),
              person("LAPP Consultants",email = "info@lapp.nl", role=c("fnd","cph")))
 Description: Tools and functions to efficiently create datasets used in pharmacometric analysis.
@@ -32,6 +32,8 @@ Suggests:
   rstudioapi,
   knitr,
   R3port,
-  testthat  
+  testthat,
+  quarto,
+  tidyr  
   
 

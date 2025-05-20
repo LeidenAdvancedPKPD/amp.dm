@@ -17,16 +17,17 @@
 #' plot_vars(Theoph)
 plot_vars <- function(dfrm, vars=names(dfrm), ppp=16,...){
   plts <- lapply(vars,function(var){
-    if(is.numeric(dfrm[,var])){
-      pldat <- data.frame(plvar = dfrm[,var])
-      subt  <- paste0("Mean: ", formatC(mean(dfrm[,var],na.rm=TRUE),digits=3,format="g"),
-                      ", SD: ", formatC(stats::sd(dfrm[,var],na.rm=TRUE),digits=3,format="g"),
-                      ", NA: ", length(dfrm[,var]) - length(stats::na.omit(as.numeric(dfrm[,var]))),"%")
+    if(is.numeric(dfrm[,var,drop=TRUE])){
+      pldat <- data.frame(plvar = dfrm[,var,drop=TRUE])
+      subt  <- paste0("Mean: ", signif(mean(dfrm[,var,drop=TRUE],na.rm=TRUE),digits=3),
+                      ", SD: ", signif(stats::sd(dfrm[,var,drop=TRUE],na.rm=TRUE),digits=3),
+                      ", NA: ", length(dfrm[,var,drop=TRUE]) - length(stats::na.omit(as.numeric(dfrm[,var,drop=TRUE]))),"%")
       pl <- ggplot2::ggplot(pldat, ggplot2::aes(x=.data$plvar)) + 
         ggplot2::geom_histogram(color="black",fill="grey") +
-        ggplot2::labs(title=paste(var,"(Num)"), subtitle=subt, x="") + ggplot2::theme_bw() 
+        ggplot2::labs(title=paste(var,"(Num)"), subtitle=subt, x="") + ggplot2::theme_bw() +
+        ggplot2::theme(plot.title = ggplot2::element_text(size = 9), plot.subtitle = ggplot2::element_text(size = 7))
     }else{
-      tb   <- data.frame(table(dfrm[,var]))
+      tb   <- data.frame(table(dfrm[,var,drop=TRUE]))
       tb   <- tb[order(tb$Freq, decreasing = TRUE),]
       subt <- paste0("Number of cat.: ",nrow(tb))
       if(nrow(tb)>=10){
@@ -40,14 +41,15 @@ plot_vars <- function(dfrm, vars=names(dfrm), ppp=16,...){
       }
       pl <- ggplot2::ggplot(tb, ggplot2::aes(x=.data$Var1,y=.data$count)) + 
         ggplot2::geom_bar(stat="identity",color="black",fill="grey") +
-        ggplot2::labs(title=paste(var,ifelse(is.factor(dfrm[,var]),"(Fact)","(Char)")),subtitle=subt,x="") + ggplot2::theme_bw() 
+        ggplot2::labs(title=paste(var,ifelse(is.factor(dfrm[,var,drop=TRUE]),"(Fact)","(Char)")),subtitle=subt,x="") + ggplot2::theme_bw() +
+        ggplot2::theme(plot.title = ggplot2::element_text(size = 9), plot.subtitle = ggplot2::element_text(size = 7))
     }
     return(pl)
   })
   tot   <- length(vars)
-  nums  <- sum(sapply(vars,function(x) is.numeric(dfrm[,x])))
-  facs  <- sum(sapply(vars,function(x) is.factor(dfrm[,x])))
-  chars <- sum(sapply(vars,function(x) is.character(dfrm[,x])))
+  nums  <- sum(sapply(vars,function(x) is.numeric(dfrm[,x,drop=TRUE])))
+  facs  <- sum(sapply(vars,function(x) is.factor(dfrm[,x,drop=TRUE])))
+  chars <- sum(sapply(vars,function(x) is.character(dfrm[,x,drop=TRUE])))
   titl  <- paste0(tot," number of variables (",nums," numeric, ",facs," factor, ",chars," character)")
   pltn  <- split(1:length(plts),rep(1:ceiling(length(plts)/ppp),each=ppp)[1:length(plts)])
   lapply(pltn,function(x){

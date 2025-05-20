@@ -165,3 +165,4 @@ test_that("time_calc, create time variables correctly for usage in NONMEM analys
   expect_equal(check$TALD,check2$TALD)
   expect_equal(check$TAFD,check2$TAFD)
 })
+

@@ -41,8 +41,9 @@ stats_df <- function(data, missingval=-999, ret="tbl", capt="Statistics data fra
       nMiss <- if(is.null(missingval)) 0 else length(x[x==as.character(missingval)])
       min   <- max <- "-"
     }else{
-      min   <- formatC(min(as.numeric(x),na.rm=TRUE),digits=3,format="g")
-      max   <- formatC(max(as.numeric(x),na.rm=TRUE),digits=3,format="g")
+      if(!is.null(missingval)) mm <- x[x!=missingval] else mm <- x # make sure missing values are not use in min/max
+      min   <- formatC(min(as.numeric(mm),na.rm=TRUE),digits=3,format="g")
+      max   <- formatC(max(as.numeric(mm),na.rm=TRUE),digits=3,format="g")
       nNA   <- length(x) - length(stats::na.omit(as.numeric(x)))
       nMiss <- if(is.null(missingval)) 0 else length(x[x==missingval])
     }

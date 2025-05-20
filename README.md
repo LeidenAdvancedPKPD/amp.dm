@@ -1,4 +1,4 @@
-# Introduction
+# Introduction <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 The aim of this package is to ease the process of creating datasets mainly for pharmacometric analyses. 
 The package contains functions to create NONMEM specific variables, perform various times calculations and 
