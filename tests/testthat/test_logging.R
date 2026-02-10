@@ -138,3 +138,26 @@ test_that("log_df correctly creates output of logged information", {
   res8 <- log_df(get_log(), "dummy")
   expect_null(res8)
 })
+
+#----------------------------
+# Test check_cat function
+test_that("check_cat correctly reports categories", {
+  data1   <- data.frame(cat1 = c(rep(1:5,10),-999), cat2 = c(rep(letters[1:5],10),-999))
+  data1$cat1[sample(1:50,10)] <- NA
+  
+  expect_message(check_cat(data1$cat1,detail=1),"String.*copy")
+  expect_message(check_cat(data1$cat1,detail=1),"999.*1.*2.*3")
+  expect_message(check_cat(data1$cat2,detail=1),"999.*a.*b.*c")
+    
+  expect_null(check_cat(data1$cat2,detail=2))
+  expect_message(check_cat(data1$cat1,detail=2, threshold = c(11,NA)),"Alert.*for.*missing")
+  expect_message(check_cat(data1$cat1,detail=2, threshold = c(11,NA)),"above.*threshold")
+  expect_message(check_cat(data1$cat1,detail=2, threshold = c(NA,0.2)),"above.*threshold")
+  expect_message(check_cat(data1$cat1,detail=2, threshold = c(100,0.2)),"above.*threshold")
+  
+  expect_message(check_cat(data1$cat1,detail=3),"Total.*11.*21\\.6")
+  
+  res <- capture.output(check_cat(data1$cat1,detail=4))
+  expect_true(grepl("-999.*2\\.0\\%",res[1]))
+  expect_true(grepl("NA.*19\\.6\\%",res[length(res)]))
+})

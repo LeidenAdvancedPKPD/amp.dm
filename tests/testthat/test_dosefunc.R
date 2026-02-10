@@ -72,9 +72,9 @@ test_that("fill_dates fills down dates correctlywithin a data frame",{
   dfrm2$first[2] <- NA
   
   expect_error(fill_dates(dat))
-  expect_error(fill_dates(dfrm, "first", "ID"),"Date format")
-  expect_error(fill_dates(dfrm2, "first", "last"),"Missing data")
-  expect_error(fill_dates(dfrm2, "firsty", "lasty"),"Var.*not present")
+  expect_error(fill_dates(dfrm, "first", "ID"),"Date.*format")
+  expect_error(fill_dates(dfrm2, "first", "last"),"Missing.*data")
+  expect_error(fill_dates(dfrm2, "firsty", "lasty"),"Var.*not.*present")
   
   dfr2 <- fill_dates(dfrm,"first","last")
   expect_equal(nrow(dfr2[dfr2$ID==1,]),3)
@@ -138,9 +138,9 @@ test_that("time_calc, create time variables correctly for usage in NONMEM analys
                      AMT=c(0,10,0,20,0,0,10,0,20,0,0,10,0,20,0,0),ADDL=c(NA,2,NA,68,NA,NA,1,NA,1,NA,NA,12,NA,29,NA,NA), 
                      II=c(rep(24,5),rep(48,5),rep(24,3),rep(12,3)))
   
-  expect_error(time_calc(dfrm),"Variable `datetime`")
-  expect_error(time_calc(dfrm, datetime = "dt", id = "Subj"),"Variable.*not present")
-  expect_error(time_calc(dfrm[,names(dfrm)!="AMT"],datetime = dt, amt=NULL),"evid is not provided .* amt variable is present")
+  expect_error(time_calc(dfrm),"Variable.*`datetime`")
+  expect_error(time_calc(dfrm, datetime = "dt", id = "Subj"),"Variable.*not.*present")
+  expect_error(time_calc(dfrm[,names(dfrm)!="AMT"],datetime = dt, amt=NULL),"evid.*is.*not.*provided.*amt.*variable.*is.*present")
   
   check <- time_calc(dfrm,"dt",dig=4)
   expect_equal(as.numeric(difftime(check$dt[2],check$dt[1],units="hours")),check$TIME[2])
