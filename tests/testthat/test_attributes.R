@@ -97,6 +97,19 @@ test_that("attr_factor correctly sets formats and leave othe attributes in tact"
   data5 <- attr_add(data,attrl3, verbose = FALSE)
   expect_message(attr_factor(data5),"More categories.*CMT")
   expect_message(attr_factor(data5),"More formats.*CNTRY")
+
+  data6 <- data.frame(CAT=c(rep(0,1),rep(1,3),rep(2,8)), CATC = c(rep("A",1),rep("B",8),rep("C",3)),
+                      RESULT=rnorm(12) )
+  attr(data6$CAT,'format')   <- c('1' = 'CAT2', '0' = 'CAT1', '2'='CAT3')
+  attr(data6$CATC,'format')  <- c('A' = 'CATA', 'B' = 'CATB', 'C'='CATC')
+  data7 <- attr_factor(data6)
+  expect_equal(levels(data7$CAT),unname(attr(data6$CAT,'format')))
+  data8 <- attr_factor(data6, largestfirst = TRUE)
+  expect_equal(levels(data8$CAT)[1], "CAT3")
+  expect_equal(levels(data8$CATC)[1], "CATB")
+  data9 <- attr_factor(data6, largestfirst = "CATC")
+  expect_equal(levels(data9$CAT),unname(attr(data6$CAT,'format')))
+  expect_equal(levels(data9$CATC)[1], "CATB")
 })
 
 

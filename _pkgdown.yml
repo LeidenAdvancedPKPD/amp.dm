@@ -20,3 +20,74 @@ code:
 navbar:
   type: light
   bg: primary
+
+reference:
+
+- title: Data I/O
+  desc: Reading and writing of data
+- subtitle: Data input
+  contents:
+  - read_data
+- subtitle: Data output
+  contents:
+  - output_data
+- subtitle: Other
+  contents:
+  - make_readonly
+  
+- title: Data manipulation
+  desc: General data manipulations, calculation of new variables, etc.
+- subtitle: wrapper dplyr functions
+  contents:
+  - left_joinr
+  - filterr
+- subtitle: NONMEM specific functions
+  contents:
+  - time_calc
+- subtitle: Dosing functions
+  contents:
+  - create_addl
+  - expand_addl_ii
+  - fill_dates
+  - impute_dose
+- subtitle: Covariate functions
+  contents:
+  - egfr
+  - weight_height
+  
+- title: Meta data
+  desc: Handle meta data (data attributes)
+  contents:
+  - attr_add
+  - attr_extract
+  - attr_factor
+  - attr_xls
+
+- title: Documentation
+  desc: Documentation of the data management process
+- subtitle: Scripting functions
+  contents:
+  - cmnt
+  - cmnt_print
+  - get_log
+  - filterr
+  - left_joinr
+  - srce
+- subtitle: Tables and data frames
+  contents:
+  - general_tbl
+  - counts_df
+  - stats_df
+  - contents_df
+  - define_tbl
+  - log_df
+  - check_nmdata
+  - session_tbl
+- subtitle: Other
+  contents:
+  - plot_vars
+
+- title: Misceleneous
+  desc: Helper functions worth to mention
+  contents:
+  - get_script
