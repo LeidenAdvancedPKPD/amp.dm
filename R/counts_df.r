@@ -52,7 +52,8 @@ counts_df <- function(data, by, id=NULL, style=1, ret="tbl", capt="Information m
   
   # Apply style and report output
   if(style==2){
-    obs <- obs |> dplyr::mutate(Obs=paste0(.data$Nobs," (",signif(.data$PERCobs,3),"%)")) |> dplyr::select(-c(.data$Nobs,.data$PERCobs))
+    #obs <- obs |> dplyr::mutate(Obs=paste0(.data$Nobs," (",signif(.data$PERCobs,3),"%)")) |> dplyr::select(-c(.data$Nobs,.data$PERCobs))
+    obs <- obs |> dplyr::mutate(Obs=paste0(.data$Nobs," (",signif(.data$PERCobs,3),"%)")) |> dplyr::select(-c("Nobs","PERCobs"))
     if(!is.null(id)) obs <- obs |> dplyr::mutate(Ids=paste0(Nid," (",signif(PERCid,3),"%)")) |> dplyr::select(-c(Nid,PERCid))
   }
   general_tbl(obs, capt=capt, align=align, ret=ret,size=size, ...)

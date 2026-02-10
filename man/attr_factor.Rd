@@ -4,12 +4,14 @@
 \alias{attr_factor}
 \title{Create factors for variables within a data frame using the format attribute}
 \usage{
-attr_factor(data, verbose = TRUE)
+attr_factor(data, verbose = TRUE, largestfirst = FALSE)
 }
 \arguments{
 \item{data}{the data.frame for which factors should be created}
 
 \item{verbose}{a logical indicating if datachecks should be printed to console}
+
+\item{largestfirst}{either a logical or a character vector indicating if the largest group should be the first level (see details)}
 }
 \value{
 data frame with the formats assigned
@@ -22,8 +24,11 @@ that variable. The resulting variable will be a factor useful for plotting and r
 In order to make this function work the 'format' attribute should be present and should be available
 as a named vector (e.g. \code{attr(data$GENDER,'format')   <- c('0' = 'Male', '1' = 'Female')}). If the
 attribute is found it overwrites the variable with the format applied to it. Be aware that the original
-levels defined in the format could be lost. The \code{factor} function in R always sets the levels from 1 to n.
-This means that if a format does not start with 1 or skips categories the underlying levels may differ.
+levels defined in the format could be lost in this process.
+The 'largestfirst' argument could be set to a logical which indicates if a for all variables in the dataset, the
+largest group should be the first level. The argument could also be a character vector indicating for which of the variables
+in the dataset, the largest group should be the first level. In case you want to set a specific order, this can be done
+directly in the the format attribute, e.g. \code{attr(data$VAR,'format') <- c('2' = 'level 1', '1' = 'Level 2')}
 }
 \examples{
 

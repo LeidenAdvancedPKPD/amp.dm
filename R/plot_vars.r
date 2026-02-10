@@ -33,7 +33,8 @@ plot_vars <- function(dfrm, vars=names(dfrm), ppp=16,...){
       if(nrow(tb)>=10){
         tb$Var1 <- as.character(tb$Var1)
         tb$Var1[10:nrow(tb)] <-"oth."
-        tb <- dplyr::summarise(tb,count=sum(.data$Freq),.by = .data$Var1)
+        #tb <- dplyr::summarise(tb,count=sum(.data$Freq),.by = .data$Var1)
+        tb <- dplyr::summarise(tb,count=sum(.data$Freq),.by = "Var1")
         tb$Var1 <- factor(tb$Var1, levels=tb$Var1)
       }else{
         tb$Var1  <- factor(tb$Var1, levels=tb$Var1)

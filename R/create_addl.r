@@ -53,6 +53,7 @@ create_addl <- function(data, datetime, id, dose, tau, evid=NULL){
 
   if(!is.null(evid) && nrow(obs)!=0) data <- dplyr::bind_rows(data,cbind(obs,addlk=FALSE))
   data <- data |> dplyr::arrange(dplyr::across(dplyr::all_of(c(id,datetime)))) |>
-    dplyr::filter(!.data$addlk) |> dplyr::select(-c(.data$lagdt, .data$tdiff, .data$addlk, .data$CS, .data$RETN))
+    #dplyr::filter(!.data$addlk) |> dplyr::select(-c(.data$lagdt, .data$tdiff, .data$addlk, .data$CS, .data$RETN))
+    dplyr::filter(!.data$addlk) |> dplyr::select(-c("lagdt", "tdiff", "addlk", "CS", "RETN"))
   return(data)
 }

@@ -44,7 +44,8 @@ impute_dose <- function(data, id, datetime, amt="AMT", ii="II", thr = 50, back=T
                    dt    = as.POSIXct(ifelse(.data[[ii]]<24, as.POSIXct(paste(as.Date(.data$prevdt), .data$imptm), format = "%Y-%m-%d %H:%M:%S") + (.data[[ii]]*3600), .data$dt)),
                    ADDL  = round((.data$tdif - .data[[ii]]) / .data[[ii]]) - 1,
                    ADDL  = ifelse(.data$ADDL<0, 0, .data$ADDL)) |> 
-    dplyr::select(-c(.data$prevdt, .data$nextdt, .data$tdif, .data$percdif, .data$imptm))
+    #dplyr::select(-c(.data$prevdt, .data$nextdt, .data$tdif, .data$percdif, .data$imptm))
+    dplyr::select(-c("prevdt", "nextdt", "tdif", "percdif", "imptm"))
   
   ret  <- dplyr::bind_cols(data, type = "original") |> 
     dplyr::bind_rows(dplyr::bind_cols(imput,type = "additional")) |>  dplyr::arrange(dplyr::across(dplyr::all_of(c(id,datetime))))

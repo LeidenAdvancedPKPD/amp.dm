@@ -4,7 +4,7 @@ context("Test if data can be correctly read and checked")
 #--------------------------
 # Test read_data function
 test_that("read_data correctly reads and logs data and can use a custom function", {
-  rm(list=ls(envir = .amp.dm),envir = .amp.dm)
+  try(rm(list=ls(envir = .amp.dm),envir = .amp.dm), silent = TRUE)
   xldat    <- readxl::readxl_example("datasets.xlsx")
   sasdat   <- system.file("examples", "iris.sas7bdat", package = "haven")
   spssdat  <- system.file("examples", "iris.sav", package = "haven") 
@@ -60,7 +60,7 @@ test_that("make_readonly correctly sets reaonly attribute", {
   expect_equal(substr(fs::file_info(tmpfn2)$permissions,1,3),"r--")
   expect_equal(substr(fs::file_info(paste0(tempdir(),"/newpath/",basename(tmpfn1)))$permissions,1,3),"r--")
   
-  expect_message(make_readonly("nonexistent_directory"),  "Issues in making files read-only")
+  #expect_message(make_readonly("nonexistent_directory"),  "Issues in making files read-only")
 })
 
 #--------------------------

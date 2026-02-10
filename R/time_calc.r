@@ -46,9 +46,11 @@ time_calc <- function(data,datetime,evid=NULL,addl=NULL,ii=NULL,amt="AMT",id="ID
   
   out <- out |>  dplyr::arrange(dplyr::across(dplyr::all_of(c(id,datetime,"EVIDtmp")))) 
   fdl <- dplyr::filter(out, .data$EVIDtmp%in%c(1,4)) |> dplyr::distinct(dplyr::across(dplyr::all_of(id)), .keep_all = TRUE) |> 
-    dplyr::select(.data[[id]],.data[[datetime]]) |> dplyr::rename("firstDS"=datetime)
+    #dplyr::select(.data[[id]],.data[[datetime]]) |> dplyr::rename("firstDS"=datetime)
+    dplyr::select(dplyr::all_of(c(id,datetime))) |> dplyr::rename("firstDS"=dplyr::all_of(datetime))
   frc <- out |> dplyr::distinct(dplyr::across(dplyr::all_of(id)), .keep_all = TRUE) |> 
-    dplyr::select(.data[[id]],.data[[datetime]]) |> dplyr::rename("firstRC"=datetime)
+    #dplyr::select(.data[[id]],.data[[datetime]]) |> dplyr::rename("firstRC"=datetime)
+    dplyr::select(dplyr::all_of(c(id,datetime))) |> dplyr::rename("firstRC"=dplyr::all_of(datetime))
   
   
   out <- out |> dplyr::left_join(fdl, by = id) |> dplyr::left_join(frc, by = id) |> 
@@ -71,7 +73,8 @@ time_calc <- function(data,datetime,evid=NULL,addl=NULL,ii=NULL,amt="AMT",id="ID
       # Correct for negative times due to TALD records
       TALD    = ifelse(is.na(.data$TIMEND) & !.data$EVIDtmp %in% c(1, 4) & is.na(.data$TALD),
                        round(as.numeric(difftime(.data[[datetime]], .data$firstDS, units = "hours")), dig), .data$TALD)
-    ) |> dplyr::select(-c(.data$EVIDtmp, .data$ADDLtmp, .data$IItmp, .data$TIMEND, .data$firstDS, .data$firstRC, .data$lastDS, .data$ADDLF, .data$IIF)) |> 
+    #) |> dplyr::select(-c(.data$EVIDtmp, .data$ADDLtmp, .data$IItmp, .data$TIMEND, .data$firstDS, .data$firstRC, .data$lastDS, .data$ADDLF, .data$IIF)) |> 
+    ) |> dplyr::select(-c("EVIDtmp", "ADDLtmp", "IItmp", "TIMEND", "firstDS", "firstRC", "lastDS", "ADDLF", "IIF")) |> 
     dplyr::ungroup()
   
   return(out)

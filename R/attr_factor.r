@@ -39,7 +39,7 @@ attr_factor <- function(data, verbose = TRUE, largestfirst = FALSE){
       if(is.numeric(data[,i])) lvl <- as.numeric(names(attr(data[,i],'format'))) else lvl <- names(attr(data[,i],'format'))
 
       if((is.logical(largestfirst) && isTRUE(largestfirst)) || (!is.logical(largestfirst) && i%in%largestfirst)) {
-        largest <- table(data[,i]) |> sort() |> tail(1) |> names() 
+        largest <- table(data[,i]) |> sort() |> utils::tail(1) |> names() 
         if(is.numeric(data[,i])) largest <- as.numeric(largest)
         lvl     <- c(largest, lvl[lvl!=largest])
       }

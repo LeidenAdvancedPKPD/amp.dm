@@ -32,7 +32,8 @@ expand_addl_ii <- function(data, evid=NULL, del_iiaddl=TRUE){
   data  <- as.data.frame(lapply(data, rep, data$ADDL+1)) |>
     dplyr::mutate(TIME = .data$TIME+(.data$II* (cntr -1)))
   if(!is.null(evid) && nrow(obs)!=0) data <- rbind(data, obs) 
-  if(del_iiaddl) data <- dplyr::select(data, -c(.data$ADDL,.data$II))
+  #if(del_iiaddl) data <- dplyr::select(data, -c(.data$ADDL,.data$II))
+  if(del_iiaddl) data <- dplyr::select(data, -c("ADDL","II"))
   data <- dplyr::arrange(data, .data$ID, .data$TIME)
   return(data)
 }

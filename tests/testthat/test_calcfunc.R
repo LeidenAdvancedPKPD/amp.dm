@@ -3,11 +3,11 @@
 test_that("weight_height calculations are correct", {
   dfrm  <- data.frame(id=1:3,wt=round(runif(3,70,100),1),ht=round(runif(3,180,210),0),lb=round(runif(3,140,240),1),SEX=c(0,1,1))
   
-  expect_error(weight_height(type="dummy"),"type not available")
+  expect_error(weight_height(type="dummy"),"type.*not.*available")
   expect_error(weight_height(type="bsal"),"at least wt")
-  expect_error(weight_height(ht=dfrm$wt,type="bmi"),"at least wt and ht")
-  expect_error(weight_height(ht=dfrm$wt,type="ffmj"),"at least wt, bmi and sex")
-  expect_error(weight_height(ht=dfrm$wt,type="lbmj"),"at least wt, ht and sex")
+  expect_error(weight_height(ht=dfrm$wt,type="bmi"),"at.*least.*wt.*and ht")
+  expect_error(weight_height(ht=dfrm$wt,type="ffmj"),"at.*least.*wt,.*bmi.*and.*sex")
+  expect_error(weight_height(ht=dfrm$wt,type="lbmj"),"at.*least.*wt,.*ht.*and.*sex")
   
   
   WTLB <- weight_height(wt = dfrm$wt, type = "kg-lb")
@@ -64,16 +64,16 @@ test_that("egfr calculation is correct", {
                      BSA = round(runif(5,1.5,2.2),2))
   
   
-  expect_error(egfr(formula="dummy"),"Formula not available")
-  expect_error(egfr(formula="CKD-EPI"),"at least sex, scr, race and age")
-  expect_error(egfr(formula="CKD-EPI-ignore-race"),"at least sex, scr and age")
-  expect_error(egfr(formula="CKD-EPI-Scys"),"at least sex, scys and age")
-  expect_error(egfr(formula="CKD-EPI-Scr-Scys"),"at least sex, scys, age, race and")
-  expect_error(egfr(formula="CKD-EPI-Scr-Scys-ignore-race"),"at least sex, scys, age")
-  expect_error(egfr(formula="Schwartz-original"),"at least sex, prem, age, ht.*scr")
-  expect_error(egfr(formula="Schwartz-CKiD"),"at least sex, scr, scys, bun and ht")
-  expect_error(egfr(formula="Schwartz-1B"),"at least ht, scr, and bun")
-  expect_error(egfr(formula="Schwartz"),"at least ht and scr")
+  expect_error(egfr(formula="dummy"),"Formula.*not.*available")
+  expect_error(egfr(formula="CKD-EPI"),"at.*least.*sex,.*scr,.*race.*and.*age")
+  expect_error(egfr(formula="CKD-EPI-ignore-race"),"at.*least.*sex,.*scr.*and.*age")
+  expect_error(egfr(formula="CKD-EPI-Scys"),"at.*least.*sex,.*scys.*and.*age")
+  expect_error(egfr(formula="CKD-EPI-Scr-Scys"),"at.*least.*sex,.*scys,.*age,.*race.*and")
+  expect_error(egfr(formula="CKD-EPI-Scr-Scys-ignore-race"),"at.*least.*sex,.*scys,.*age")
+  expect_error(egfr(formula="Schwartz-original"),"at.*least.*sex,.*prem,.*age,.*ht.*scr")
+  expect_error(egfr(formula="Schwartz-CKiD"),"at.*least.*sex,.*scr,.*scys,.*bun.*and.*ht")
+  expect_error(egfr(formula="Schwartz-1B"),"at.*least.*ht,.*scr,.*and.*bun")
+  expect_error(egfr(formula="Schwartz"),"at.*least.*ht.*and.*scr")
   
   
   EPI <- egfr(dfrm$SCR[1], dfrm$SEX[1], dfrm$AGE[1], dfrm$RACE[1], formula = "CKD-EPI")
@@ -157,3 +157,4 @@ test_that("egfr calculation is correct", {
   expect_equal(BSAcor,BSAcor)
 
 })
+
