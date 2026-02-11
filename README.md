@@ -1,3 +1,7 @@
+<!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/LeidenAdvancedPKPD/amp.dm/graph/badge.svg)](https://app.codecov.io/gh/LeidenAdvancedPKPD/amp.dm)
+<!-- badges: end -->
+
 # Introduction <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 The aim of this package is to ease the process of creating datasets mainly for pharmacometric analyses. 
