@@ -19,9 +19,9 @@ This function creates a flag identifying the outliers in a vector
 }
 \examples{
 
-dat <- data.frame(a = 1:10, b = c(1:9,50))
-flag_outliers(dat$a)
-flag_outliers(dat$b)
+dfrm <- data.frame(a = 1:10, b = c(1:9,50))
+flag_outliers(dfrm$a)
+flag_outliers(dfrm$b)
 }
 \author{
 Richard Hooijmaijers

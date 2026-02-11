@@ -22,10 +22,10 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' tmp <- data.frame(GENDER=rep(c(0,1),4),RESULT=rnorm(8))
-#' attr(tmp$GENDER,'format')   <- c('0' = 'Male', '1' = 'Female')
-#' tmp <- attr_factor(tmp)
-#' str(tmp$GENDER)
+#' dfrm <- data.frame(GENDER=rep(c(0,1),4),RESULT=rnorm(8))
+#' attr(dfrm$GENDER,'format')   <- c('0' = 'Male', '1' = 'Female')
+#' dfrm <- attr_factor(dfrm)
+#' str(dfrm$GENDER)
 attr_factor <- function(data, verbose = TRUE, largestfirst = FALSE){
   data <- as.data.frame(data)
   for(i in names(data)){

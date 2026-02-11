@@ -25,11 +25,11 @@
 #' @author Richard Hooijmaijers
 #' @examples 
 #' 
-#' data1   <- data.frame(cat1 = c(rep(1:5,10),-999), 
-#'                       cat2 = c(rep(letters[1:5],10),-999))
-#' check_cat(data1$cat1)
-#' check_cat(data1$cat2, detail=1)                       
-#' check_cat(data1$cat1,detail=2,threshold = c(NA,0.1))
+#' dfrm   <- data.frame(cat1 = c(rep(1:5,10),-999), 
+#'                      cat2 = c(rep(letters[1:5],10),-999))
+#' check_cat(dfrm$cat1)
+#' check_cat(dfrm$cat2, detail=1)                       
+#' check_cat(dfrm$cat1,detail=2,threshold = c(NA,0.1))
 check_cat <- function(x, missing=c(-999,NA), detail=5, threshold=c(NA,NA)){
   ft          <- table(x, useNA = "ifany")
   ftp         <- prop.table(ft)

@@ -23,6 +23,7 @@ Imports:
   rlang,
   dplyr,
   vctrs,
+  forcats,
   readxl,
   haven,
   fs,

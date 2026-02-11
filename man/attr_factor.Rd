@@ -32,10 +32,10 @@ directly in the the format attribute, e.g. \code{attr(data$VAR,'format') <- c('2
 }
 \examples{
 
-tmp <- data.frame(GENDER=rep(c(0,1),4),RESULT=rnorm(8))
-attr(tmp$GENDER,'format')   <- c('0' = 'Male', '1' = 'Female')
-tmp <- attr_factor(tmp)
-str(tmp$GENDER)
+dfrm <- data.frame(GENDER=rep(c(0,1),4),RESULT=rnorm(8))
+attr(dfrm$GENDER,'format')   <- c('0' = 'Male', '1' = 'Female')
+dfrm <- attr_factor(dfrm)
+str(dfrm$GENDER)
 }
 \seealso{
 \link{factor}, \link{attr_add}, \link{attr_xls}

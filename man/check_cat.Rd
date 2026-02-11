@@ -11,7 +11,7 @@ check_cat(x, missing = c(-999, NA), detail = 5, threshold = c(NA, NA))
 
 \item{missing}{vector with the values that present missing information}
 
-\item{detail}{numeric witht he level of detail to print (see below for details)}
+\item{detail}{numeric with he level of detail to print (see below for details)}
 
 \item{threshold}{numeric vector with the threshold numbers and proportions (see details)}
 }
@@ -37,11 +37,11 @@ This can be convenient to decide whether or not a category should be used during
 }
 \examples{
 
-data1   <- data.frame(cat1 = c(rep(1:5,10),-999), 
-                      cat2 = c(rep(letters[1:5],10),-999))
-check_cat(data1$cat1)
-check_cat(data1$cat2, detail=1)                       
-check_cat(data1$cat1,detail=2,threshold = c(NA,0.1))
+dfrm   <- data.frame(cat1 = c(rep(1:5,10),-999), 
+                     cat2 = c(rep(letters[1:5],10),-999))
+check_cat(dfrm$cat1)
+check_cat(dfrm$cat2, detail=1)                       
+check_cat(dfrm$cat1,detail=2,threshold = c(NA,0.1))
 }
 \author{
 Richard Hooijmaijers

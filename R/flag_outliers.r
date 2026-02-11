@@ -11,9 +11,9 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' dat <- data.frame(a = 1:10, b = c(1:9,50))
-#' flag_outliers(dat$a)
-#' flag_outliers(dat$b)
+#' dfrm <- data.frame(a = 1:10, b = c(1:9,50))
+#' flag_outliers(dfrm$a)
+#' flag_outliers(dfrm$b)
 flag_outliers <- function(var,type="boxstat"){
   if(!is.numeric(var)) cli::cli_abort("Variable should be numeric")
   if(type=="boxstat"){
