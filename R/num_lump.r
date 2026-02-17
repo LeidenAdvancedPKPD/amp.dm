@@ -32,7 +32,7 @@ num_lump <- function(x, lumpcat=99, uniques=NULL, prop=NULL, min=NULL,...){
   if(is.numeric(lumpcat) && is.null(names(lumpcat))){ # set category to specific number
     oth_lev <- as.character(lumpcat)
   }else if(length(lumpcat)==1 && lumpcat=="largest"){ # set category to largest category
-    oth_lev <- forcats::fct_count(as.character(uret), TRUE) |> head(1) |> _$f |> as.character()
+    oth_lev <- forcats::fct_count(as.character(uret), TRUE) |> utils::head(1) |> _$f |> as.character()
   }else if(!any(is.na(names(lumpcat)))){             # set custom category 
     oth_lev <- "num_lump_temp"
   }

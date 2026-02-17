@@ -13,7 +13,7 @@ impute_covar(var, uniques = NULL, type = "median", verbose = FALSE)
 
 \item{type}{character of length one defining the type of statistics to perform for imputation (see details)}
 
-\item{vernose}{logical indicating if additional information should be given}
+\item{verbose}{logical indicating if additional information should be given}
 }
 \value{
 a vector where missing values are imputed
@@ -28,8 +28,8 @@ to 'largest' in which case the category that occurs most is used. In case multip
 is used.
 }
 \examples{
-dfrm  - data.frame(num1 = c(NA,110))
-impute_covar(dfrm$num1,type=median)
+dfrm  <- data.frame(num1 = c(NA,110))
+impute_covar(dfrm$num1,type="median")
 }
 \author{
 Richard Hooijmaijers

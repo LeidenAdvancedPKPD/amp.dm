@@ -54,6 +54,9 @@ reference:
   contents:
   - egfr
   - weight_height
+  - impute_covar
+  - num_lump
+  - flag_outliers
   
 - title: Meta data
   desc: Handle meta data (data attributes)
@@ -91,3 +94,4 @@ reference:
   desc: Helper functions worth to mention
   contents:
   - get_script
+  - check_cat
