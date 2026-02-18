@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{srce}
 \alias{srce}
-\title{Add source information to environment to present in documention}
+\title{Add source information to environment to present in documentation}
 \usage{
 srce(var, source, type = "c")
 }
@@ -19,7 +19,7 @@ no return value, called for side effects
 \description{
 Adds the source of variables into package environment,
 which can be used in code chunks at the applicable locations and easily added to
-documention afterwards
+documentation afterwards
 }
 \examples{
   # variable AMT copied from Dose variable in Theoph data frame

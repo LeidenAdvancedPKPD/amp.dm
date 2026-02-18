@@ -7,7 +7,7 @@
 expand_addl_ii(data, evid = NULL, del_iiaddl = TRUE)
 }
 \arguments{
-\item{data}{data frame to perform the expantion on}
+\item{data}{data frame to perform the expansion on}
 
 \item{evid}{character identifying the event ID (EVID) within the data frame
 This is used to distinguish observations from dosing records, e.g. 0 for observations}

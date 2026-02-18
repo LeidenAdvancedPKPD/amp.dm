@@ -37,7 +37,7 @@ of one or multiple data frames.
 This function can be used to create a table with the most important information of a data
 frame for documentation. The function will list the the number of records, subjects and variables
 of each data frame within dfv. This function is especially usable to indicate the differences between
-similar data frames or an overview of all data frames within a working environmnent
+similar data frames or an overview of all data frames within a working environment
 }
 \examples{
 

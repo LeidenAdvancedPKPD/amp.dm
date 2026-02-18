@@ -31,7 +31,7 @@ based on a given II value
 \details{
 The function fills in the doses by looking at the time difference and  II between all records.
 Be aware that this can result in unexpected results in a few cases, so results should always be handled with care.
-The function will determine if a dose should be imputed based on the 'thr' value. For each dose, the function detemines the percentage
+The function will determine if a dose should be imputed based on the 'thr' value. For each dose, the function determines the percentage
 difference from the previous dose based on the II value. In case this the expected difference is above the threshold value imputation will be done.
 }
 \examples{

@@ -23,7 +23,7 @@ get_log <- function() {
 }
 
 #------------------------------------------ cmnt ------------------------------------------
-#' Add comment to environment to present in documention
+#' Add comment to environment to present in documentation
 #'
 #' Adds a comment regarding assumptions and special attention into package environment,
 #' which can be used in code chunks and easily printed after a code chunk
@@ -58,11 +58,11 @@ cmnt <- function(string = "", bold = FALSE, verbose = TRUE){
 }
 
 #------------------------------------------ srce ------------------------------------------
-#' Add source information to environment to present in documention
+#' Add source information to environment to present in documentation
 #'
 #' Adds the source of variables into package environment,
 #' which can be used in code chunks at the applicable locations and easily added to 
-#' documention afterwards
+#' documentation afterwards
 #'
 #' @param var unquoted string with the variable for which the source should be defined
 #' @param source unquoted strings with the source(s) used for var (see example)

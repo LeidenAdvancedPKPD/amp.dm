@@ -4,7 +4,7 @@
 #' This function expands ADDL and II records. This is done by placing each ADDL record
 #' on a separate line. This is convenient in case of individual dose calculations
 #'
-#' @param data data frame to perform the expantion on
+#' @param data data frame to perform the expansion on
 #' @param evid character identifying the event ID (EVID) within the data frame
 #'  This is used to distinguish observations from dosing records, e.g. 0 for observations
 #' @param del_iiaddl logical identifying if the ADDL and II variables can be deleted from output

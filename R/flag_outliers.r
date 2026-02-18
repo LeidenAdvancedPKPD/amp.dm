@@ -7,7 +7,7 @@
 #' @param type  character with the type of test to perform for outliers (currently only the "boxstats" is available that uses the [boxplot] method)
 #' @keywords manipulation
 #' @export
-#' @return a numeric vector the same length as `var` with eiher 0 (no outlier) or 1 (outlier)
+#' @return a numeric vector the same length as `var` with either 0 (no outlier) or 1 (outlier)
 #' @author Richard Hooijmaijers
 #' @examples
 #'

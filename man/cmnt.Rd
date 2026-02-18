@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{cmnt}
 \alias{cmnt}
-\title{Add comment to environment to present in documention}
+\title{Add comment to environment to present in documentation}
 \usage{
 cmnt(string = "", bold = FALSE, verbose = TRUE)
 }

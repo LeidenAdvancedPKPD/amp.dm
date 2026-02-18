@@ -36,7 +36,7 @@ log_df(
 function creates a PDF file or returns a data frame
 }
 \description{
-This function creates a table including information on functins that log informations suchs as
+This function creates a table including information on functions that log information such as
 \code{filterr}, \code{left_joinr} and \code{read_data}
 }
 \details{

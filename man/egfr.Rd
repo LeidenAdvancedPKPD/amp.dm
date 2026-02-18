@@ -24,7 +24,7 @@ egfr(
 
 \item{age}{vector with AGE values in years}
 
-\item{race}{vector with RACE values (where cauacasion is defined as 1, black as  and Japanese as > 2)}
+\item{race}{vector with RACE values (where caucasian is defined as 1, black as  and Japanese as > 2)}
 
 \item{ht}{vector with HEIGHT values in cm}
 
@@ -36,7 +36,7 @@ egfr(
 
 \item{bsa}{vector with BSA values in m2 provide in case correction should be applied (see details)}
 
-\item{formula}{character with the formula to be used for the EGF calculations (see details)}
+\item{formula}{character with the formula to be used for the EGFR calculations (see details)}
 }
 \value{
 a vector with EGFR values
@@ -104,7 +104,7 @@ If Scr < 0.8 mg/dL, a value of 0.8 is used in the equation.
 \deqn{\textrm{eGFR} =  194 \cdot \textrm{Scr}^{-1.094} \cdot \textrm{Age}^{-0.287} \cdot 0.739 \textrm{ [if female]}}
 }
 
-For all of the calculation metods described above, the reported EGFR values are in the units "mL/minute/1.73m2". This means that the value is
+For all of the calculation methods described above, the reported EGFR values are in the units "mL/minute/1.73m2". This means that the value is
 referenced to a body surface area (BSA) value of 1.73m2. When a value is provided for BSA, the final outcome will be corrected for the BSA value
 and the units become "mL/minute". This is done by multiplying the eGFR (referenced to a BSA of 1.73m2) with the individual's
 BSA (it is the users responsibility to proved BSA values that are calculated using the appropriate formula) and divided by 1.73.

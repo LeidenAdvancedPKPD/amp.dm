@@ -29,7 +29,7 @@
 #'   also be read-in using a different function (e.g. using `data.table::fread`).
 #'   This flexibility is build in to ensure all possible data can be read in using this single function. This is mainly
 #'   important for documentation purposes, to ensure all used data can be logged and documented.
-#'   The data can be checked for valid ASCII characters using the "ascii_check" argument. By defualt this is done for
+#'   The data can be checked for valid ASCII characters using the "ascii_check" argument. By default this is done for
 #'   excel files with extension xls or xlsx (ascii_check="xls") other options are "none" to never perform a check 
 #'   or "all" to perform a check regardless of the way it is read in. The default is chosen as it is likely 
 #'   that excel files are created manually and could therefore include non ASCII characters, and because 

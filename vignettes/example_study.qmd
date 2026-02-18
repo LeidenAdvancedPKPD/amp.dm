@@ -37,7 +37,7 @@ This is an example of how datasets can be created using the `amp.dm` package. It
 
 ## Study Description
 
-This is an adaptation of the original Theophylline dataset where additional subjects, dose arms and covariates are added. With this data, source data is created that can be used to demonstrate how the pacakge works.
+This is an adaptation of the original Theophylline dataset where additional subjects, dose arms and covariates are added. With this data, source data is created that can be used to demonstrate how the package works.
 
 ## Dataset instructions
 
@@ -169,13 +169,13 @@ output_data(nmf, csv = paste0(tempdir(),"/",get_script(), ".csv"),
 
 # Dataset overview
 
-The tables in this section are useful for revieing and documenting the data management process. The following functions are used:
+The tables in this section are useful for reviewing and documenting the data management process. The following functions are used:
 
 - `define_tbl`; Uses the meta data or attributes to create a define table that can also be used for eSubmission
-- `stats_df`; Provide simple statistics of available data to spot for instnace outliers and missing data 
+- `stats_df`; Provide simple statistics of available data to spot for instance outliers and missing data 
 - `counts_df`; Provide counts for number of samples and subjects, stratified by variable(s)
 - `log_df`; Provide results from functions that log information such as `read_data`, `filterr` or `left_joinr`
-- `check_nmdata`; Provide checks for NONMEM data either essential or triggering futher investigation
+- `check_nmdata`; Provide checks for NONMEM data either essential or triggering further investigation
 - `session_tbl`; Provide information on the session that was used to run the code
 
 

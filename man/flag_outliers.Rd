@@ -12,7 +12,7 @@ flag_outliers(var, type = "boxstat")
 \item{type}{character with the type of test to perform for outliers (currently only the "boxstats" is available that uses the \link{boxplot} method)}
 }
 \value{
-a numeric vector the same length as \code{var} with eiher 0 (no outlier) or 1 (outlier)
+a numeric vector the same length as \code{var} with either 0 (no outlier) or 1 (outlier)
 }
 \description{
 This function creates a flag identifying the outliers in a vector

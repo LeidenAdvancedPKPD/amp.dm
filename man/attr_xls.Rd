@@ -9,7 +9,7 @@ attr_xls(xls, sepfor = "\\n", nosort = FALSE)
 \arguments{
 \item{xls}{character with the name of the excel file containing the attributes}
 
-\item{sepfor}{character of length 1 indicating what the seperator for formats should be}
+\item{sepfor}{character of length 1 indicating what the separator for formats should be}
 
 \item{nosort}{logical indicating if sorting of variables should be omitted (otherwise sorting of no. column in excel file is applied)}
 }

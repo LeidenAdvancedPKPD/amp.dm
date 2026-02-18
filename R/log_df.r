@@ -1,7 +1,7 @@
 #------------------------------------------ log_df ------------------------------------------
 #' Create information for all functions that log actions
 #'
-#' This function creates a table including information on functins that log informations suchs as
+#' This function creates a table including information on functions that log information such as
 #' `filterr`, `left_joinr` and `read_data` 
 #'
 #' @param log list with logged information typically obtained with [get_log]

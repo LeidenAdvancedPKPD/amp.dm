@@ -6,13 +6,13 @@
 #' @param scr vector with Serum creatinine values in mg/dL
 #' @param sex vector with SEX values (where female is defined as a value of 1)
 #' @param age vector with AGE values in years
-#' @param race vector with RACE values (where cauacasion is defined as 1, black as  and Japanese as > 2)
+#' @param race vector with RACE values (where caucasian is defined as 1, black as  and Japanese as > 2)
 #' @param ht vector with HEIGHT values in cm
 #' @param bun vector with Blood urea nitrogen in mg/dL
 #' @param scys vector with Serum cystatin C in mg/L
 #' @param prem vector with PREM (premature) values (where PREM is defined as value of 1)
 #' @param bsa vector with BSA values in m2 provide in case correction should be applied (see details)
-#' @param formula character with the formula to be used for the EGF calculations (see details)
+#' @param formula character with the formula to be used for the EGFR calculations (see details)
 #' @details Currently there are  different formulas available for calculations:
 #'
 #'  - "CKD-EPI": EGFR according to the Chronic Kidney Disease Epidemiology (CKD-EPI) study formula ([Levey](https://pmc.ncbi.nlm.nih.gov/articles/PMC2763564/)):
@@ -84,7 +84,7 @@
 #'  - "Matsuo-Japan", EGFR in Japanese adults, according to [Matsuo](https://pubmed.ncbi.nlm.nih.gov/19339088/):
 #'    \deqn{\textrm{eGFR} =  194 \cdot \textrm{Scr}^{-1.094} \cdot \textrm{Age}^{-0.287} \cdot 0.739 \textrm{ [if female]}}
 #'
-#'  For all of the calculation metods described above, the reported EGFR values are in the units "mL/minute/1.73m2". This means that the value is 
+#'  For all of the calculation methods described above, the reported EGFR values are in the units "mL/minute/1.73m2". This means that the value is 
 #'  referenced to a body surface area (BSA) value of 1.73m2. When a value is provided for BSA, the final outcome will be corrected for the BSA value
 #'  and the units become "mL/minute". This is done by multiplying the eGFR (referenced to a BSA of 1.73m2) with the individual's
 #'  BSA (it is the users responsibility to proved BSA values that are calculated using the appropriate formula) and divided by 1.73. 

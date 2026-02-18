@@ -49,9 +49,7 @@ This function exports data for NONMEM modeling analyses including
 options that are frequently necessary to adapt.
 }
 \details{
-For the csv and xpt file, the basename will be used. The pathname is taken from the dmfolder and anfolder
-arguments. This is currently implemented because the datafile is written to two locations as described in the quality
-management system. In case tonum is \code{TRUE}, all variables will be made numeric and \code{Inf} values will be
+In case tonum is \code{TRUE}, all variables will be made numeric and \code{Inf} values will be
 set to \code{NA} (all \code{NA} values will be set to a dot). The rounding set in \code{maxdig}
 will only be done in case tonum is set to TRUE. For xpt files, the name of the object to export is used as the name
 of the dataset inside the xpt file (e.g. \code{output_data(dfrm,xpt='dataset.xpt')} will result in an xpt file named

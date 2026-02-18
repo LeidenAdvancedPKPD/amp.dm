@@ -4,7 +4,7 @@
 #' This function reads in attributes available in an excel file and creates a structured list 
 #'
 #' @param xls character with the name of the excel file containing the attributes
-#' @param sepfor character of length 1 indicating what the seperator for formats should be 
+#' @param sepfor character of length 1 indicating what the separator for formats should be 
 #' @param nosort logical indicating if sorting of variables should be omitted (otherwise sorting of no. column in excel file is applied)
 #' @keywords documentation
 #' @export
