@@ -53,7 +53,7 @@ num_lump <- function(x, lumpcat=99, uniques=NULL, prop=NULL, min=NULL,...){
   
   if(oth_lev=="num_lump_temp"){
     tolump <- base::setdiff(forcats::fct_count(factor(uret))$f, forcats::fct_count(iret)$f)
-    if(!all(as.character(tolump)%in%names(lumpcat))) cli::cli_abort("You need to specify all aplicable lumping categories when done manual")
+    if(!all(as.character(tolump)%in%names(lumpcat))) cli::cli_abort("You need to specify all applicable lumping categories when done manual")
     chk     <- lumpcat[as.character(lumpcat)!=names(lumpcat)]
     if(any(as.character(chk)%in%names(chk))) cli::cli_alert_warning("Circular assignment in {.field lumpcat}, check for unexpected results")
     

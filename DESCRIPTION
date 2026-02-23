@@ -1,10 +1,10 @@
 Package: amp.dm
-Title: data management tools for pharmacometrics
+Title: Data Management Tools for Pharmacometrics
 Version: 0.2.0
 Authors@R: c(person("Richard", "Hooijmaijers", email = "richardhooijmaijers@gmail.com", role = c("aut", "cre","cph")),
              person("LAPP Consultants",email = "info@lapp.nl", role=c("fnd","cph")))
 Description: Tools and functions to efficiently create datasets used in pharmacometric analysis.
-  Additional functionality is added to create documention and prepare files for submission and QC purposes. 
+  Additional functionality is added to create documentation and prepare files for submission and QC purposes. 
 Depends:
   R (>= 4.1.0)
 License: MIT + file LICENSE
