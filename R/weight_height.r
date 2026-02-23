@@ -38,7 +38,7 @@
 #'
 #'  - "ffmj": Fat free mass, according to [Janmahasatian](https://pubmed.ncbi.nlm.nih.gov/16176118/): 
 #'    \deqn{\textrm{FFM}=\frac{9270 \cdot \textrm{Weight (kg)}}{k +\left(l \cdot  \textrm{BMI}\right)}}, where \eqn{k} is 6680 for males and 8780 for females and \eqn{l} is 216 for males and 244 for females.
-#'  - "ffms": Fat free mass in Indian patients, according to [Sinha](http://10.10.128.5/articles/pdf/sinha2020.pdf): 
+#'  - "ffms": Fat free mass in Indian patients, according to [Sinha](https://pubmed.ncbi.nlm.nih.gov/32201910/): 
 #'    \deqn{\textrm{FFM}=\frac{9270 \cdot \textrm{Weight (kg)}}{k \cdot  l \cdot \textrm{BMI}^{0.28}}}, where \eqn{k} is 6680 for males and 8780 for females and \eqn{l} is 0.77 for males and 0.70 for females.
 #'
 #' ## Lean body mass
