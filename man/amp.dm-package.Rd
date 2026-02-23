@@ -4,11 +4,11 @@
 \name{amp.dm-package}
 \alias{amp.dm}
 \alias{amp.dm-package}
-\title{amp.dm: data management tools for pharmacometrics}
+\title{amp.dm: Data Management Tools for Pharmacometrics}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Tools and functions to efficiently create datasets used in pharmacometric analysis. Additional functionality is added to create documention and prepare files for submission and QC purposes.
+Tools and functions to efficiently create datasets used in pharmacometric analysis. Additional functionality is added to create documentation and prepare files for submission and QC purposes.
 }
 \seealso{
 Useful links:

@@ -45,7 +45,7 @@ See below for the 3 main functions that are available
 library(dplyr)
 library(amp.dm)
 
-xmpl <- system.file("examples/NM.theoph.V1.csv",package="DMTools")
+xmpl <- system.file("example/NM.theoph.V1.csv",package="amp.dm")
 
 # The read data function can read most common formats, for less common formats
 # a manual function can passed to enable documenting the process
