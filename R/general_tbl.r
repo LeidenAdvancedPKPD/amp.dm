@@ -8,6 +8,10 @@
 #' @param capt character with the caption of the table 
 #' @param align alignment of the table passed to [R3port::ltx_list] or [xtable::print.xtable] (see details below)
 #' @param outnm character with the name of the tex file to generate and compile, e.g. "define.tex" (only applicable in case file is returned) 
+#' @param tabenv character with the tabular environment passed to [xtable::print.xtable]
+#' @param float logical defining float passed to [xtable::print.xtable]
+#' @param hlineafter a vector indicating the rows after which a horizontal line should appear passed to [xtable::print.xtable]
+#' @param addtorow A list containing the position of rows and commands passed to [xtable::print.xtable]
 #' @param ... additional arguments passed to either [R3port::ltx_list] or [xtable::print.xtable] depending on what is returned
 #' @details This function is a general function to create a xtable suitable for documentation, or directly creates an compiles a 
 #'  latex file using the `R3port` package. The align argument can be used to change the column widths of a table to be able to fit a table
@@ -21,15 +25,16 @@
 #' @examples
 #'
 #' general_tbl(Theoph)
-general_tbl <- function(data, ret="tbl", capt="General table", align=NULL, outnm=NULL, ...){
+general_tbl <- function(data, ret="tbl", capt="General table", align=NULL, outnm=NULL, tabenv = "longtable", float = FALSE, hlineafter = NULL, 
+                        addtorow = list(pos=list(-1,0),command=c("\\toprule ","\\midrule\\endhead ")), ...){
   if(ret=="dfrm"){
     return(data)
   }else if(ret=="tbl"){
     # Notice that we need to paste "l" with align (by default it assumes row names are include and is used for alignment)
     algn <- if(is.null(align)) NULL else paste0("l",align)
     xtable::print.xtable(xtable::xtable(data, caption=capt, align=algn), caption.placement="top", comment=FALSE,
-                         tabular.environment = "longtable", floating=FALSE, include.rownames=FALSE, hline.after=NULL,
-                         add.to.row = list(pos=list(-1,0),command=c("\\toprule ","\\midrule\\endhead ")),...)
+                         tabular.environment = tabenv, floating=float, include.rownames=FALSE, hline.after=hlineafter,
+                         add.to.row = addtorow,...)
   }else if(ret=="file"){
     # Notice here we escape latex characters and set convchar to FALSE
     data[]  <- apply(data,2,function(x) gsub('([#$%&_\\^\\\\{}])', '\\\\\\1', as.character(x), perl = TRUE))
