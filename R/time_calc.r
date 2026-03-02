@@ -68,6 +68,7 @@ time_calc <- function(data,datetime,evid=NULL,addl=NULL,ii=NULL,amt="AMT",id="ID
       TALD    = round(as.numeric(difftime(.data[[datetime]], .data$lastDS + (.data$ADDLF * .data$IIF * 3600), units = "hours")), dig),
       # Set TALD to NA for non-obs records
       TALD    = ifelse(.data$EVIDtmp %in% c(1, 4), NA, .data$TALD),
+      TAFD    = ifelse(.data$EVIDtmp %in% c(1, 4) & .data$TAFD==0, NA, .data$TAFD),
       # Correct for negative times due to TALD records
       TALD    = ifelse(.data$TALD < 0, round(.data$TALD %% .data$IIF , dig), .data$TALD),
       # Correct for negative times due to TALD records
