@@ -20,19 +20,17 @@
 expand_addl_ii <- function(data, evid=NULL, del_iiaddl=TRUE){
 
   notdat   <- c("ID","TIME","ADDL","II")[!c("ID","TIME","ADDL","II")%in%names(data)]
-  if(length(notdat) > 0) cli::cli_abort("Required variable{?s} {.var {notdat}} not present in data")
-  if(!is.null(evid)){
-    if(!evid%in%names(data)) cli::cli_abort("{.var {evid}} not present in data")
-    obs    <- dplyr::filter(data,.data[[evid]]==0)
-    data   <- dplyr::filter(data,.data[[evid]]!=0)
-  }
+  if(length(notdat) > 0)    cli::cli_abort("Required variable{?s} {.var {notdat}} not present in data")
+  if(is.null(evid))         cli::cli_abort("Required variable {.var evid} not present in data")
+  if(!evid%in%names(data))  cli::cli_abort("{.var {evid}} not present in data")
+  obs    <- dplyr::filter(data,.data[[evid]]==0)
+  data   <- dplyr::filter(data,.data[[evid]]!=0)
   
   data  <- data |> dplyr::mutate(ADDL = ifelse(is.na(.data$ADDL), 0, .data$ADDL))
   cntr  <- unlist(lapply(data$ADDL+1,seq_len))
   data  <- as.data.frame(lapply(data, rep, data$ADDL+1)) |>
     dplyr::mutate(TIME = .data$TIME+(.data$II* (cntr -1)))
   if(!is.null(evid) && nrow(obs)!=0) data <- rbind(data, obs) 
-  #if(del_iiaddl) data <- dplyr::select(data, -c(.data$ADDL,.data$II))
   if(del_iiaddl) data <- dplyr::select(data, -c("ADDL","II"))
   data <- dplyr::arrange(data, .data$ID, .data$TIME)
   return(data)
