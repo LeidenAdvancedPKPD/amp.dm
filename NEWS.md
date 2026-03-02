@@ -8,6 +8,7 @@
 - Added function `impute_covar` to impute covariates
 - Added function `num_lump` to perform lumping of variables
 - Added support in  `general_tbl` to pass arguments to xtable (#3)
+- fixed bug for counting (#8)
 
 # amp.dm 0.1.0
 

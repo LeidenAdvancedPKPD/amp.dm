@@ -30,7 +30,7 @@ attr_xls <- function(xls,sepfor="\n",nosort=FALSE){
   names(attrf) <- tolower(names(attrf))
   if(!all(c("no.", "variable", "label", "format", "remark")%in%names(attrf))) cli::cli_abort("Not all essential variables present")
   attrf        <- attrf[!is.na(attrf$variable),]
-  if(any(duplicated(attrf$variable)))  cli::cli_abort("Duplicate variables found in excel file, please check before continueing")
+  if(any(duplicated(attrf$variable)))  cli::cli_abort("Duplicate variables found in excel file, please check before continuing")
   if(!nosort) attrf <- attrf[order(attrf$no.),]
   
   # Create a list with attributes 

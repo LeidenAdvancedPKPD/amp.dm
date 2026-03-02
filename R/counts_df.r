@@ -45,7 +45,7 @@ counts_df <- function(data, by, id=NULL, style=1, ret="tbl", capt="Information m
   
   # Apply counts per id if applicable
   if(!is.null(id)){
-    ids <- suppressMessages(inner_count(dplyr::distinct(data,dplyr::across(dplyr::all_of(id)),.keep_all = TRUE))) |> 
+    ids <- suppressMessages(inner_count(dplyr::distinct(data,dplyr::across(dplyr::all_of(c(id, by))),.keep_all = TRUE))) |> 
       dplyr::rename(dplyr::all_of(c(Nid = 'Nobs', PERCid='PERCobs')))
     obs <- suppressMessages(dplyr::left_join(obs,ids))
   }
