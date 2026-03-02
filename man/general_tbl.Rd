@@ -10,6 +10,11 @@ general_tbl(
   capt = "General table",
   align = NULL,
   outnm = NULL,
+  tabenv = "longtable",
+  float = FALSE,
+  hlineafter = NULL,
+  addtorow = list(pos = list(-1, 0), command = c("\\\\toprule ",
+    "\\\\midrule\\\\endhead ")),
   ...
 )
 }
@@ -23,6 +28,14 @@ general_tbl(
 \item{align}{alignment of the table passed to \link[R3port:ltx_list]{R3port::ltx_list} or \link[xtable:print.xtable]{xtable::print.xtable} (see details below)}
 
 \item{outnm}{character with the name of the tex file to generate and compile, e.g. "define.tex" (only applicable in case file is returned)}
+
+\item{tabenv}{character with the tabular environment passed to \link[xtable:print.xtable]{xtable::print.xtable}}
+
+\item{float}{logical defining float passed to \link[xtable:print.xtable]{xtable::print.xtable}}
+
+\item{hlineafter}{a vector indicating the rows after which a horizontal line should appear passed to \link[xtable:print.xtable]{xtable::print.xtable}}
+
+\item{addtorow}{A list containing the position of rows and commands passed to \link[xtable:print.xtable]{xtable::print.xtable}}
 
 \item{...}{additional arguments passed to either \link[R3port:ltx_list]{R3port::ltx_list} or \link[xtable:print.xtable]{xtable::print.xtable} depending on what is returned}
 }

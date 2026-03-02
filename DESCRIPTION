@@ -6,7 +6,7 @@ Authors@R: c(person("Richard", "Hooijmaijers", email = "richardhooijmaijers@gmai
 Description: Tools and functions to efficiently create datasets used in pharmacometric analysis.
   Additional functionality is added to create documentation and prepare files for submission and QC purposes. 
 Depends:
-  R (>= 4.1.0)
+  R (>= 4.3.0)
 License: MIT + file LICENSE
 URL: https://leidenadvancedpkpd.github.io/amp.dm/, https://github.com/LeidenAdvancedPKPD/amp.dm
 BugReports: https://github.com/LeidenAdvancedPKPD/amp.dm/issues

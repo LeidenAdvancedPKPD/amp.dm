@@ -41,16 +41,18 @@ test_that("create_addl creates the valid number of ADDL and II records", {
 #--------------------------
 # Test expand_addl_ii function
 test_that("expand_addl_ii puts each ADDL record correctly on a separate line", {
-  dfrm  <- data.frame(ID=c(1,1,2), TIME=c(0,12,0),II=c(12,0,8),ADDL=c(8,0,2),AMT=c(10,0,30))
-  dfrm2 <- expand_addl_ii(dfrm)
+  dfrm  <- data.frame(ID=c(1,1,2), TIME=c(0,12,0),II=c(12,0,8),ADDL=c(8,0,2),AMT=c(10,0,30), EVID=c(1,0,1))
+  expect_error(expand_addl_ii(dfrm),"Required.*variable.*not.*present")
+  
+  dfrm2 <- expand_addl_ii(dfrm, evid="EVID")
   expect_equal(nrow(dfrm2[dfrm2$AMT==10,]),9)
   expect_equal(dfrm2$TIME[dfrm2$ID==1 & dfrm2$AMT==10],seq(0,96,12))
   expect_equal(nrow(dfrm2[dfrm2$ID==1 & dfrm2$AMT==0,]),1)
   expect_equal(nrow(dfrm2[dfrm2$ID==2,]),3)
   expect_equal(dfrm2$TIME[dfrm2$ID==2],c(0,8,16))
    
-  dfrm  <- data.frame(ID=c(1,1,2), TIME=c(0,12,0),II=c(12,2,8),ADDL=c(8,2,2),AMT=c(10,0,30))
-  dfrm2 <- expand_addl_ii(dfrm)
+  dfrm  <- data.frame(ID=c(1,1,2), TIME=c(0,12,0),II=c(12,2,8),ADDL=c(8,2,2),AMT=c(10,0,30), EVID=1)
+  dfrm2 <- expand_addl_ii(dfrm, evid="EVID")
   expect_equal(dfrm2$TIME[dfrm2$ID==1 & dfrm2$AMT==10],seq(0,96,12))
   expect_equal(dfrm2$TIME[dfrm2$ID==1 & dfrm2$AMT==0],seq(12,16,2))
   expect_equal(dfrm2$TIME[dfrm2$ID==2],seq(0,16,8))
