@@ -4,9 +4,9 @@ title: "Example study"
 format: 
   pdf: 
     toc: false
-#monofont: 'Source Code Pro'
-#monofontoptions: 
-#  - Scale=0.75    
+monofont: 'Source Code Pro'
+monofontoptions: 
+  - Scale=0.75    
 vignette: >
   %\VignetteIndexEntry{Example study}
   %\VignetteEngine{quarto::pdf}
