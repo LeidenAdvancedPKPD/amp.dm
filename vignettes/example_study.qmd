@@ -1,6 +1,6 @@
 ---
 title: "Example study"
-pdf-engine: lualatex
+#pdf-engine: lualatex
 format: 
   pdf: 
     toc: false
