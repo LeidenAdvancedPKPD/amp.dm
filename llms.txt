@@ -97,7 +97,7 @@ General data manipulations, calculation of new variables, etc.
 - [`weight_height()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/weight_height.md)
   : Calculates different weight variables
 - [`impute_covar()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/impute_covar.md)
-  : Imputeute missing covariates
+  : Imputute missing covariates
 - [`num_lump()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/num_lump.md)
   : Perform lumping of numerical values
 - [`flag_outliers()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/flag_outliers.md)
