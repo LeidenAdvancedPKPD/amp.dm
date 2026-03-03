@@ -1,40 +1,40 @@
-
-url: https://github.com/LeidenAdvancedPKPD/amp.dm
+url: https://leidenadvancedpkpd.github.io/amp.dm/
 template:
   bootstrap: 5
   bslib:
-    primary: "#FDA840"
-    base_font: {google: {family: "Source Sans Pro", wght: [400, 600], ital: [0, 1]}}
-    code_font: {google: "Source Code Pro"}
+    primary: '#FDA840'
+    base_font:
+      google:
+        family: Source Sans Pro
+        wght:
+        - 400
+        - 600
+        ital:
+        - 0
+        - 1
+    code_font:
+      google: Source Code Pro
     font_scale: 0.9
-    fg: "#172431"
-    bg: "#fcfcfc"
+    fg: '#172431'
+    bg: '#fcfcfc'
     border-radius: 0
     btn-border-radius: 3px
     grid-gutter-width: 3rem
     pkgdown-nav-height: 78px
-
 code:
   width: 74
-
 navbar:
   type: light
   bg: primary
-
 reference:
-
 - title: Data I/O
   desc: Reading and writing of data
 - subtitle: Data input
-  contents:
-  - read_data
+  contents: read_data
 - subtitle: Data output
-  contents:
-  - output_data
+  contents: output_data
 - subtitle: Other
-  contents:
-  - make_readonly
-  
+  contents: make_readonly
 - title: Data manipulation
   desc: General data manipulations, calculation of new variables, etc.
 - subtitle: wrapper dplyr functions
@@ -42,8 +42,7 @@ reference:
   - left_joinr
   - filterr
 - subtitle: NONMEM specific functions
-  contents:
-  - time_calc
+  contents: time_calc
 - subtitle: Dosing functions
   contents:
   - create_addl
@@ -57,7 +56,6 @@ reference:
   - impute_covar
   - num_lump
   - flag_outliers
-  
 - title: Meta data
   desc: Handle meta data (data attributes)
   contents:
@@ -65,7 +63,6 @@ reference:
   - attr_extract
   - attr_factor
   - attr_xls
-
 - title: Documentation
   desc: Documentation of the data management process
 - subtitle: Scripting functions
@@ -87,11 +84,10 @@ reference:
   - check_nmdata
   - session_tbl
 - subtitle: Other
-  contents:
-  - plot_vars
-
+  contents: plot_vars
 - title: Misceleneous
   desc: Helper functions worth to mention
   contents:
   - get_script
   - check_cat
+
