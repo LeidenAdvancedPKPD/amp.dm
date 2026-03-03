@@ -2,7 +2,7 @@
 % Please edit documentation in R/impute_covar.r
 \name{impute_covar}
 \alias{impute_covar}
-\title{Imputeute missing covariates}
+\title{Imputute missing covariates}
 \usage{
 impute_covar(var, uniques = NULL, type = "median", verbose = FALSE)
 }
