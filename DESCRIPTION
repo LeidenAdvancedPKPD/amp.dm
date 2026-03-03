@@ -7,7 +7,7 @@ Description: Tools and functions to efficiently create datasets used in pharmaco
   Additional functionality is added to create documentation and prepare files for submission and QC purposes. 
 Depends:
   R (>= 4.3.0)
-License: MIT + file LICENSE
+License: GPL (>= 3)
 URL: https://leidenadvancedpkpd.github.io/amp.dm/, https://github.com/LeidenAdvancedPKPD/amp.dm
 BugReports: https://github.com/LeidenAdvancedPKPD/amp.dm/issues
 Encoding: UTF-8

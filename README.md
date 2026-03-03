@@ -30,5 +30,5 @@ The main difference with this package is that `NMdata` has quite some functional
 This package is more focused towards data creation, meta data and documentation.
 
 The [`yspec`](https://metrumresearchgroup.github.io/yspec/) and [`yamlet`](https://cran.r-project.org/web/packages/yamlet/index.html)
-packages are mainly build for handling meta data, while this package combines handles meta data differently and 
+packages are mainly build for handling meta data, while this package handles meta data differently and 
 combines this in the 'documented' workflow.
