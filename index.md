@@ -36,7 +36,6 @@ towards dataset creation, including handling meta data and
 documentation.
 
 The [`yspec`](https://metrumresearchgroup.github.io/yspec/) and
-[`yamlet`](https://cran.r-project.org/web/packages/yamlet/index.html)
-packages are mainly build for handling meta data, while this package
-handles meta data differently and combines this in the ‘documented’
-workflow.
+[`yamlet`](https://CRAN.R-project.org/package=yamlet) packages are
+mainly build for handling meta data, while this package handles meta
+data differently and combines this in the ‘documented’ workflow.
