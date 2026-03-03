@@ -12,9 +12,9 @@ The latest version can be installed using:
 
 `devtools::install_github("LeidenAdvancedPKPD/amp.dm")`
 
-The article section should get you started. Within this section there is also a PDF file that 
+The article section should get you started. Within this section there is also a PDF that 
 represents a study example, and include code for the main functionality of the package. 
-This file can also be used as a starting point or template for new studies.
+This [example](vignettes/example_study.qmd) can also be used as a starting point or template for new studies.
 
 This package was initially developed as an in-house package at LAP&P. Various versions were developed, where many people within
 LAP&P helped in making the package better and more robust. Without them this package wouldn't be possible!  
