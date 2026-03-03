@@ -1,0 +1,130 @@
+# Package index
+
+## Data I/O
+
+Reading and writing of data
+
+### Data input
+
+- [`read_data()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/read_data.md)
+  : read external data with logging of results
+
+### Data output
+
+- [`output_data()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/output_data.md)
+  : export R data for NONMEM modeling
+
+### Other
+
+- [`make_readonly()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/make_readonly.md)
+  : Sets the read-only attribute for all files available within a folder
+
+## Data manipulation
+
+General data manipulations, calculation of new variables, etc.
+
+### wrapper dplyr functions
+
+- [`left_joinr()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/left_joinr.md)
+  : Perform a left join of two data frames with logging of results
+- [`filterr()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/filterr.md)
+  : Filter data with logging of results
+
+### NONMEM specific functions
+
+- [`time_calc()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/time_calc.md)
+  : Create time variables for usage in NONMEM analyses
+
+### Dosing functions
+
+- [`create_addl()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/create_addl.md)
+  : Create ADDL data item and deletes unnecessary amount lines
+- [`expand_addl_ii()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/expand_addl_ii.md)
+  : Expand rows in case ADDL and II variables are present
+- [`fill_dates()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/fill_dates.md)
+  : Fills down dates within a data frame that include a start and end
+  date
+- [`impute_dose()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/impute_dose.md)
+  : Imputes dose records using ADDL and II by looking forward and
+  backwards
+
+### Covariate functions
+
+- [`egfr()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/egfr.md)
+  : Calculates EGFR values based on different types of formulas
+- [`weight_height()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/weight_height.md)
+  : Calculates different weight variables
+- [`impute_covar()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/impute_covar.md)
+  : Imputeute missing covariates
+- [`num_lump()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/num_lump.md)
+  : Perform lumping of numerical values
+- [`flag_outliers()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/flag_outliers.md)
+  : Creates a flag for outlying values
+
+## Meta data
+
+Handle meta data (data attributes)
+
+- [`attr_add()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/attr_add.md)
+  : Add attributes from a list to a dataframe
+- [`attr_extract()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/attr_extract.md)
+  : Reads in attributes from an external excel file
+- [`attr_factor()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/attr_factor.md)
+  : Create factors for variables within a data frame using the format
+  attribute
+- [`attr_xls()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/attr_xls.md)
+  : Reads in attributes from an external excel file
+
+## Documentation
+
+Documentation of the data management process
+
+### Scripting functions
+
+- [`cmnt()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/cmnt.md)
+  : Add comment to environment to present in documentation
+- [`cmnt_print()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/cmnt_print.md)
+  : Function that prints the comments given by cmnt
+- [`get_log()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/get_log.md)
+  : Retrieve log objects
+- [`filterr()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/filterr.md)
+  : Filter data with logging of results
+- [`left_joinr()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/left_joinr.md)
+  : Perform a left join of two data frames with logging of results
+- [`srce()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/srce.md)
+  : Add source information to environment to present in documentation
+
+### Tables and data frames
+
+- [`general_tbl()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/general_tbl.md)
+  : General table wrapper for documentation functions
+- [`counts_df()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/counts_df.md)
+  : Create counts and frequencies within in data frame
+- [`stats_df()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/stats_df.md)
+  : Calculate basic statistics on data frame
+- [`contents_df()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/contents_df.md)
+  : Create information for multiple data frames
+- [`define_tbl()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/define_tbl.md)
+  : Create define PDF file for submission of pharmacometric data files
+- [`log_df()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/log_df.md)
+  : Create information for all functions that log actions
+- [`check_nmdata()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/check_nmdata.md)
+  : Checks nonmem dataset for common errors/mistakes
+- [`session_tbl()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/session_tbl.md)
+  : Create information for R session
+
+### Other
+
+- [`plot_vars()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/plot_vars.md)
+  : Creates different kind of plots for variables within a dataset using
+  ggplot2
+
+## Misceleneous
+
+Helper functions worth to mention
+
+- [`get_script()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/get_script.md)
+  : Get the current script name (either interactive Rstudio, markdown or
+  batch script)
+- [`check_cat()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/check_cat.md)
+  : Create an overview of the available categories
