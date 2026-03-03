@@ -1,5 +1,5 @@
 #------------------------------------------ impute_covar ------------------------------------------
-#' Imputeute missing covariates
+#' Imputute missing covariates
 #'
 #' The function will impute all NA values with either a given statistic (e.g. median) or with the largest group 
 #'

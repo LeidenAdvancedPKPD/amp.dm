@@ -28,6 +28,6 @@ Related to these type of datasets there is the [`NMdata`](https://nmautoverse.gi
 The main difference with this package is that `NMdata` combines data management tasks with processing of NONMEM results.
 This package is more focused towards dataset creation, including handling meta data and documentation.
 
-The [`yspec`](https://metrumresearchgroup.github.io/yspec/) and [`yamlet`](https://cran.r-project.org/web/packages/yamlet/index.html)
+The [`yspec`](https://metrumresearchgroup.github.io/yspec/) and [`yamlet`](https://CRAN.R-project.org/package=yamlet)
 packages are mainly build for handling meta data, while this package handles meta data differently and 
 combines this in the 'documented' workflow.
