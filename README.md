@@ -16,7 +16,7 @@ The article section should get you started. Within this section there is also a 
 represents a study example, and include code for the main functionality of the package. 
 This [example](vignettes/example_study.qmd) can also be used as a starting point or template for new studies.
 
-This package was initially developed as an in-house package at LAP&P. Various versions were developed, where many people within
+This package was initially developed as an in-house package at LAP&P, and was started in 2015. Various versions were developed, where many people within
 LAP&P helped in making the package better and more robust. Without them this package wouldn't be possible!  
 
 # Other packages
