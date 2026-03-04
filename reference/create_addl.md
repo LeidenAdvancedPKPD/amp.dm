@@ -58,15 +58,15 @@ create_addl(data=data, datetime="dt", id="id", dose="dose", tau="tau")
 #> # A tibble: 2 × 5
 #>      id dt                   dose   tau  ADDL
 #>   <dbl> <dttm>              <dbl> <dbl> <dbl>
-#> 1     1 2026-03-03 14:54:34    10    24     2
-#> 2     1 2026-03-07 14:54:34    10    24     0
+#> 1     1 2026-03-04 08:49:22    10    24     2
+#> 2     1 2026-03-08 08:49:22    10    24     0
 
 data2 <- rbind(cbind(data,evid=1),data.frame(id=1,dt=dts[4]+60,dose=10,tau=24,evid=0))
 create_addl(data=data2, datetime="dt", id="id", dose="dose", tau="tau", evid="evid")
 #> # A tibble: 3 × 6
 #>      id dt                   dose   tau  evid  ADDL
 #>   <dbl> <dttm>              <dbl> <dbl> <dbl> <dbl>
-#> 1     1 2026-03-03 14:54:34    10    24     1     2
-#> 2     1 2026-03-07 14:54:34    10    24     1     0
-#> 3     1 2026-03-07 14:55:34    10    24     0    NA
+#> 1     1 2026-03-04 08:49:22    10    24     1     2
+#> 2     1 2026-03-08 08:49:22    10    24     1     0
+#> 3     1 2026-03-08 08:50:22    10    24     0    NA
 ```
