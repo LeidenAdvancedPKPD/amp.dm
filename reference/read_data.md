@@ -99,28 +99,25 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-
 # For a known filetype you can use:
 dat <- read_data(paste0(R.home(),"/doc/CRAN_mirrors.csv"))
+#> ℹ Read in /opt/R/4.5.2/lib/R/doc/CRAN_mirrors.csv which has 98 records and 9 variables
 
 # We can use the arguments from the underlying package that does the reading
-dat <- read_data("test1.xlsx", range="A2:B3")
+xmpl <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+dat  <- read_data(xmpl, range="A2:B3")
+#> ℹ Read in /home/runner/work/_temp/Library/amp.dm/example/Attr.Template.xlsx which has 1 records and 2 variables
 
 # In case we get a file format not directly supported by the function
 # we can use the manfunc to use another function
-sav <- system.file("files", "electric.sav", package = "foreign")
-dat <- read_data(sav,manfunc = "foreign::read.spss")
+sav <- system.file("examples", "iris.sav", package = "haven")
+dat <- read_data(sav,manfunc = "haven::read_sav")
+#> ℹ Read in /home/runner/work/_temp/Library/haven/examples/iris.sav which has 150 records and 5 variables
 
-# It is also possible to write your own function that reads data (e.g from a PDF file):
-read_pdf <- function(file){
-  ret     <- pdftools::pdf_data(file)[[1]]
-  ret$seq <- rep(1:2,each=(nrow(ret)/2))
-  ret     <- tidyr::pivot_wider(ret,names_from = seq, values_from=text,id_cols=y,names_prefix="V")
-  ret     <- as.data.frame(ret[-1,names(ret)!="y"])
-  ret
-}
-# This function can then directly be used by read_data
-dat <- read_data("test1.pdf",manfunc = "read_pdf")
-} # }
+# It is also possible to write your own function that reads data
+# (as long as it returns a data.frame or tibble), e.g.:
+read_nd <- function(x) read.csv(x) |> dplyr::distinct(ID, .keep_all = TRUE)
+xmpl    <- system.file("example/NM.theoph.V1.csv", package = "amp.dm")
+dat     <- read_data(xmpl,manfunc = "read_nd")
+#> Error in read_data(xmpl, manfunc = "read_nd"): Manual function resulted in an error, please check syntax
 ```

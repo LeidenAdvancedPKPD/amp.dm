@@ -97,9 +97,8 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-  data(Theoph)
-  out_file <- tempfile(fileext = ".csv")
-  output_data(Theoph, csv = out_file, tonum = FALSE)
-} # }
+data(Theoph)
+out_file <- tempfile(fileext = ".csv")
+output_data(Theoph, csv = out_file, tonum = FALSE)
+#> ℹ Dataset for writing has overall (abs) min/max of 0.15 (conc)/ 86.4 (Wt) with maximum number of digits of 4 (Time and conc)
 ```

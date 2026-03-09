@@ -35,5 +35,7 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-if (FALSE) make_readonly("tesfolder") # \dontrun{}
+tmpf <- tempfile(fileext = ".txt")
+cat("test",file=tmpf)
+make_readonly(tmpf)   
 ```

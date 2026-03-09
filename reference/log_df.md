@@ -80,10 +80,12 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-  dat1 <- filterr(Theoph,Subject==1)
-  dat2 <- Theoph |> filterr(Subject==2)
-  dat3 <- Theoph %>% filterr(Subject==3)
-  log_df(get_log(), "filterr_nfo")
-} # }
+dat1 <- filterr(Theoph,Subject==1)
+#> ℹ Filter applied with 121 record(s) deleted
+dat2 <- Theoph |> filterr(Subject==2)
+#> ℹ Filter applied with 121 record(s) deleted
+log_df(get_log(), "filterr_nfo")
+#>   datain datainrows dataoutrows rowsdropped comment
+#> 1 Theoph        132          11         121        
+#> 2 Theoph        132          11         121        
 ```

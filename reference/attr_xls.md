@@ -36,8 +36,40 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-  xmpl  <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
-  attr_xls(xmpl)
-} # }
+xmpl  <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+head(attr_xls(xmpl),3)
+#> $STUDYID
+#> $STUDYID$label
+#> [1] "Study identifier"
+#> 
+#> $STUDYID$format
+#> NULL
+#> 
+#> $STUDYID$remark
+#> NULL
+#> 
+#> 
+#> $ID
+#> $ID$label
+#> [1] "Unique subject identifier"
+#> 
+#> $ID$format
+#> NULL
+#> 
+#> $ID$remark
+#> NULL
+#> 
+#> 
+#> $TRT
+#> $TRT$label
+#> [1] "Treatment arm"
+#> 
+#> $TRT$format
+#>                      1                      2 
+#> "300 mg theoph form 1" "300 mg theoph form 2" 
+#> 
+#> $TRT$remark
+#> NULL
+#> 
+#> 
 ```

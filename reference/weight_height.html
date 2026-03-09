@@ -146,9 +146,13 @@ $$\textrm{PNWT} = k \cdot  \textrm{Weight (kg)} - l \cdot \textrm{Height (cm)} \
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id<span class="op">=</span><span class="fl">1</span>,WT<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">70</span>,<span class="fl">120</span><span class="op">)</span>,HT<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">160</span>,<span class="fl">220</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">weight_height</span><span class="op">(</span>wt<span class="op">=</span><span class="va">tmp</span><span class="op">$</span><span class="va">WT</span>,ht<span class="op">=</span><span class="va">tmp</span><span class="op">$</span><span class="va">HT</span>,type<span class="op">=</span><span class="st">"bmi"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 36.29401 19.96770 26.98016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 29.12092 21.90432 20.51770</span>
 <span class="r-in"><span><span class="co"># example for use in dplyr</span></span></span>
-<span class="r-in"><span><span class="co"># tmp %&gt;% mutate(BMI = weight_height(wt=WT,ht=HT,type="bmi"))</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>BMI <span class="op">=</span> <span class="fu">weight_height</span><span class="op">(</span>wt<span class="op">=</span><span class="va">WT</span>,ht<span class="op">=</span><span class="va">HT</span>,type<span class="op">=</span><span class="st">"bmi"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   id        WT       HT      BMI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1 117.42883 200.8098 29.12092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1  79.01694 189.9307 21.90432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1  80.84499 198.5008 20.51770</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

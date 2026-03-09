@@ -69,8 +69,8 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-data("Theoph")
-Theoph2 <-  subset(Theoph,Subject==1)
-contents_df(c('Theoph','Theoph2'),subject='Subject',ret='df')
-#> Error in contents_df(c("Theoph", "Theoph2"), subject = "Subject", ret = "df"): Not all data frames could be found
+Theoph1 <-  subset(Theoph,Subject!=1)
+Theoph2 <-  subset(Theoph,Subject!=2)
+contents_df(c('Theoph1','Theoph2'),subject='Subject',ret='dfrm')
+#> Error in contents_df(c("Theoph1", "Theoph2"), subject = "Subject", ret = "dfrm"): Not all data frames could be found
 ```

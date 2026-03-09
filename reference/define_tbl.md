@@ -75,5 +75,47 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-if (FALSE) definePDF(attrl,outnm='define.tex') # \dontrun{}
+xmpl   <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+attrl  <- attr_xls(xmpl)
+define_tbl(attrl)
+#>         Data.Item                Description  Unit
+#> STUDYID   STUDYID           Study identifier     -
+#> ID             ID  Unique subject identifier     -
+#> TRT           TRT              Treatment arm     -
+#> CMT           CMT                Compartment     -
+#> AMT           AMT        Amount administered    mg
+#> STIME       STIME             Scheduled time     h
+#> TIME         TIME                       Time     h
+#> TAFD         TAFD      Time after first dose     h
+#> TALD         TALD       Time after last dose     h
+#> DV             DV       Concentration Theoph ng/mL
+#> EVID         EVID                   Event ID     -
+#> MDV           MDV                 missing DV     -
+#> CNTRY       CNTRY                    Country     -
+#> SEX           SEX                     Gender     -
+#> AGE           AGE                        Age     y
+#> WEIGHT     WEIGHT                     Weight    kg
+#> HEIGHT     HEIGHT                     Height     m
+#> BMI           BMI            Body mass index kg/m2
+#> FLAGPK     FLAGPK Flag for type of PK record     -
+#>                                                         Remark
+#> STUDYID                                                      -
+#> ID                                                           -
+#> TRT         1 = 300 mg theoph form 1, 2 = 300 mg theoph form 2
+#> CMT            1 = Dosing compartment, 2 = Central compartment
+#> AMT                             Original dose units set to mg 
+#> STIME                                                        -
+#> TIME                                                         -
+#> TAFD                                                         -
+#> TALD                                                         -
+#> DV                                                           -
+#> EVID                        0 = Observations, 1 = Dosing event
+#> MDV       0 = Other, 1 = Dose records and missing observations
+#> CNTRY                       1 = BEL, 2 = FRA, 3 = GER, 4 = NED
+#> SEX                                       0 = Male, 1 = Female
+#> AGE                                                          -
+#> WEIGHT                                                       -
+#> HEIGHT                                                       -
+#> BMI                                                          -
+#> FLAGPK   1 = Missing PK, 2 = PK below LOQ, 3 = Valid PK sample
 ```

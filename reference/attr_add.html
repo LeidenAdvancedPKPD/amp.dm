@@ -92,12 +92,85 @@ of the format of list see for instance <a href="attr_xls.html">attr_xls</a>.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span> <span class="va">xmpl</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example/Attr.Template.xlsx"</span>,package <span class="op">=</span> <span class="st">"amp.dm"</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="va">attrl</span>  <span class="op">&lt;-</span> <span class="fu"><a href="attr_xls.html">attr_xls</a></span><span class="op">(</span><span class="va">xmpl</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="va">data</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example/NM.theoph.V1.csv"</span>,package <span class="op">=</span> <span class="st">"amp.dm"</span><span class="op">)</span>, na.strings <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="fu">attr_add</span><span class="op">(</span><span class="va">data2</span>,<span class="va">attrl</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="va">xmpl</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example/Attr.Template.xlsx"</span>,package <span class="op">=</span> <span class="st">"amp.dm"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">attrl</span>  <span class="op">&lt;-</span> <span class="fu"><a href="attr_xls.html">attr_xls</a></span><span class="op">(</span><span class="va">xmpl</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example/NM.theoph.V1.csv"</span>,package <span class="op">=</span> <span class="st">"amp.dm"</span><span class="op">)</span>, na.strings <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">attr_add</span><span class="op">(</span><span class="va">data</span>,<span class="va">attrl</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Labels detected with &gt; 24 characters (possible issue for reporting): Unique subject identifier, Time after first dose (h), Concentration Theoph (ng/mL), and Flag for type of PK record</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> The following variables have more categories than defined in attribute list: TRT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	288 obs. of  19 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ STUDYID: int  1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Study identifier"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ID     : int  1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Unique subject identifier"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ TRT    : int  2 2 2 2 2 2 2 2 2 2 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Treatment arm"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "format")= Named chr [1:2] "300 mg theoph form 1" "300 mg theoph form 2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ CMT    : int  2 1 2 2 2 2 2 2 2 2 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Compartment"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "format")= Named chr [1:2] "Dosing compartment" "Central compartment"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:2] "1" "2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ AMT    : int  NA 300 NA NA NA NA NA NA NA NA ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Amount administered (mg)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "mg"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "remark")= chr "Original dose units set to mg"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ STIME  : num  0 0 0.25 0.5 1 2 3.5 5 7 9 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Scheduled time (h)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ TIME   : num  0 0.5 0.77 1.08 1.65 2.53 4.07 5.5 7.5 9.72 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Time (h)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ TAFD   : num  -0.5 0 0.27 0.58 1.15 2.03 3.57 5 7 9.22 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Time after first dose (h)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ TALD   : num  -0.5 0 0.27 0.58 1.15 2.03 3.57 5 7 9.22 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Time after last dose (h)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ DV     : num  0 NA 1.29 3.08 6.44 6.32 5.53 4.94 4.02 3.46 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Concentration Theoph (ng/mL)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "ng/mL"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ EVID   : int  0 1 0 0 0 0 0 0 0 0 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Event ID"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "format")= Named chr [1:2] "Observations" "Dosing event"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ MDV    : int  1 1 0 0 0 0 0 0 0 0 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "missing DV"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "format")= Named chr [1:2] "Other" "Dose records and missing observations"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ CNTRY  : int  3 3 3 3 3 3 3 3 3 3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Country"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "format")= Named chr [1:4] "BEL" "FRA" "GER" "NED"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:4] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ SEX    : int  1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Gender"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "format")= Named chr [1:2] "Male" "Female"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:2] "0" "1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ AGE    : int  60 60 60 60 60 60 60 60 60 60 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Age (y)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "y"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ WEIGHT : num  80 80 80 80 80 80 80 80 80 80 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Weight  (kg)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "kg"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ HEIGHT : num  1.88 1.88 1.88 1.88 1.88 1.88 1.88 1.88 1.88 1.88 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Height  (m)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "m"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BMI    : num  22.6 22.6 22.6 22.6 22.6 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Body mass index (kg/m2)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr "kg/m2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ FLAGPK : int  2 NA 3 3 3 3 3 3 3 3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "label")= chr "Flag for type of PK record"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "unit")= chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "format")= Named chr [1:3] "Missing PK" "PK below LOQ" "Valid PK sample"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:3] "1" "2" "3"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

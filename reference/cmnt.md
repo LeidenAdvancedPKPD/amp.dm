@@ -37,15 +37,15 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-  cmnt("Exclude time points > 12h")
+cmnt("Exclude time points > 12h")
 #> ℹ Exclude time points > 12h
-  cmnt("Subject 6 deviates and is excluded in the analysis", TRUE)
+cmnt("Subject 6 deviates and is excluded in the analysis", TRUE)
 #> ℹ Subject 6 deviates and is excluded in the analysis
-  # Markdown syntax can be used for comments:
-  cmnt("We can use **bold** and *italic* or `code`")
+# Markdown syntax can be used for comments:
+cmnt("We can use **bold** and *italic* or `code`")
 #> ℹ We can use **bold** and *italic* or `code`
-  # we can print the contents of the comments with
-  get_log()$cmnt_nfo
+# we can print the contents of the comments with
+get_log()$cmnt_nfo
 #>                                               string  bold
 #> 1                          Exclude time points > 12h FALSE
 #> 2 Subject 6 deviates and is excluded in the analysis  TRUE

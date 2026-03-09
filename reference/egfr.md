@@ -81,7 +81,7 @@ Currently there are different formulas available for calculations:
   \min\left(\frac{\textrm{Scr}}{\kappa},1\right)^{\alpha} \cdot
   \max\left(\frac{\textrm{Scr}}{\kappa},1\right)^{-1.209} \cdot
   0.993^{\textrm{Age}} \cdot 1.159 \textrm{ \[if black\]} \cdot 1.018
-  \textrm{ \[if female\]} \$\$ where \\\min\left(\right)\\ indicates the
+  \textrm{ \[if female\]}\$\$ where \\\min\left(\right)\\ indicates the
   minimum of \\\frac{\textrm{Scr}}{\kappa}\\ or 1; \\\max\left(\right)\\
   indicates the maximum of \\\frac{\textrm{Scr}}{\kappa}\\or 1. scaling
   parameter \\\kappa\\ is 0.9 for males and 0.7 for females and scaling
@@ -243,7 +243,11 @@ Richard Hooijmaijers
 # dataset with dummy numbers!
 crea <- data.frame(id=c(1,1,2),Scr=runif(3),SEX=c(1,1,0),AGE=runif(3),RACE=c(1,1,2))
 egfr(crea$Scr,crea$SEX,crea$AGE,crea$RACE, formula="CKD-EPI")
-#> [1] 146.9132 145.5340 407.1134
+#> [1] 170.8803 315.2422 229.6648
 # example for use in dplyr
-# crea %>% mutate(EGFR = egfr(Scr,SEX, AGE, RACE, formula="CKD-EPI"))
+crea |> dplyr::mutate(EGFR = egfr(Scr,SEX, AGE, RACE, formula="CKD-EPI"))
+#>   id        Scr SEX       AGE RACE     EGFR
+#> 1  1 0.40353812   1 0.9755478    1 170.8803
+#> 2  1 0.06366146   1 0.2898923    1 315.2422
+#> 3  2 0.38870131   0 0.6783804    2 229.6648
 ```

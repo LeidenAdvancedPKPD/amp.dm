@@ -2,7 +2,8 @@
 
 Tools and functions to efficiently create datasets used in
 pharmacometric analysis. Additional functionality is added to create
-documentation and prepare files for submission and QC purposes.
+documentation and prepare files for submission and quality control
+purposes.
 
 ## See also
 

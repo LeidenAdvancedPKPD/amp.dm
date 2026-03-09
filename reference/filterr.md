@@ -52,13 +52,15 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-# For full trace-ability of source data, no pipes or 
-# base R pipes are preferred 
-if (FALSE) { # \dontrun{
-  dat1 <- filterr(Theoph,Subject==1)
-  dat2 <- Theoph |> filterr(Subject==2)
-  dat3 <- Theoph %>% filterr(Subject==3)
-  # Show what is being logged
-  get_log()$filterr_nfo
-} # }
+# For full trace-ability of source data, no pipes  
+# are preferred 
+dat1 <- filterr(Theoph,Subject==1)
+#> ℹ Filter applied with 121 record(s) deleted
+dat2 <- Theoph |> filterr(Subject==2)
+#> ℹ Filter applied with 121 record(s) deleted
+# Show what is being logged
+get_log()$filterr_nfo
+#>   datain       coding datainrows dataoutrows rowsdropped comment
+#> 1 Theoph Subject == 1        132          11         121        
+#> 2 Theoph Subject == 2        132          11         121        
 ```

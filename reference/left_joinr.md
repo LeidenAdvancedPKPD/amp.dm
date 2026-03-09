@@ -59,20 +59,32 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-  dose  <- data.frame(Subject = unique(Theoph$Subject),
-                      dose = sample(1:3,length(unique(Theoph$Subject)),
-                                    replace = TRUE))
-  dose2 <- dose[dose$Subject%in%1:6,]
-  # Preferred to explicitly list by
-  dat1 <- left_joinr(Theoph, dose, by="Subject")
-  # The base R pipe is preferred for better logging of source data
-  dat2 <- Theoph |> left_joinr(dose, by="Subject")
-  dat3 <- Theoph %>% left_joinr(dose2, by="Subject")
-  # Avoid long pipes before function for readability in log. e.g dont:
-  dat4 <- Theoph |> dplyr::mutate(ID=3) |> dplyr::bind_cols(X=3) |> 
-    left_joinr(dose, by="Subject")
-  # Show what is being logged
-  get_log()$joinr_nfo
-} # }
+dose  <- data.frame(Subject = unique(Theoph$Subject),
+                    dose = sample(1:3,length(unique(Theoph$Subject)),
+                                  replace = TRUE))
+dose2 <- dose[dose$Subject%in%1:6,]
+# Preferred to explicitly list by
+dat1 <- left_joinr(Theoph, dose, by="Subject")
+#> ℹ Output data contains 132 records
+#> ℹ Theoph contained 132 records
+#> ℹ dose contained 12 records
+# The base R pipe is preferred for better logging of source data
+dat2 <- Theoph |> left_joinr(dose, by="Subject")
+#> ℹ Output data contains 132 records
+#> ℹ Theoph contained 132 records
+#> ℹ dose contained 12 records
+# Avoid long pipes before function for readability in log. e.g dont:
+dat3 <- Theoph |> dplyr::mutate(ID=3) |> dplyr::bind_cols(X=3) |> 
+  left_joinr(dose, by="Subject")
+#> ℹ Output data contains 132 records
+#> ℹ dplyr::bind_cols(dplyr::mutate(Theoph, ID = 3), X = 3) contained 132 records
+#> ℹ dose contained 12 records
+# Show what is being logged
+get_log()$joinr_nfo
+#>                                                  datainl datainr
+#> 1                                                 Theoph    dose
+#> 2 dplyr::bind_cols(dplyr::mutate(Theoph, ID = 3), X = 3)    dose
+#>   datainrowsl datainrowsr dataoutrowsl dataoutrows comment
+#> 1         132          12            0         132        
+#> 2         132          12            0         132        
 ```

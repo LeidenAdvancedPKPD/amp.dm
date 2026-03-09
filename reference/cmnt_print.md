@@ -34,8 +34,8 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-  cmnt("Comment to print")
+cmnt("Comment to print")
 #> ℹ Comment to print
-  cmnt_print()
+cmnt_print()
 #> [1] "Assumptions and special attention:\n\n- Exclude time points > 12h\n- **Subject 6 deviates and is excluded in the analysis**\n- We can use **bold** and *italic* or `code`\n- Comment to print\n\n"
 ```

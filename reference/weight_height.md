@@ -135,7 +135,11 @@ Richard Hooijmaijers
 ``` r
 tmp <- data.frame(id=1,WT=runif(3,70,120),HT=runif(3,160,220))
 weight_height(wt=tmp$WT,ht=tmp$HT,type="bmi")
-#> [1] 36.29401 19.96770 26.98016
+#> [1] 29.12092 21.90432 20.51770
 # example for use in dplyr
-# tmp %>% mutate(BMI = weight_height(wt=WT,ht=HT,type="bmi"))
+tmp |> dplyr::mutate(BMI = weight_height(wt=WT,ht=HT,type="bmi"))
+#>   id        WT       HT      BMI
+#> 1  1 117.42883 200.8098 29.12092
+#> 2  1  79.01694 189.9307 21.90432
+#> 3  1  80.84499 198.5008 20.51770
 ```

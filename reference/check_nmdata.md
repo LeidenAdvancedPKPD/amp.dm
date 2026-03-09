@@ -68,8 +68,20 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-  check_nmdata("nonmemData.csv")
-  check_nmdata(dataframe)
-} # }
+chkf <- system.file("example/NM.theoph.V1.csv",package = "amp.dm")
+check_nmdata(chkf)
+#> \begingroup\footnotesize
+#> \begin{longtable}{ll}
+#> \caption{Result of essential data checks} \\ 
+#>   \toprule Check & result \\ 
+#>   \midrule\endhead CSV is readable & Yes \\ 
+#>   More than 1 line of data & Yes \\ 
+#>   More than 1 data item & Yes \\ 
+#>   First name set (row.names set to FALSE) & Yes \\ 
+#>   Variables ID, TIME and DV present in data & Yes \\ 
+#>   Data ordered on ID and TIME & Yes \\ 
+#>   Quotes not present around data items & Yes \\ 
+#>   \hline
+#> \end{longtable}
+#> \endgroup
 ```

@@ -88,15 +88,17 @@ Every time the function is used it creates a records in in a log file which can 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># For full trace-ability of source data, no pipes or </span></span></span>
-<span class="r-in"><span><span class="co"># base R pipes are preferred </span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span>  <span class="va">dat1</span> <span class="op">&lt;-</span> <span class="fu">filterr</span><span class="op">(</span><span class="va">Theoph</span>,<span class="va">Subject</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">dat2</span> <span class="op">&lt;-</span> <span class="va">Theoph</span> <span class="op">|&gt;</span> <span class="fu">filterr</span><span class="op">(</span><span class="va">Subject</span><span class="op">==</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">dat3</span> <span class="op">&lt;-</span> <span class="va">Theoph</span> <span class="op">%&gt;%</span> <span class="fu">filterr</span><span class="op">(</span><span class="va">Subject</span><span class="op">==</span><span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="co"># Show what is being logged</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="get_log.html">get_log</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">filterr_nfo</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># For full trace-ability of source data, no pipes  </span></span></span>
+<span class="r-in"><span><span class="co"># are preferred </span></span></span>
+<span class="r-in"><span><span class="va">dat1</span> <span class="op">&lt;-</span> <span class="fu">filterr</span><span class="op">(</span><span class="va">Theoph</span>,<span class="va">Subject</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Filter applied with <span style="color: #0000BB;">121</span> record(s) deleted</span>
+<span class="r-in"><span><span class="va">dat2</span> <span class="op">&lt;-</span> <span class="va">Theoph</span> <span class="op">|&gt;</span> <span class="fu">filterr</span><span class="op">(</span><span class="va">Subject</span><span class="op">==</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Filter applied with <span style="color: #0000BB;">121</span> record(s) deleted</span>
+<span class="r-in"><span><span class="co"># Show what is being logged</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="get_log.html">get_log</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">filterr_nfo</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datain       coding datainrows dataoutrows rowsdropped comment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Theoph Subject == 1        132          11         121        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Theoph Subject == 2        132          11         121        </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
