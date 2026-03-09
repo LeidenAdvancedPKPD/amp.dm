@@ -22,7 +22,9 @@ with (sudo) rights on files.
 In case x is a directory, the function will set readonly attribute for all files in the folder (and recurse into all subfolders!).
 }
 \examples{
-\dontrun{make_readonly("tesfolder")}
+tmpf <- tempfile(fileext = ".txt")
+cat("test",file=tmpf)
+make_readonly(tmpf)   
 }
 \author{
 Richard Hooijmaijers

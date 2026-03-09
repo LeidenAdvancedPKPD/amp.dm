@@ -11,11 +11,9 @@
 #' @author Richard Hooijmaijers
 #' @export
 #' @examples
-#' \dontrun{
-#'   xldat <- readxl::readxl_example("datasets.xlsx")
-#'   xlin  <- read_data(xldat, comment="read test")
-#'   get_log()
-#' }
+#' xldat <- readxl::readxl_example("datasets.xlsx")
+#' xlin  <- read_data(xldat, comment="read test")
+#' get_log()
 get_log <- function() {
   onam <- ls(envir = .amp.dm)
   ret  <- lapply(onam,function(x) get(x, envir = .amp.dm))
@@ -37,12 +35,12 @@ get_log <- function() {
 #' @author Richard Hooijmaijers
 #' @export
 #' @examples
-#'   cmnt("Exclude time points > 12h")
-#'   cmnt("Subject 6 deviates and is excluded in the analysis", TRUE)
-#'   # Markdown syntax can be used for comments:
-#'   cmnt("We can use **bold** and *italic* or `code`")
-#'   # we can print the contents of the comments with
-#'   get_log()$cmnt_nfo
+#' cmnt("Exclude time points > 12h")
+#' cmnt("Subject 6 deviates and is excluded in the analysis", TRUE)
+#' # Markdown syntax can be used for comments:
+#' cmnt("We can use **bold** and *italic* or `code`")
+#' # we can print the contents of the comments with
+#' get_log()$cmnt_nfo
 cmnt <- function(string = "", bold = FALSE, verbose = TRUE){
   if(verbose) cli::cli_alert_info(string)
   cmnt_nfo <- data.frame(string=string, bold=bold)
@@ -73,12 +71,12 @@ cmnt <- function(string = "", bold = FALSE, verbose = TRUE){
 #' @author Richard Hooijmaijers
 #' @export
 #' @examples
-#'   # variable AMT copied from Dose variable in Theoph data frame
-#'   srce(AMT,Theoph.Dose)
-#'   # variable BMI derived from WEIGHT variable in wt data frame
-#'   # and HEIGHT variable in ht data frame
-#'   srce(BMI,c(wt.WEIGHT,ht.HEIGHT),'d')
-#'   get_log()$srce_nfo
+#' # variable AMT copied from Dose variable in Theoph data frame
+#' srce(AMT,Theoph.Dose)
+#' # variable BMI derived from WEIGHT variable in wt data frame
+#' # and HEIGHT variable in ht data frame
+#' srce(BMI,c(wt.WEIGHT,ht.HEIGHT),'d')
+#' get_log()$srce_nfo
 srce <- function(var,source,type='c'){
   srce_nfo <- data.frame(variable = deparse(substitute(var)), type = type, source=gsub("^c\\(|)$","",deparse(substitute(source))))
   if("srce_nfo" %in% ls(envir = .amp.dm)){
@@ -105,8 +103,8 @@ srce <- function(var,source,type='c'){
 #' @author Richard Hooijmaijers
 #' @export
 #' @examples
-#'   cmnt("Comment to print")
-#'   cmnt_print()
+#' cmnt("Comment to print")
+#' cmnt_print()
 cmnt_print <- function(clean=TRUE){
   res <- get_log()$cmnt_nfo
   if(!is.null(res) && nrow(res)>0){

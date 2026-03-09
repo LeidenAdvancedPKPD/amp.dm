@@ -20,9 +20,9 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' data("Theoph")
-#' Theoph2 <-  subset(Theoph,Subject==1)
-#' contents_df(c('Theoph','Theoph2'),subject='Subject',ret='df')
+#' Theoph1 <-  subset(Theoph,Subject!=1)
+#' Theoph2 <-  subset(Theoph,Subject!=2)
+#' contents_df(c('Theoph1','Theoph2'),subject='Subject',ret='dfrm')
 contents_df <- function(dfv, subject=NULL, ret="tbl", capt="Information multiple data frames", align="lllp{8cm}",...){
   dfl <- try(mget(dfv,envir=.GlobalEnv), silent=TRUE)
   if(inherits(dfl,'try-error')) cli::cli_abort("Not all data frames could be found")

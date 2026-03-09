@@ -21,12 +21,12 @@ Adds a comment regarding assumptions and special attention into package environm
 which can be used in code chunks and easily printed after a code chunk
 }
 \examples{
-  cmnt("Exclude time points > 12h")
-  cmnt("Subject 6 deviates and is excluded in the analysis", TRUE)
-  # Markdown syntax can be used for comments:
-  cmnt("We can use **bold** and *italic* or `code`")
-  # we can print the contents of the comments with
-  get_log()$cmnt_nfo
+cmnt("Exclude time points > 12h")
+cmnt("Subject 6 deviates and is excluded in the analysis", TRUE)
+# Markdown syntax can be used for comments:
+cmnt("We can use **bold** and *italic* or `code`")
+# we can print the contents of the comments with
+get_log()$cmnt_nfo
 }
 \author{
 Richard Hooijmaijers

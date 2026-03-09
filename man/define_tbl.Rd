@@ -43,7 +43,9 @@ This function creates the define.pdf file necessary for esubmission.
 }
 \examples{
 
-\dontrun{definePDF(attrl,outnm='define.tex')}
+xmpl   <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+attrl  <- attr_xls(xmpl)
+define_tbl(attrl)
 }
 \author{
 Richard Hooijmaijers

@@ -54,7 +54,7 @@ and third column right aligned. In case align is set to NULL a default alignment
 }
 \examples{
 
-general_tbl(Theoph)
+general_tbl(head(Theoph))
 }
 \author{
 Richard Hooijmaijers

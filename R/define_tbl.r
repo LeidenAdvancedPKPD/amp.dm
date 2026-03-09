@@ -18,7 +18,9 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' \dontrun{definePDF(attrl,outnm='define.tex')}
+#' xmpl   <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+#' attrl  <- attr_xls(xmpl)
+#' define_tbl(attrl)
 define_tbl <- function(attr=NULL, ret="dfrm", capt="Dataset define form", align="lp{3cm}lp{8cm}", outnm=NULL, 
                        orientation="portrait",size="\\footnotesize",src=NULL,...){
  

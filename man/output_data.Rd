@@ -56,11 +56,9 @@ of the dataset inside the xpt file (e.g. \code{output_data(dfrm,xpt='dataset.xpt
 'dataset.xpt' with one dataset named 'dfrm').
 }
 \examples{
-\dontrun{
-  data(Theoph)
-  out_file <- tempfile(fileext = ".csv")
-  output_data(Theoph, csv = out_file, tonum = FALSE)
-}
+data(Theoph)
+out_file <- tempfile(fileext = ".csv")
+output_data(Theoph, csv = out_file, tonum = FALSE)
 }
 \seealso{
 \code{\link{write.csv}}

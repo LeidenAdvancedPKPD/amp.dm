@@ -11,10 +11,8 @@
 #' @return named list with the attributes
 #' @author Richard Hooijmaijers
 #' @examples
-#' \dontrun{
-#'   xmpl  <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
-#'   attr_xls(xmpl)
-#' }
+#' xmpl  <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+#' head(attr_xls(xmpl),3)
 attr_xls <- function(xls,sepfor="\n",nosort=FALSE){
 
   # Read attributes and perform checks

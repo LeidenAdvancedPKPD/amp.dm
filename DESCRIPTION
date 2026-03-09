@@ -4,7 +4,8 @@ Version: 0.2.0
 Authors@R: c(person("Richard", "Hooijmaijers", email = "richardhooijmaijers@gmail.com", role = c("aut", "cre","cph")),
              person("LAPP Consultants",email = "info@lapp.nl", role=c("fnd","cph")))
 Description: Tools and functions to efficiently create datasets used in pharmacometric analysis.
-  Additional functionality is added to create documentation and prepare files for submission and QC purposes. 
+  Additional functionality is added to create documentation and prepare files for submission and 
+  quality control purposes. 
 Depends:
   R (>= 4.3.0)
 License: GPL (>= 3) 

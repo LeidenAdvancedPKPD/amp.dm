@@ -19,10 +19,8 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' \dontrun{
-#'   check_nmdata("nonmemData.csv")
-#'   check_nmdata(dataframe)
-#' }
+#' chkf <- system.file("example/NM.theoph.V1.csv",package = "amp.dm")
+#' check_nmdata(chkf)
 check_nmdata <- function(x, type=1, ret="tbl", capt=NULL, align=NULL, size="\\footnotesize", ...){
   if(!is.data.frame(x)){
     chk1   <- try(suppressWarnings(utils::read.csv(x,stringsAsFactors = FALSE, na.strings = c("NA","."))), silent=TRUE)

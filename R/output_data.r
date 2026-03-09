@@ -26,11 +26,9 @@
 #' @return a data frame is written to disk
 #' @author Richard Hooijmaijers
 #' @examples
-#' \dontrun{
-#'   data(Theoph)
-#'   out_file <- tempfile(fileext = ".csv")
-#'   output_data(Theoph, csv = out_file, tonum = FALSE)
-#' }
+#' data(Theoph)
+#' out_file <- tempfile(fileext = ".csv")
+#' output_data(Theoph, csv = out_file, tonum = FALSE)
 output_data <- function(x, csv=NULL, xpt=NULL, attr=NULL, verbose=TRUE,
                         maxdig=6, tonum=TRUE, firstesc=NULL, readonly=FALSE, overwrite=TRUE, ...){
 

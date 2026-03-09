@@ -46,12 +46,9 @@ account that the alignment differs per type and in case the coding argument is c
 }
 \examples{
 
-\dontrun{
-  dat1 <- filterr(Theoph,Subject==1)
-  dat2 <- Theoph |> filterr(Subject==2)
-  dat3 <- Theoph \%>\% filterr(Subject==3)
-  log_df(get_log(), "filterr_nfo")
-}
+dat1 <- filterr(Theoph,Subject==1)
+dat2 <- Theoph |> filterr(Subject==2)
+log_df(get_log(), "filterr_nfo")
 }
 \author{
 Richard Hooijmaijers

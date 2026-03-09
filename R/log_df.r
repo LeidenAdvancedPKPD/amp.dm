@@ -21,12 +21,9 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' \dontrun{
-#'   dat1 <- filterr(Theoph,Subject==1)
-#'   dat2 <- Theoph |> filterr(Subject==2)
-#'   dat3 <- Theoph %>% filterr(Subject==3)
-#'   log_df(get_log(), "filterr_nfo")
-#' }
+#' dat1 <- filterr(Theoph,Subject==1)
+#' dat2 <- Theoph |> filterr(Subject==2)
+#' log_df(get_log(), "filterr_nfo")
 log_df <- function(log, type , coding=FALSE, ret="dfrm", capt=NULL, align=NULL, size="\\footnotesize", ...){
   
   # return nothing when type is not present, this way we can include the function even if there is no output

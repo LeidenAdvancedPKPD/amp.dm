@@ -48,10 +48,7 @@ This function calculates Estimated Glomerular Filtration Rate (EGFR) values base
 Currently there are  different formulas available for calculations:
 \itemize{
 \item "CKD-EPI": EGFR according to the Chronic Kidney Disease Epidemiology (CKD-EPI) study formula (\href{https://pmc.ncbi.nlm.nih.gov/articles/PMC2763564/}{Levey}):
-\deqn{ \textrm{eGFR} = 141 \cdot \min\left(\frac{\textrm{Scr}}{\kappa},1\right)^{\alpha} \cdot
-                                    \max\left(\frac{\textrm{Scr}}{\kappa},1\right)^{-1.209} \cdot
-                                     0.993^{\textrm{Age}} \cdot 1.159 \textrm{ [if black]} \cdot 1.018 \textrm{ [if female]}
-        }
+\deqn{ \textrm{eGFR} = 141 \cdot \min\left(\frac{\textrm{Scr}}{\kappa},1\right)^{\alpha} \cdot \max\left(\frac{\textrm{Scr}}{\kappa},1\right)^{-1.209} \cdot 0.993^{\textrm{Age}} \cdot 1.159 \textrm{ [if black]} \cdot 1.018 \textrm{ [if female]}}
 where \eqn{\min\left(\right)} indicates the minimum of \eqn{\frac{\textrm{Scr}}{\kappa}} or 1; \eqn{\max\left(\right)} indicates the maximum of \eqn{\frac{\textrm{Scr}}{\kappa}}or 1.
 scaling parameter \eqn{\kappa} is 0.9 for males and 0.7 for females and scaling parameter \eqn{\alpha} is -0.411 for males and -0.329 for females.
 \item "CKD-EPI-ignore-race": EGFR according to the Chronic Kidney Disease Epidemiology (CKD-EPI) refit without race study formula (\href{https://pubmed.ncbi.nlm.nih.gov/34563581/}{Delgado}):
@@ -116,7 +113,7 @@ Additional information regarding this can be found in a \href{https://www.fda.go
 crea <- data.frame(id=c(1,1,2),Scr=runif(3),SEX=c(1,1,0),AGE=runif(3),RACE=c(1,1,2))
 egfr(crea$Scr,crea$SEX,crea$AGE,crea$RACE, formula="CKD-EPI")
 # example for use in dplyr
-# crea \%>\% mutate(EGFR = egfr(Scr,SEX, AGE, RACE, formula="CKD-EPI"))
+crea |> dplyr::mutate(EGFR = egfr(Scr,SEX, AGE, RACE, formula="CKD-EPI"))
 }
 \author{
 Richard Hooijmaijers

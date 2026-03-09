@@ -30,12 +30,10 @@ of the format of list see for instance \link{attr_xls}.
 }
 \examples{
 
-\dontrun{
- xmpl   <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
- attrl  <- attr_xls(xmpl)
- data   <- read.csv(system.file("example/NM.theoph.V1.csv",package = "amp.dm"), na.strings = ".")
- attr_add(data2,attrl)
-}
+xmpl   <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+attrl  <- attr_xls(xmpl)
+data   <- read.csv(system.file("example/NM.theoph.V1.csv",package = "amp.dm"), na.strings = ".")
+attr_add(data,attrl) |> str()
 }
 \seealso{
 \link{attr_xls}

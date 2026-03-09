@@ -14,11 +14,9 @@ Returns one or more dataframes with log information
 related to function like \link{filterr}, \link{left_joinr}, \link{cmnt}, \link{srce} and \link{read_data}
 }
 \examples{
-\dontrun{
-  xldat <- readxl::readxl_example("datasets.xlsx")
-  xlin  <- read_data(xldat, comment="read test")
-  get_log()
-}
+xldat <- readxl::readxl_example("datasets.xlsx")
+xlin  <- read_data(xldat, comment="read test")
+get_log()
 }
 \author{
 Richard Hooijmaijers

@@ -21,22 +21,19 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' \dontrun{
-#'   dose  <- data.frame(Subject = unique(Theoph$Subject),
-#'                       dose = sample(1:3,length(unique(Theoph$Subject)),
-#'                                     replace = TRUE))
-#'   dose2 <- dose[dose$Subject%in%1:6,]
-#'   # Preferred to explicitly list by
-#'   dat1 <- left_joinr(Theoph, dose, by="Subject")
-#'   # The base R pipe is preferred for better logging of source data
-#'   dat2 <- Theoph |> left_joinr(dose, by="Subject")
-#'   dat3 <- Theoph %>% left_joinr(dose2, by="Subject")
-#'   # Avoid long pipes before function for readability in log. e.g dont:
-#'   dat4 <- Theoph |> dplyr::mutate(ID=3) |> dplyr::bind_cols(X=3) |> 
-#'     left_joinr(dose, by="Subject")
-#'   # Show what is being logged
-#'   get_log()$joinr_nfo
-#' }
+#' dose  <- data.frame(Subject = unique(Theoph$Subject),
+#'                     dose = sample(1:3,length(unique(Theoph$Subject)),
+#'                                   replace = TRUE))
+#' dose2 <- dose[dose$Subject%in%1:6,]
+#' # Preferred to explicitly list by
+#' dat1 <- left_joinr(Theoph, dose, by="Subject")
+#' # The base R pipe is preferred for better logging of source data
+#' dat2 <- Theoph |> left_joinr(dose, by="Subject")
+#' # Avoid long pipes before function for readability in log. e.g dont:
+#' dat3 <- Theoph |> dplyr::mutate(ID=3) |> dplyr::bind_cols(X=3) |> 
+#'   left_joinr(dose, by="Subject")
+#' # Show what is being logged
+#' get_log()$joinr_nfo
 left_joinr <- function(x,y,by=NULL,...,comment="", keepids=FALSE){
   # Apply the left_join function from dplyr 
   dfl          <- data.frame(x)

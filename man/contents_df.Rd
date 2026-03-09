@@ -41,9 +41,9 @@ similar data frames or an overview of all data frames within a working environme
 }
 \examples{
 
-data("Theoph")
-Theoph2 <-  subset(Theoph,Subject==1)
-contents_df(c('Theoph','Theoph2'),subject='Subject',ret='df')
+Theoph1 <-  subset(Theoph,Subject!=1)
+Theoph2 <-  subset(Theoph,Subject!=2)
+contents_df(c('Theoph1','Theoph2'),subject='Subject',ret='dfrm')
 }
 \author{
 Richard Hooijmaijers

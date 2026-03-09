@@ -24,7 +24,7 @@
 #' @author Richard Hooijmaijers
 #' @examples
 #'
-#' general_tbl(Theoph)
+#' general_tbl(head(Theoph))
 general_tbl <- function(data, ret="tbl", capt="General table", align=NULL, outnm=NULL, tabenv = "longtable", float = FALSE, hlineafter = NULL, 
                         addtorow = list(pos=list(-1,0),command=c("\\toprule ","\\midrule\\endhead ")), ...){
   if(ret=="dfrm"){

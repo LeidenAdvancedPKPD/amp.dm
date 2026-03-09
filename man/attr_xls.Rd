@@ -20,10 +20,8 @@ named list with the attributes
 This function reads in attributes available in an excel file and creates a structured list
 }
 \examples{
-\dontrun{
-  xmpl  <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
-  attr_xls(xmpl)
-}
+xmpl  <- system.file("example/Attr.Template.xlsx",package = "amp.dm")
+head(attr_xls(xmpl),3)
 }
 \author{
 Richard Hooijmaijers

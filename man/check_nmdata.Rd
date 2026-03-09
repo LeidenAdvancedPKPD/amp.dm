@@ -39,10 +39,8 @@ and reports the results back to console, table or dataframe
 }
 \examples{
 
-\dontrun{
-  check_nmdata("nonmemData.csv")
-  check_nmdata(dataframe)
-}
+chkf <- system.file("example/NM.theoph.V1.csv",package = "amp.dm")
+check_nmdata(chkf)
 }
 \author{
 Richard Hooijmaijers

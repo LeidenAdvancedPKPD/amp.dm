@@ -22,12 +22,12 @@ which can be used in code chunks at the applicable locations and easily added to
 documentation afterwards
 }
 \examples{
-  # variable AMT copied from Dose variable in Theoph data frame
-  srce(AMT,Theoph.Dose)
-  # variable BMI derived from WEIGHT variable in wt data frame
-  # and HEIGHT variable in ht data frame
-  srce(BMI,c(wt.WEIGHT,ht.HEIGHT),'d')
-  get_log()$srce_nfo
+# variable AMT copied from Dose variable in Theoph data frame
+srce(AMT,Theoph.Dose)
+# variable BMI derived from WEIGHT variable in wt data frame
+# and HEIGHT variable in ht data frame
+srce(BMI,c(wt.WEIGHT,ht.HEIGHT),'d')
+get_log()$srce_nfo
 }
 \author{
 Richard Hooijmaijers

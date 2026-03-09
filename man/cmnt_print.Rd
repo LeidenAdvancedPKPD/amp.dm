@@ -21,8 +21,8 @@ it was called. When clean is set to TRUE (default), the content of the comment
 dataset is cleaned to overcome repetition of comments each time it is called
 }
 \examples{
-  cmnt("Comment to print")
-  cmnt_print()
+cmnt("Comment to print")
+cmnt_print()
 }
 \author{
 Richard Hooijmaijers

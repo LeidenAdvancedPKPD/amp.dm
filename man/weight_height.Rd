@@ -87,7 +87,7 @@ Currently the following types are defined within the function:
 tmp <- data.frame(id=1,WT=runif(3,70,120),HT=runif(3,160,220))
 weight_height(wt=tmp$WT,ht=tmp$HT,type="bmi")
 # example for use in dplyr
-# tmp \%>\% mutate(BMI = weight_height(wt=WT,ht=HT,type="bmi"))
+tmp |> dplyr::mutate(BMI = weight_height(wt=WT,ht=HT,type="bmi"))
 }
 \author{
 Richard Hooijmaijers
