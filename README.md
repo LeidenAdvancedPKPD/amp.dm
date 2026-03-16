@@ -8,9 +8,13 @@ The aim of this package is to ease or **amp**lify the process of creating datase
 The package contains functions to create NONMEM specific variables, perform various time calculations and 
 help in creating dosing records. Finally, multiple functions are present for documentation and QC purposes.
 
-The latest version can be installed using:
+The latest development version can be installed using:
 
 `devtools::install_github("LeidenAdvancedPKPD/amp.dm")`
+
+The package is also available on CRAN and can be installed using:
+
+`install.packages("amp.dm")`
 
 The article section should get you started. Within this section there is also a PDF that 
 represents a study example, and include code for the main functionality of the package. 
