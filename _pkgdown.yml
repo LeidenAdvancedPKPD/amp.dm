@@ -85,7 +85,7 @@ reference:
   - session_tbl
 - subtitle: Other
   contents: plot_vars
-- title: Misceleneous
+- title: miscellaneous
   desc: Helper functions worth to mention
   contents:
   - get_script
