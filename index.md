@@ -17,7 +17,7 @@ The package is also available on CRAN and can be installed using:
 The article section should get you started. Within this section there is
 also a PDF that represents a study example, and include code for the
 main functionality of the package. This
-[example](https://leidenadvancedpkpd.github.io/amp.dm/vignettes/example_study.qmd)
+[example](https://github.com/LeidenAdvancedPKPD/amp.dm/blob/main/vignettes/getting_started.qmd)
 can also be used as a starting point or template for new studies.
 
 This package was initially developed as an in-house package at LAP&P,

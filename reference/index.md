@@ -119,7 +119,7 @@ Documentation of the data management process
   : Creates different kind of plots for variables within a dataset using
   ggplot2
 
-## Misceleneous
+## miscellaneous
 
 Helper functions worth to mention
 

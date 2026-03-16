@@ -71,8 +71,8 @@ session_tbl()
 #>   Base packages & stats, graphics, grDevices, utils, datasets, methods, base \\ 
 #>   Other packages & amp.dm (0.2.0) \\ 
 #>   Logged in User & runner \\ 
-#>   Machine & runnervm0kj6c \\ 
-#>   Time & 2026-03-16 08:08:11.37247 \\ 
+#>   Machine & runnervm46oaq \\ 
+#>   Time & 2026-03-16 09:40:05.350599 \\ 
 #>   \hline
 #> \end{longtable}
 #> \endgroup
