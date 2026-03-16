@@ -65,14 +65,14 @@ session_tbl()
 #> \begin{longtable}{lp{8cm}}
 #> \caption{Session info} \\ 
 #>   \toprule parameter & value \\ 
-#>   \midrule\endhead R version & R version 4.5.2 (2025-10-31) \\ 
+#>   \midrule\endhead R version & R version 4.5.3 (2026-03-11) \\ 
 #>   System & x86\_64-pc-linux-gnu \\ 
 #>   OS & Ubuntu 24.04.3 LTS \\ 
 #>   Base packages & stats, graphics, grDevices, utils, datasets, methods, base \\ 
 #>   Other packages & amp.dm (0.2.0) \\ 
 #>   Logged in User & runner \\ 
 #>   Machine & runnervm0kj6c \\ 
-#>   Time & 2026-03-09 15:18:26.439826 \\ 
+#>   Time & 2026-03-16 08:04:25.828114 \\ 
 #>   \hline
 #> \end{longtable}
 #> \endgroup

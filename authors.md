@@ -9,7 +9,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/LeidenAdvancedPKPD/amp.dm/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/LeidenAdvancedPKPD/amp.dm/blob/latest/DESCRIPTION)
 
 Hooijmaijers R (2026). *amp.dm: Data Management Tools for
 Pharmacometrics*. R package version 0.2.0,

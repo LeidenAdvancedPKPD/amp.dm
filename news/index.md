@@ -2,6 +2,8 @@
 
 ## amp.dm 0.2.0
 
+CRAN release: 2026-03-13
+
 - Categorized the pkgdown reference section
 - General optimization for testing
 - Fixed issues for `attr_factor` to retain attributes and added option

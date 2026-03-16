@@ -101,7 +101,7 @@ Richard Hooijmaijers
 ``` r
 # For a known filetype you can use:
 dat <- read_data(paste0(R.home(),"/doc/CRAN_mirrors.csv"))
-#> ℹ Read in /opt/R/4.5.2/lib/R/doc/CRAN_mirrors.csv which has 98 records and 9 variables
+#> ℹ Read in /opt/R/4.5.3/lib/R/doc/CRAN_mirrors.csv which has 98 records and 9 variables
 
 # We can use the arguments from the underlying package that does the reading
 xmpl <- system.file("example/Attr.Template.xlsx",package = "amp.dm")

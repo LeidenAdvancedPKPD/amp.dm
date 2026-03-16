@@ -35,7 +35,7 @@ clinical and pre-clinical data, and provide manual functions for less common typ
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>read external data with logging of results</h1>
-      <small class="dont-index">Source: <a href="https://github.com/LeidenAdvancedPKPD/amp.dm/blob/main/R/read_data.r" class="external-link"><code>R/read_data.r</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/LeidenAdvancedPKPD/amp.dm/blob/latest/R/read_data.r" class="external-link"><code>R/read_data.r</code></a></small>
       <div class="d-none name"><code>read_data.Rd</code></div>
     </div>
 
@@ -122,7 +122,7 @@ it puts additional overhead on function otherwise.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For a known filetype you can use:</span></span></span>
 <span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">read_data</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/doc/CRAN_mirrors.csv"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Read in <span style="color: #0000BB;">/opt/R/4.5.2/lib/R/doc/CRAN_mirrors.csv</span> which has <span style="color: #0000BB;">98</span> records and <span style="color: #0000BB;">9</span> variables</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Read in <span style="color: #0000BB;">/opt/R/4.5.3/lib/R/doc/CRAN_mirrors.csv</span> which has <span style="color: #0000BB;">98</span> records and <span style="color: #0000BB;">9</span> variables</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># We can use the arguments from the underlying package that does the reading</span></span></span>
 <span class="r-in"><span><span class="va">xmpl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example/Attr.Template.xlsx"</span>,package <span class="op">=</span> <span class="st">"amp.dm"</span><span class="op">)</span></span></span>
