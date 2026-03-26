@@ -101,7 +101,7 @@ General data manipulations, calculation of new variables, etc.
 - [`weight_height()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/weight_height.md)
   : Calculates different weight variables
 - [`impute_covar()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/impute_covar.md)
-  : Imputute missing covariates
+  : Impute missing covariates
 - [`num_lump()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/num_lump.md)
   : Perform lumping of numerical values
 - [`flag_outliers()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/flag_outliers.md)
@@ -114,7 +114,7 @@ Handle meta data (data attributes)
 - [`attr_add()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/attr_add.md)
   : Add attributes from a list to a dataframe
 - [`attr_extract()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/attr_extract.md)
-  : Reads in attributes from an external excel file
+  : Extracts attributes from a data frame
 - [`attr_factor()`](https://leidenadvancedpkpd.github.io/amp.dm/reference/attr_factor.md)
   : Create factors for variables within a data frame using the format
   attribute
