@@ -9,6 +9,7 @@ session_tbl(
   capt = "Session info",
   align = "lp{8cm}",
   size = "\\\\footnotesize",
+  incscript = FALSE,
   ...
 )
 }
@@ -20,6 +21,8 @@ session_tbl(
 \item{align}{alignment of the table passed to \link{general_tbl} (not used in case data frame is returned)}
 
 \item{size}{character with font size as for the table \link{general_tbl}}
+
+\item{incscript}{logical indicating if the name of the script should be included (using \link{get_script})}
 
 \item{...}{additional arguments passed to \link{general_tbl}}
 }

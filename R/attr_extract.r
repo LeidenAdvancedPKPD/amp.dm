@@ -1,5 +1,5 @@
 #------------------------------------------ attr_extract ------------------------------------------
-#' Reads in attributes from an external excel file
+#' Extracts attributes from a data frame
 #'
 #' This function extracts attributes available in a data frame and creates a structured list 
 #'

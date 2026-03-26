@@ -105,7 +105,12 @@ test_that("fill_dates fills down dates correctlywithin a data frame",{
 # Test impute_dose function
 test_that("impute_dose correctly creates additional dose records",{
   
-  dfrm <- data.frame(ID=rep(1:3,each=3),
+  dfrm  <- data.frame(ID=rep(1:3,each=3),
+                      dt=as.POSIXct(c("2016-02-14 04:44:00","2016-02-15 19:47:00","2016-02-18 19:58:00" ,
+                                      "2016-04-25 19:01:00","2016-05-01 08:55:00","2016-05-08 20:07:00",
+                                      "2016-03-09 21:45:00","2016-03-12 17:11:00","2016-03-14 17:10:00"), tz="Europe/Amsterdam"),
+                      AMT=c(10,10,10,20,20,20,50,50,50),II=c(rep(24,3),rep(8,3),rep(12,3)))
+  dfrm2 <- data.frame(ID=rep(1:3,each=3),
                      dt=as.POSIXct(c("2016-02-14 04:44:00","2016-02-15 19:47:00","2016-02-18 19:58:00" ,
                                      "2016-04-25 19:01:00","2016-05-01 08:55:00","2016-05-08 20:07:00",
                                      "2016-03-09 21:45:00","2016-03-12 17:11:00","2016-03-14 17:10:00")),
@@ -114,9 +119,13 @@ test_that("impute_dose correctly creates additional dose records",{
   expect_error(impute_dose(dfrm))
   expect_error(impute_dose(dfrm, id="IDZ", "dt"))
   
-  check <- impute_dose(dfrm,"ID","dt")
+  check  <- impute_dose(dfrm,"ID","dt")
+  #print(check)
   expect_equal(check$ADDL[check$ID==1 & check$type=="additional"],c(0,1))
   expect_equal(as.character(check$dt[check$ID==1 & check$type=="additional"])[1],"2016-02-15 04:44:00")
+  check2 <- impute_dose(dfrm2,"ID","dt")
+  #print(check2)
+  expect_equal(as.character(check2$dt[check2$ID==1 & check2$type=="additional"])[1],"2016-02-15 04:44:00")
 
   dfrm2  <- dfrm
   dfrm2$II[dfrm2$ID>1] <- 48

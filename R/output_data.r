@@ -84,8 +84,9 @@ output_data <- function(x, csv=NULL, xpt=NULL, attr=NULL, verbose=TRUE,
     # Following steps are done for readonly/overwrite/etc 
     if(file.exists(csv)){
       # Check if files are readonly and remove if this is the case
-      ro_att <- fs::file_info(csv)$permissions
-      ro_att <- substr(ro_att,2,3)=="--" # TRUE: readonly
+      #ro_att <- fs::file_info(csv)$permissions
+      #ro_att <- substr(ro_att,2,3)=="--" # TRUE: readonly
+      ro_att <- file.access(csv, mode = 2) < 0 # TRUE: readonly
       if(ro_att){
         cli::cli_alert_info("Be aware that file exists and is read-only, this means it will always be replaced (even if it is open!)") 
         try(fs::file_chmod(csv, "777")) # set fully open because we want to remove file

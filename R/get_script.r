@@ -9,9 +9,9 @@
 #' @author Richard Hooijmaijers
 get_script <- function(base=TRUE,noext=TRUE){
   if(!is.null(knitr::current_input(dir=TRUE))){
-    ret <- knitr::current_input(dir=TRUE)
+    ret <- normalizePath(knitr::current_input(dir=TRUE), winslash="/")
   }else if(commandArgs()[1]=="RStudio"){
-    ret <- rstudioapi::getSourceEditorContext()$path
+    ret <- normalizePath(rstudioapi::getSourceEditorContext()$path, winslash="/")
   }else{
     ret <- commandArgs()
     ret <- ret[grepl("--file=",ret)]

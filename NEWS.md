@@ -1,3 +1,9 @@
+# amp.dm 0.2.1
+
+- Minor update for file access to stay on CRAN
+- Added script name to `session_tbl`
+
+
 # amp.dm 0.2.0
 
 - Categorized the pkgdown reference section

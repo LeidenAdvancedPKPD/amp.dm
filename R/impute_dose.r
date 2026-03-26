@@ -15,7 +15,7 @@
 #' @details The function fills in the doses by looking at the time difference and  II between all records. 
 #'   Be aware that this can result in unexpected results in a few cases, so results should always be handled with care.  
 #'   The function will determine if a dose should be imputed based on the 'thr' value. For each dose, the function determines the percentage 
-#'   difference from the previous dose based on the II value. In case this the expected difference is above the threshold value imputation will be done.
+#'   difference from the previous dose based on the II value. In case the expected difference is above the threshold value, imputation will be done.
 #'   
 #' @keywords manipulation
 #' @export
@@ -31,6 +31,10 @@ impute_dose <- function(data, id, datetime, amt="AMT", ii="II", thr = 50, back=T
   if(missing(datetime) | missing(id)) cli::cli_abort("Variables {.var datetime} and {.var id} are required")
   notdat <- c(datetime,id,amt,ii)[!c(datetime,id,amt,ii)%in%names(data)]
   if(length(notdat) > 0) cli::cli_abort("Variable{?s} {.var {notdat}} not present in data")
+  # Make sure to explicitly set timezone - also in subsequent steps (issue noticed in mac-os dev check)
+  tz <- attr(data[, datetime], "tzone")
+  if(is.null(tz) || length(tz)==0 || tz=="") tz <- Sys.timezone()
+  attr(data[, datetime], "tzone") <- tz
 
   imput <- data |> dplyr::group_by(dplyr::across(dplyr::all_of(c(id,amt)))) |> 
     dplyr::arrange(dplyr::across(dplyr::all_of(c(id,amt,datetime)))) |> 
@@ -40,8 +44,8 @@ impute_dose <- function(data, id, datetime, amt="AMT", ii="II", thr = 50, back=T
                   percdif = (abs(.data$tdif - .data[[ii]]) / .data[[ii]]) * 100) |> 
     dplyr::filter(!is.na(.data$prevdt) & .data$percdif > thr)   |> # these records should be imputed
     dplyr::mutate(imptm = if(back==TRUE) format(.data$prevdt, "%H:%M:%S") else format(.data[[datetime]], "%H:%M:%S"),
-                   dt    = as.POSIXct(paste(as.Date(.data$prevdt + .data[[ii]] * 3600), .data$imptm), format = "%Y-%m-%d %H:%M:%S"),
-                   dt    = as.POSIXct(ifelse(.data[[ii]]<24, as.POSIXct(paste(as.Date(.data$prevdt), .data$imptm), format = "%Y-%m-%d %H:%M:%S") + (.data[[ii]]*3600), .data$dt)),
+                   dt    = as.POSIXct(paste(as.Date(.data$prevdt + .data[[ii]] * 3600, tz=tz), .data$imptm), format = "%Y-%m-%d %H:%M:%S", tz=tz),
+                   dt    = as.POSIXct(ifelse(.data[[ii]]<24, as.POSIXct(paste(as.Date(.data$prevdt, tz=tz), .data$imptm), format = "%Y-%m-%d %H:%M:%S",tz=tz) + (.data[[ii]]*3600), .data$dt),tz=tz),
                    ADDL  = round((.data$tdif - .data[[ii]]) / .data[[ii]]) - 1,
                    ADDL  = ifelse(.data$ADDL<0, 0, .data$ADDL)) |> 
     #dplyr::select(-c(.data$prevdt, .data$nextdt, .data$tdif, .data$percdif, .data$imptm))
