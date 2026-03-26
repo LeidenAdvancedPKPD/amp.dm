@@ -2,7 +2,7 @@
 % Please edit documentation in R/attr_extract.r
 \name{attr_extract}
 \alias{attr_extract}
-\title{Reads in attributes from an external excel file}
+\title{Extracts attributes from a data frame}
 \usage{
 attr_extract(dfrm)
 }
