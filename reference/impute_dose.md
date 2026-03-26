@@ -54,8 +54,8 @@ between all records. Be aware that this can result in unexpected results
 in a few cases, so results should always be handled with care. The
 function will determine if a dose should be imputed based on the 'thr'
 value. For each dose, the function determines the percentage difference
-from the previous dose based on the II value. In case this the expected
-difference is above the threshold value imputation will be done.
+from the previous dose based on the II value. In case the expected
+difference is above the threshold value, imputation will be done.
 
 ## Author
 
@@ -69,7 +69,7 @@ dfrm <- data.frame(id=c(1,1), dt=c(Sys.time(),Sys.time()+ 864120),
 impute_dose(dfrm,"id","dt")
 #> ! Found unequal TAU values check before using results
 #>   id                  dt II AMT       type ADDL
-#> 1  1 2026-03-16 09:40:01 24  10   original   NA
-#> 2  1 2026-03-17 09:40:01 24  10 additional    8
-#> 3  1 2026-03-26 09:42:01 24  10   original   NA
+#> 1  1 2026-03-26 14:03:10 24  10   original   NA
+#> 2  1 2026-03-27 14:03:10 24  10 additional    8
+#> 3  1 2026-04-05 14:05:10 24  10   original   NA
 ```

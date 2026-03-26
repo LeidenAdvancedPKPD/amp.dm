@@ -11,6 +11,7 @@ session_tbl(
   capt = "Session info",
   align = "lp{8cm}",
   size = "\\footnotesize",
+  incscript = FALSE,
   ...
 )
 ```
@@ -37,6 +38,11 @@ session_tbl(
 
   character with font size as for the table
   [general_tbl](https://leidenadvancedpkpd.github.io/amp.dm/reference/general_tbl.md)
+
+- incscript:
+
+  logical indicating if the name of the script should be included (using
+  [get_script](https://leidenadvancedpkpd.github.io/amp.dm/reference/get_script.md))
 
 - ...:
 
@@ -67,12 +73,12 @@ session_tbl()
 #>   \toprule parameter & value \\ 
 #>   \midrule\endhead R version & R version 4.5.3 (2026-03-11) \\ 
 #>   System & x86\_64-pc-linux-gnu \\ 
-#>   OS & Ubuntu 24.04.3 LTS \\ 
+#>   OS & Ubuntu 24.04.4 LTS \\ 
 #>   Base packages & stats, graphics, grDevices, utils, datasets, methods, base \\ 
-#>   Other packages & amp.dm (0.2.0) \\ 
+#>   Other packages & amp.dm (0.2.1) \\ 
 #>   Logged in User & runner \\ 
-#>   Machine & runnervm46oaq \\ 
-#>   Time & 2026-03-16 09:40:05.350599 \\ 
+#>   Machine & runnervmrg6be \\ 
+#>   Time & 2026-03-26 14:03:14.554348 \\ 
 #>   \hline
 #> \end{longtable}
 #> \endgroup
