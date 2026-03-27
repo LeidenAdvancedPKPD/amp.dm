@@ -31,6 +31,8 @@ jobs:
       - name: Test coverage
         run: |
           Sys.setenv(NOT_CRAN = "true")
+          options(covr.exclude_start = "#[[:space:]]*nocov[[:space:]]*start")
+          options(covr.exclude_end = "#[[:space:]]*nocov[[:space:]]*start")
           cat("These are the system options for exlusions:\n")
           print(getOption("covr.exclude_start"))
           print(getOption("covr.exclude_end"))
