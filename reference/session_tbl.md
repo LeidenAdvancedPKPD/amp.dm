@@ -73,12 +73,12 @@ session_tbl()
 #>   \toprule parameter & value \\ 
 #>   \midrule\endhead R version & R version 4.5.3 (2026-03-11) \\ 
 #>   System & x86\_64-pc-linux-gnu \\ 
-#>   OS & Ubuntu 24.04.3 LTS \\ 
+#>   OS & Ubuntu 24.04.4 LTS \\ 
 #>   Base packages & stats, graphics, grDevices, utils, datasets, methods, base \\ 
 #>   Other packages & amp.dm (0.2.1) \\ 
 #>   Logged in User & runner \\ 
-#>   Machine & runnervm46oaq \\ 
-#>   Time & 2026-03-27 09:23:28.529753 \\ 
+#>   Machine & runnervmrg6be \\ 
+#>   Time & 2026-03-27 09:36:06.77415 \\ 
 #>   \hline
 #> \end{longtable}
 #> \endgroup
