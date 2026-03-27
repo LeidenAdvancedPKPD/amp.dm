@@ -31,6 +31,9 @@ jobs:
       - name: Test coverage
         run: |
           Sys.setenv(NOT_CRAN = "true")
+          cat("These are the system options for exlusions:\n")
+          print(getOption("covr.exclude_start"))
+          print(getOption("covr.exclude_end"))
           cov <- covr::package_coverage(
             quiet = FALSE,
             clean = FALSE,
