@@ -31,15 +31,11 @@ jobs:
       - name: Test coverage
         run: |
           Sys.setenv(NOT_CRAN = "true")
-          options(covr.exclude_start = "#[[:space:]]*nocov[[:space:]]*start")
-          options(covr.exclude_end = "#[[:space:]]*nocov[[:space:]]*end")
-          cat("These are the system options for exlusions:\n")
-          print(getOption("covr.exclude_start"))
-          print(getOption("covr.exclude_end"))
           cov <- covr::package_coverage(
             quiet = FALSE,
             clean = FALSE,
             install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+            #line_exclusions = list("tests/testthat/test_tabulate.R" = c(15:18,36:44))
           )
           print(cov)
           covr::to_cobertura(cov)

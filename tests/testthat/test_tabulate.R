@@ -12,10 +12,10 @@ test_that("general_tbl correctly creates generic latex table, file or passes dat
   expect_equal(Theoph,th2)
   
   tmpf1 <- tempfile(fileext = ".tex")
-  general_tbl(Theoph, outnm=tmpf1, ret="file", show=FALSE)  # nocov start
+  general_tbl(Theoph, outnm=tmpf1, ret="file", show=FALSE, compile = FALSE)  
   ret2  <- readLines(tmpf1)
   expect_true(any(grepl("begin\\{document\\}",ret2)))
-  expect_true(any(grepl("11 & 65.0 & 4.92 &  0.00 &  0.00 \\\\\\\\",ret2)))  # nocov end
+  expect_true(any(grepl("11 & 65.0 & 4.92 &  0.00 &  0.00 \\\\\\\\",ret2)))  
 })
 
 #----------------------
@@ -33,15 +33,15 @@ test_that("define_tbl correctly tabulates attributes",{
   expect_true(any(grepl("begin\\{longtable\\}",tbl)))
   
   tmpf1 <- tempfile(fileext = ".tex")
-  define_tbl(attrl, outnm=tmpf1, ret="file", show=FALSE)  # nocov start
+  define_tbl(attrl, outnm=tmpf1, ret="file", show=FALSE, compile = FALSE)  
   ret2  <- readLines(tmpf1)
   expect_true(any(grepl("begin\\{document\\}",ret2)))
   expect_match(ret2[grep("^TIME ",ret2)],"TIME & Time & h & - \\\\\\\\")
   
-  define_tbl(attrl, outnm=tmpf1, ret="file", show=FALSE, 
+  define_tbl(attrl, outnm=tmpf1, ret="file", show=FALSE, compile = FALSE,
              template = system.file("listing.tex",package = "R3port"))
   ret3  <- readLines(tmpf1)
-  expect_true(any(grepl("ttdefault",ret3)))  # nocov end
+  expect_true(any(grepl("ttdefault",ret3)))  
   
   
   srce(BMI,c(wt.WEIGHT,ht.HEIGHT),'d')
