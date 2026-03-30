@@ -35,7 +35,9 @@ Richard Hooijmaijers
 ## Examples
 
 ``` r
-tmpf <- tempfile(fileext = ".txt")
-cat("test",file=tmpf)
-make_readonly(tmpf)   
+if (FALSE) { # \dontrun{
+  tmpf <- tempfile(fileext = ".txt")
+  cat("test",file=tmpf)
+  make_readonly(tmpf)   
+} # }
 ```
