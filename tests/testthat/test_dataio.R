@@ -57,12 +57,16 @@ test_that("make_readonly correctly sets readonly attribute", {
   #expect_equal(substr(fs::file_info(tmpfn1)$permissions,1,3),"r--")
   expect_true(file.access(tmpfn1,mode=2)<0)
   
-  make_readonly(tempdir())
+  make_readonly(paste0(tempdir(),"/newpath/"))
   #expect_equal(substr(fs::file_info(tmpfn2)$permissions,1,3),"r--")
-  expect_true(file.access(tmpfn2,mode=2)<0)
+  expect_true(file.access(tmpfn2,mode=2)>=0)
   #expect_equal(substr(fs::file_info(paste0(tempdir(),"/newpath/",basename(tmpfn1)))$permissions,1,3),"r--")
   expect_true(file.access(paste0(tempdir(),"/newpath/",basename(tmpfn1)),mode=2)<0)
   
+  fs::file_chmod(tmpfn1, "777")
+  fs::file_chmod(paste0(tempdir(),"/newpath/"), "777")
+  unlink(tmpfn1)
+  unlink(paste0(tempdir(),"/newpath/"), recursive = TRUE)
   #expect_message(make_readonly("nonexistent_directory"),  "Issues in making files read-only")
 })
 
@@ -102,6 +106,9 @@ test_that("output_data correctly outputs data", {
   attrl <- readRDS(paste0(tmpf,".rds"))
   expect_equal(attrl$TIME$label,"Time (h)")
   expect_equal(attrl$MDV$format,c("0"="non-missing", "1"="missing"))
+  
+  fs::file_chmod(paste0(tmpf,".csv"), "777")
+  unlink(paste0(tmpf,".csv"))
 })
 
 #----------------------------

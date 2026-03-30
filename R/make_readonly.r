@@ -15,9 +15,11 @@
 #'  In case x is a directory, the function will set readonly attribute for all files in the folder (and recurse into all subfolders!).
 #' 
 #' @examples
-#' tmpf <- tempfile(fileext = ".txt")
-#' cat("test",file=tmpf)
-#' make_readonly(tmpf)   
+#' \dontrun{
+#'   tmpf <- tempfile(fileext = ".txt")
+#'   cat("test",file=tmpf)
+#'   make_readonly(tmpf)   
+#' }
 make_readonly <- function(x){
   if(length(x)>1 || (length(x)==1 && !fs::is_dir(x))){
     ret <- suppressWarnings(try(lapply(normalizePath(x, winslash = "/"),function(fn) fs::file_chmod(fn, "444"))))
