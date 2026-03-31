@@ -69,7 +69,7 @@ dfrm <- data.frame(id=c(1,1), dt=c(Sys.time(),Sys.time()+ 864120),
 impute_dose(dfrm,"id","dt")
 #> ! Found unequal TAU values check before using results
 #>   id                  dt II AMT       type ADDL
-#> 1  1 2026-03-30 07:47:26 24  10   original   NA
-#> 2  1 2026-03-31 07:47:26 24  10 additional    8
-#> 3  1 2026-04-09 07:49:26 24  10   original   NA
+#> 1  1 2026-03-31 07:53:02 24  10   original   NA
+#> 2  1 2026-04-01 07:53:02 24  10 additional    8
+#> 3  1 2026-04-10 07:55:02 24  10   original   NA
 ```

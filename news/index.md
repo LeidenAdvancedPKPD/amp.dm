@@ -2,6 +2,8 @@
 
 ## amp.dm 0.2.1
 
+CRAN release: 2026-03-30
+
 - Minor update for file access to stay on CRAN
 - Added script name to `session_tbl`
 
